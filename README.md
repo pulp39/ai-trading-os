@@ -6,13 +6,22 @@ AI Trading OS is an experimental research operating environment designed to stud
 
 The system integrates:
 
-- market data collection
-- AI-assisted research
-- traceable decision records
-- structured database archives
+- market observation and data collection
+- AI-assisted research workflows
+- traceable system event records
+- structured institutional memory through database archives
 - controlled trading execution environments
 
 The system is designed as a long-term **AI Trading Research Institute OS**.
+
+Its architecture prioritizes:
+
+- institutional memory
+- traceable system evolution
+- role-based system growth
+- architectural discipline over rapid feature expansion
+
+The first operational role currently implemented in the system is the **collector role**, responsible for recording observation-side system events into the institutional memory layer.
 
 ---
 
@@ -60,7 +69,7 @@ Current role:
 - Git working copy
 - DB client / application validation node
 - shared library development
-- future collector and research tooling host
+- collector and research tooling host
 
 ## VM-B
 PostgreSQL research database
@@ -87,7 +96,9 @@ Confirmed current state:
 - VM-A Python environment operational
 - VM-A to VM-B PostgreSQL connectivity verified
 - `research` application role operational
-- handshake milestone recorded in `research.trace_event`
+- shared DB access layer implemented
+- collector foundation module established
+- operational events recorded in `research.trace_event`
 
 ---
 
@@ -98,9 +109,11 @@ AI Trading OS now exists as:
 - institutional charter
 - historical archive
 - foundation database
+- shared database access layer
 - bootstrap specification
 - public versioned repository
 - validated application-to-database communication path
+- first operational role module (collector)
 
 The system should now be understood as a functioning research infrastructure, not merely a design concept.
 
@@ -117,13 +130,30 @@ The system should now be understood as a functioning research infrastructure, no
 - `docs/architecture/vm_architecture.md`
 - `docs/architecture/network_design.md`
 
+## Roles
+- `docs/roles/collector.md`
+
+## Event Semantics
+- `docs/trace_event_semantics.md`
+
 ## Database
 - `docs/database/database_design.md`
 - `sql/bootstrap/`
 
 ## Application Code
+
+Shared modules:
+
 - `src/common/db.py`
+
+Collector role:
+
+- `src/collector/base.py`
+
+Validation / entry scripts:
+
 - `scripts/db/test_connection.py`
+- `scripts/collector/run_collector_base.py`
 
 ---
 
@@ -145,13 +175,16 @@ Text files in this repository should be saved as **UTF-8 without BOM** whenever 
 
 # Current Milestone
 
-**Milestone achieved:**  
-First verified application-level database handshake between:
+**Milestone achieved:**
+
+First operational role module established and validated through the shared DB access layer.
+
+System bridge verified between:
 
 - **VM-A (Laboratory)**
 - **VM-B (Memory)**
 
-This milestone is the first operational bridge between research execution and institutional memory.
+Collector events successfully recorded into the institutional memory layer.
 
 ---
 
@@ -161,17 +194,19 @@ The next development phase remains intentionally narrow.
 
 Immediate target:
 
-- shared DB access library
-- reusable connection logic
-- clean separation between test scripts and application modules
+- collector role refinement
+- event semantics stabilization
+- repository documentation alignment
+- continued use of the shared DB access layer
 
 Not yet in scope:
 
-- collector implementation
+- real market ingestion
 - execution engine
 - risk manager
 - CI/CD
 - advanced orchestration
+- multi-agent runtime
 
 ---
 
@@ -181,4 +216,7 @@ Foundation date:
 2026-03-08
 
 First application-level handshake achieved:
+2026-03-09
+
+Collector foundation module established:
 2026-03-09
