@@ -1,19 +1,30 @@
-from src.common.db import get_connection
+from __future__ import annotations
+
+from src.common.db import db_connection
 
 
 def main() -> None:
-    print("1) opening DB connection...")
-
-    with get_connection() as conn:
-        print("2) connected")
-
+    with db_connection() as conn:
         with conn.cursor() as cur:
-            print("3) running validation query...")
-            cur.execute("SELECT current_database(), current_user, now();")
+            cur.execute(
+                """
+                select
+                    current_database()::text,
+                    current_user::text,
+                    inet_server_addr()::text
+                """
+            )
             row = cur.fetchone()
-            print("4) result:", row)
 
-    print("5) DB connection successful")
+    if row is None:
+        raise RuntimeError("Connection test query returned no rows.")
+
+    db_name, db_user, server_addr = row
+
+    print("Database connection successful.")
+    print(f"database   : {db_name}")
+    print(f"user       : {db_user}")
+    print(f"server_addr: {server_addr}")
 
 
 if __name__ == "__main__":
