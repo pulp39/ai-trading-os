@@ -1,0 +1,27 @@
+{
+  "proposal_id": "proposal_test_001",
+  "proposal_status": "accepted",
+
+  "trace_event": {
+    "agent_id": "gpt54_librarian",
+    "actor_type": "ai",
+    "event_type": "proposal_accepted",
+    "content": "Applied the first accepted proposal through the institutional proposal application script.",
+    "metadata": {
+      "phase": "proposal_layer_initialization",
+      "proposal_id": "proposal_test_001",
+      "scope": "institutional_tooling",
+      "script": "apply_accepted_proposal.py",
+      "status": "test_applied"
+    }
+  },
+
+  "proposal_file": {
+    "source_path": "proposals/draft/proposal_test_001.md",
+    "target_path": "proposals/accepted/proposal_test_001.md"
+  },
+
+  "git": {
+    "commit_message": "institution: test accepted proposal application pipeline"
+  }
+}

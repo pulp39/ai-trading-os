@@ -1,0 +1,7 @@
+{
+  "phase": "proposal_layer_initialization",
+  "proposal_id": "proposal_test_001",
+  "scope": "institutional_tooling",
+  "script": "apply_accepted_proposal.py",
+  "status": "test_applied"
+}
