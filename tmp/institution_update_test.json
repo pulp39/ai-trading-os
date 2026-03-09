@@ -1,0 +1,23 @@
+{
+  "proposal_id": "proposal_test_001",
+  "proposal_status": "accepted",
+
+  "trace_event": {
+    "agent_id": "gpt54_librarian",
+    "actor_type": "ai",
+    "event_type": "proposal_accepted",
+    "content": "Test validation event",
+    "metadata": {
+      "phase": "testing"
+    }
+  },
+
+  "proposal_file": {
+    "source_path": "proposals/draft/test.md",
+    "target_path": "proposals/accepted/test.md"
+  },
+
+  "git": {
+    "commit_message": "test commit"
+  }
+}
