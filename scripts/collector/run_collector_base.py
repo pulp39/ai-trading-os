@@ -14,16 +14,19 @@ def main() -> None:
     collector = BaseCollector(collector_name="base_collector")
 
     collector.record_validation_event(
-        event_type="documentation_alignment",
+        event_type="collector_boundary_definition",
         content=(
-            "Established trace_event semantic rules and aligned repository "
-            "documentation with institutional event recording guidelines."
+            "Defined the collector boundary in repository documentation so "
+            "that collectors remain limited to observation and recording, "
+            "while interpretation, hypothesis generation, and recommendation "
+            "are reserved for future proposal-producing roles."
         ),
         metadata={
-            "phase": "collector_refinement",
+            "phase": "collector_refinement_closure",
             "scope": "documentation",
-            "purpose": "institutional_alignment",
-            "entry_point": "scripts/collector/run_collector_base.py",
+            "purpose": "role_boundary_definition",
+            "entry_point": "docs/roles/collector.md",
+            "commit": "e6251cb",
         },
     )
 
