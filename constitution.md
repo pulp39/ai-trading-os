@@ -1,7 +1,7 @@
 # AI Trading OS Constitution
 
 Version: 0.3  
-Status: Draft  
+Status: Enacted  
 Authority: Founder  
 
 ---
@@ -218,6 +218,8 @@ Founders govern.
 
 No role should silently assume the functions of another role without
 explicit institutional change.
+
+If a role boundary violation occurs, the Librarian must intervene and require role clarification before the activity continues.
 
 ---
 
