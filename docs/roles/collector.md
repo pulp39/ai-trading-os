@@ -35,6 +35,16 @@ Collectors explicitly do NOT perform:
 • Risk management  
 
 
+Boundary
+--------
+
+Collectors observe and record system-relevant events only.
+
+Collectors do not interpret observations, rank significance, generate hypotheses, or recommend actions.
+
+Those responsibilities belong to future proposal-producing or research-oriented roles.
+
+
 Architectural Position
 ----------------------
 
