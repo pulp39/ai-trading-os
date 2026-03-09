@@ -1,77 +1,132 @@
+# docs/architecture/network_design.md
+
 # Network Design
 
 AI Trading OS
 
 ---
 
-# Internal Research Network
+# Current Network Topology
 
-Network range
+The current working topology is a **single shared internal Hyper-V research network** used to establish reliable laboratory-to-memory connectivity.
 
-192.168.251.0/24
+Working segment:
 
-Gateway
+- `192.168.250.0/24`
 
-192.168.251.1
+This segment currently provides the validated path between VM-A and VM-B.
+
+---
+
+# Virtual Switch State
+
+## Active internal switch
+- `vSwitch-Trading`
+
+Both primary system VMs are currently attached to this switch.
+
+## Historical note
+A prior split-switch state existed:
+
+- VM-A on `vSwitch-Trading`
+- VM-B on `vSwitch-Research`
+
+That topology prevented direct reachability and blocked the initial application-level database handshake.
+
+The current aligned switch state is intentional for the present phase.
 
 ---
 
 # Virtual Machine Addresses
 
-VM-A  
+## VM-A
 Research environment  
-IP: TBD
+IP: `192.168.250.10`
 
-VM-B  
-Database server
+## VM-B
+Database server  
+IP: `192.168.250.11`
 
-192.168.251.10
+PostgreSQL endpoint:
 
-PostgreSQL port
-
-5432
-
----
-
-# Connectivity
-
-VM-A → VM-B  
-Database access
-
-VM-B → Internet  
-Package updates
-
-VM-A ↔ VM-B  
-SSH access
+- `192.168.250.11:5432`
 
 ---
 
-# NAT Structure
+# Connectivity Goals
 
-Research NAT
+The validated connectivity model is now:
 
-192.168.251.0/24
-
-Trading NAT
-
-192.168.250.0/24
-
----
-
-# Design Goal
-
-The network structure separates:
-
-research activity  
-database storage  
-future trading execution
+- VM-A → VM-B PostgreSQL access
+- VM-A ↔ VM-B administrative reachability
+- VM-A ↔ VM-B low-latency internal communication
+- VM-B → package/update access as required by system administration
 
 ---
 
-# Database Endpoint
+# Confirmed Working Paths
 
-PostgreSQL server
+The following paths have been validated:
 
-VM-B
+- ICMP reachability from VM-A to VM-B
+- TCP 5432 reachability from VM-A to VM-B
+- SSH reachability to VM-B
+- application-level PostgreSQL connection from VM-A to VM-B
 
-192.168.251.10:5432
+---
+
+# Database Access Policy
+
+Current intended database access pattern:
+
+- VM-A acts as laboratory / client environment
+- VM-B acts as memory / PostgreSQL host
+
+Primary application path:
+
+- VM-A Python process
+- `research` application role
+- database `trading`
+- PostgreSQL on VM-B
+
+---
+
+# Addressing Notes
+
+A previous VM-B static configuration used the `192.168.251.x` segment.  
+That configuration was updated during handshake validation to match the current active internal network.
+
+Current canonical addressing:
+
+- VM-A: `192.168.250.10`
+- VM-B: `192.168.250.11`
+
+---
+
+# Design Principle
+
+At the current project stage, network design is optimized for:
+
+- correctness
+- repeatability
+- low-complexity validation
+- successful internal research communication
+
+Future network segmentation may reintroduce separation between:
+
+- research activity
+- database services
+- trading execution
+
+However, that expansion is intentionally deferred until after the shared DB access layer is stabilized.
+
+---
+
+# Current Interpretation
+
+The network is no longer a planned abstraction only.
+
+It is now a working internal path enabling the first validated bridge between:
+
+- Laboratory (VM-A)
+- Memory (VM-B)
