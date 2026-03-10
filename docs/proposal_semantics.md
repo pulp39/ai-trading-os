@@ -337,3 +337,39 @@ All outputs must correspond to defined institutional objects.
 
 This structure ensures that adding additional AI agents
 does not destabilize the institutional system.
+## Proposal ID Rule
+
+All proposals must use a standardized proposal identifier.
+
+Format:
+
+`P-YYYYMMDD-NNN`
+
+Examples:
+
+- `P-20260310-001`
+- `P-20260310-002`
+- `P-20260311-001`
+
+Meaning:
+
+- `P` = proposal
+- `YYYYMMDD` = proposal creation date
+- `NNN` = sequential proposal number for that date, starting from `001`
+
+Usage rules:
+
+- The same `proposal_id` must be used consistently across:
+  - proposal filename
+  - institution_update.json
+  - trace_event metadata
+  - proposal discussion references
+
+File path rules:
+
+- Draft proposal files:
+  - `proposals/draft/P-YYYYMMDD-NNN.md`
+- Accepted proposal files:
+  - `proposals/accepted/P-YYYYMMDD-NNN.md`
+
+This rule exists to preserve traceability across institutional discussion, archival updates, and proposal application workflows.
