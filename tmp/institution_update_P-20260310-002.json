@@ -1,0 +1,27 @@
+{
+  "proposal_id": "P-20260310-002",
+  "proposal_status": "accepted",
+
+  "trace_event": {
+    "agent_id": "gpt54_librarian",
+    "actor_type": "ai",
+    "event_type": "research_direction_established",
+    "content": "Accepted proposal P-20260310-002 and established observation schema design as the recommended initial research direction for AI Trading OS.",
+    "metadata": {
+      "phase": "proposal_layer_initialization",
+      "proposal_id": "P-20260310-002",
+      "scope": "research_direction",
+      "topic": "observation_schema_design",
+      "status": "accepted"
+    }
+  },
+
+  "proposal_file": {
+    "source_path": "proposals/draft/P-20260310-002.md",
+    "target_path": "proposals/accepted/P-20260310-002.md"
+  },
+
+  "git": {
+    "commit_message": "institution: accept P-20260310-002 observation schema research direction"
+  }
+}
