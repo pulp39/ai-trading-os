@@ -1,0 +1,83 @@
+[
+  {
+    "observation_status": "trial",
+    "provisional_collector_id": "PROV-base_collector_v1-20260310",
+    "observation_id": "OBS-PROV-base_collector_v1-20260310-001",
+    "authorized_asset_class": "equity index futures",
+    "authorized_timeframe": "daily",
+    "authorized_instrument": "7203@1",
+    "session_date": "2026-03-10",
+    "collection_timestamp_utc": "2026-03-10T22:15:00Z",
+    "observation_payload": {
+      "price_context": {
+        "CurrentPrice": 3473.0,
+        "PreviousClose": 3450.0
+      },
+      "volume_context": {
+        "TradingVolume": 1023456
+      }
+    },
+    "quality_classification": {
+      "signal_quality_tier": "partial"
+    },
+    "traceability": {
+      "proposal_basis": "P-20260310-008",
+      "collector_designation": "base_collector_v1",
+      "collector_role_status": "provisional"
+    }
+  },
+  {
+    "observation_status": "trial",
+    "provisional_collector_id": "PROV-base_collector_v1-20260310",
+    "observation_id": "OBS-PROV-base_collector_v1-20260310-002",
+    "authorized_asset_class": "equity index futures",
+    "authorized_timeframe": "daily",
+    "authorized_instrument": "7203@1",
+    "session_date": "2026-03-11",
+    "collection_timestamp_utc": "2026-03-11T22:15:00Z",
+    "observation_payload": {
+      "price_context": {
+        "CurrentPrice": 3480.5,
+        "PreviousClose": 3473.0
+      },
+      "volume_context": {
+        "TradingVolume": 1102450
+      }
+    },
+    "quality_classification": {
+      "signal_quality_tier": "partial"
+    },
+    "traceability": {
+      "proposal_basis": "P-20260310-008",
+      "collector_designation": "base_collector_v1",
+      "collector_role_status": "provisional"
+    }
+  },
+  {
+    "observation_status": "trial",
+    "provisional_collector_id": "PROV-base_collector_v1-20260310",
+    "observation_id": "OBS-PROV-base_collector_v1-20260310-003",
+    "authorized_asset_class": "equity index futures",
+    "authorized_timeframe": "daily",
+    "authorized_instrument": "7203@1",
+    "session_date": "2026-03-12",
+    "collection_timestamp_utc": "2026-03-12T22:15:00Z",
+    "observation_payload": {
+      "price_context": {
+        "CurrentPrice": 3468.0,
+        "PreviousClose": 3480.5
+      },
+      "volume_context": {
+        "TradingVolume": 980234
+      }
+    },
+    "quality_classification": {
+      "signal_quality_tier": "partial"
+    },
+    "traceability": {
+      "proposal_basis": "P-20260310-008",
+      "collector_designation": "base_collector_v1",
+      "collector_role_status": "provisional"
+    }
+  }
+]

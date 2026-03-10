@@ -1,0 +1,67 @@
+{
+  "observation_status": "formal",
+  "collector_id": "collector_base_collector_v1",
+  "observation_id": "OBS-collector_base_collector_v1-20260310-001",
+  "authorized_asset_class": "equity index futures",
+  "authorized_timeframe": "daily",
+  "authorized_instrument": "ES1! (S&P 500 E-mini Futures, front month)",
+  "session_date": "2026-03-10",
+  "session_date_convention": "exchange_defined_completed_trading_session_date",
+  "collection_timestamp_utc": "2026-03-10T22:15:00Z",
+  "observation_payload": {
+    "price_context": {
+      "close": 0,
+      "return_1d": 0,
+      "distance_from_short_mean": 0,
+      "distance_from_baseline_mean": 0
+    },
+    "volume_context": {
+      "session_volume": 0,
+      "short_window_volume_mean": 0,
+      "baseline_window_volume_mean": 0,
+      "volume_ratio_short_to_baseline": 0
+    },
+    "volatility_regime": {
+      "realized_vol_short": 0,
+      "realized_vol_baseline": 0,
+      "realized_vol_ratio_short_to_baseline": 0,
+      "implied_vol_front": null,
+      "implied_minus_realized": null
+    },
+    "macro_event_proximity": {
+      "days_to_next_scheduled_macro_event": 0,
+      "days_from_last_scheduled_macro_event": 0,
+      "macro_event_flag": null
+    },
+    "correlation_state": {
+      "reference_instrument": "NQ1! (Nasdaq-100 E-mini Futures, front month)",
+      "rolling_correlation_short": 0,
+      "rolling_correlation_baseline": 0,
+      "correlation_regime_change_flag": null
+    }
+  },
+  "quality_classification": {
+    "signal_quality_tier": "partial",
+    "dimensional_completeness_flags": {
+      "price_context": true,
+      "volume_context": true,
+      "volatility_regime": true,
+      "macro_event_proximity": true,
+      "correlation_state": true
+    },
+    "reliability_notes": [
+      "Replace with session-specific reliability notes."
+    ]
+  },
+  "cadence_status": {
+    "declared_cadence": "once_per_completed_trading_session",
+    "cadence_deviation": false,
+    "cadence_deviation_note": null
+  },
+  "traceability": {
+    "proposal_basis": "P-20260310-008",
+    "collector_designation": "base_collector_v1",
+    "collector_role_status": "active",
+    "activation_trace_event_id": 35
+  }
+}
