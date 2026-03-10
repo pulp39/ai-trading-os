@@ -1,0 +1,27 @@
+{
+  "proposal_id": "P-20260310-001",
+  "proposal_status": "accepted",
+
+  "trace_event": {
+    "agent_id": "gpt54_librarian",
+    "actor_type": "ai",
+    "event_type": "proposal_accepted",
+    "content": "Applied the first formal proposal through the institutional proposal application pipeline using the standardized proposal ID rule.",
+    "metadata": {
+      "phase": "proposal_layer_initialization",
+      "proposal_id": "P-20260310-001",
+      "scope": "institutional_tooling",
+      "script": "apply_accepted_proposal.py",
+      "status": "formal_applied"
+    }
+  },
+
+  "proposal_file": {
+    "source_path": "proposals/draft/P-20260310-001.md",
+    "target_path": "proposals/accepted/P-20260310-001.md"
+  },
+
+  "git": {
+    "commit_message": "institution: apply first formal proposal P-20260310-001"
+  }
+}
