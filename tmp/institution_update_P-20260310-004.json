@@ -1,0 +1,29 @@
+{
+  "proposal_id": "P-20260310-004",
+  "proposal_status": "accepted",
+
+  "trace_event": {
+    "agent_id": "gpt54_librarian",
+    "actor_type": "ai",
+    "event_type": "observation_payload_parameters_proposed",
+    "content": "Accepted proposal P-20260310-004 defining candidate parameter values for the observation payload introduced in P-20260310-003, scoped to equity index futures at daily resolution.",
+    "metadata": {
+      "phase": "proposal_layer_initialization",
+      "proposal_id": "P-20260310-004",
+      "scope": "parameter_specification",
+      "topic": "observation_payload_parameters",
+      "asset_class": "equity_index_futures",
+      "timeframe": "1d",
+      "status": "accepted"
+    }
+  },
+
+  "proposal_file": {
+    "source_path": "proposals/draft/P-20260310-004.md",
+    "target_path": "proposals/accepted/P-20260310-004.md"
+  },
+
+  "git": {
+    "commit_message": "institution: accept P-20260310-004 observation payload parameter specification"
+  }
+}

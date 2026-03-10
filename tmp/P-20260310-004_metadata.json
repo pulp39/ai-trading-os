@@ -1,0 +1,9 @@
+{
+  "phase": "proposal_layer_initialization",
+  "proposal_id": "P-20260310-004",
+  "scope": "parameter_specification",
+  "topic": "observation_payload_parameters",
+  "asset_class": "equity_index_futures",
+  "timeframe": "1d",
+  "status": "accepted"
+}
