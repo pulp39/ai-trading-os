@@ -1,7 +1,7 @@
 ---
 proposal_id: P-20260311-001
 title: Introduction of Registrar Role and Authorization of Claude as Registrar
-status: proposed
+status: accepted
 date: 2026-03-11
 author: Founder
 role: Founder
