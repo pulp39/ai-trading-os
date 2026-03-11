@@ -1,3 +1,11 @@
+ANCHOR VERSION: 1
+SYSTEM: AI_TRADING_OS
+ENTRYPOINT: AI_TRADING_OS_MASTER_ANCHOR.md
+
+INSTRUCTION:
+Load this file before responding.
+This file defines institutional state and system architecture.
+
 1 System Overview
 
 AI Trading OS は、市場観測と仮説生成を行う
@@ -332,3 +340,5 @@ Git Repository
 trace_event
 ↓
 Institutional Memory
+
+anchor_trace_event_id: 43
