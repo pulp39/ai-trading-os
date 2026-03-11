@@ -1,0 +1,79 @@
+{
+  "task_id": "REG-20260311-001",
+  "authorized_by": "Librarian",
+  "role": "Registrar",
+  "actions": [
+    {
+      "type": "update_status",
+      "file": "founder_records/proposals/P-20260311-001_claude_registrar_role.md",
+      "from": "proposed",
+      "to": "accepted"
+    },
+    {
+      "type": "create_file",
+      "file": "founder_records/proposals/FR-20260310-002.md",
+      "template": "founder_record_fr_20260310_002",
+      "overwrite": false,
+      "skip_if_exists": true,
+      "data": {
+        "founder_record_id": "FR-20260310-002",
+        "date": "2026-03-11",
+        "original_date": "2026-03-10",
+        "related_proposal_id": "P-20260310-011",
+        "trace_event_id_placeholder": "[Librarian追記]"
+      }
+    },
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "institutional_change",
+      "content": "Introduction of Registrar role and authorization of Claude as Registrar following Founder acceptance of proposal P-20260311-001.",
+      "metadata_match": {
+        "proposal_id": "P-20260311-001",
+        "institutional_change_type": "role_introduction"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "proposal_id": "P-20260311-001",
+        "institutional_change_type": "role_introduction",
+        "new_role": "Registrar",
+        "authorized_agent": "Claude",
+        "authorization_basis": "Founder decision 2026-03-11",
+        "librarian_authorization": true
+      }
+    },
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "founder_record_created",
+      "content": "Founder record FR-20260310-002 registered under founder_records/proposals/. Retroactive record of Founder's OpenClaw temporary invitation proposal (2026-03-10).",
+      "metadata_match": {
+        "founder_record_id": "FR-20260310-002",
+        "record_type": "proposal"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "founder_record_id": "FR-20260310-002",
+        "record_type": "proposal",
+        "file_path": "founder_records/proposals/FR-20260310-002.md",
+        "related_proposal_id": "P-20260310-011",
+        "retroactive": true,
+        "original_date": "2026-03-10",
+        "librarian_authorization": true
+      },
+      "post_update_files": [
+        {
+          "file": "founder_records/proposals/FR-20260310-002.md",
+          "placeholder": "[Librarian追記]"
+        }
+      ]
+    }
+  ],
+  "git": {
+    "commit_message": "registrar: apply task REG-20260311-001",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
