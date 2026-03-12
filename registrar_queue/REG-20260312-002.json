@@ -1,0 +1,34 @@
+{
+  "task_id": "REG-20260312-002",
+  "authorized_by": "Librarian",
+  "role": "Registrar",
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "registrar_operational_learning",
+      "content": "Recorded operational learning from baseline Registrar validation. Registrar auto-commit may capture unrelated staged changes, so preflight git status verification is required before execution. Canonical JSON, markdown, and anchor files should be saved manually as UTF-8 without relying on PowerShell direct write commands that may introduce BOM-related issues.",
+      "metadata_match": {
+        "task_id": "REG-20260312-002",
+        "purpose": "operational_learning_capture"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "scope": "registrar_operations",
+        "purpose": "operational_learning_capture",
+        "authorized_by": "Librarian",
+        "task_id": "REG-20260312-002",
+        "learning_type": "baseline_validation",
+        "requires_preflight_git_status": true,
+        "utf8_manual_save_required": true,
+        "librarian_authorization": true
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "registrar: apply task REG-20260312-002",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
