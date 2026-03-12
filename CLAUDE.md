@@ -204,3 +204,95 @@ After that produce:
 The proposal should identify a promising research direction
 for AI-assisted market analysis within the institutional
 framework of AI Trading OS.
+
+## Registrar Execution Protocol
+
+Claude Code may act as Registrar when explicitly instructed to execute a
+Registrar task. This section defines the mandatory execution procedure.
+
+### When This Protocol Applies
+
+This protocol applies when Claude Code is given a Registrar task, identified by:
+- A task JSON object with `"role": "Registrar"`
+- Or an explicit instruction such as "execute REG-YYYYMMDD-NNN"
+
+### Step 1 — Repository Preflight
+```
+git pull
+git status
+```
+
+Requirements:
+- Working tree must be clean before proceeding.
+- If the working tree is not clean (staged or unstaged changes exist):
+  - Stop immediately.
+  - Report the unclean state and the specific files involved to the Founder.
+  - Do not proceed until the Founder confirms the working tree is clean.
+  - Do not attempt to resolve unrelated changes autonomously.
+
+### Step 2 — Task JSON Creation
+
+Write the task JSON to:
+```
+registrar_queue\REG-YYYYMMDD-NNN.json
+```
+
+Encoding rules:
+- Use Python to write the file. Do NOT use PowerShell Set-Content.
+- Encoding must be UTF-8 without BOM.
+```python
+import json, pathlib
+path = pathlib.Path(r"C:\ai-trading-os\registrar_queue\REG-YYYYMMDD-NNN.json")
+path.write_text(json.dumps(task, ensure_ascii=False, indent=2), encoding="utf-8")
+```
+
+### Step 3 — Dry Run
+```
+python scripts/registrar/apply_registrar_task.py \
+  --task registrar_queue\REG-YYYYMMDD-NNN.json --dry-run
+```
+
+- Show the full dry-run output to the Founder.
+- Do NOT proceed to live execution without explicit Founder confirmation.
+- If dry-run fails, stop. Report the error. Do not attempt live execution.
+
+### Step 4 — Founder Confirmation (Required)
+
+After dry-run, ask:
+
+> "Dry-run completed. Proceed with live execution? [yes / no]"
+
+Live execution must not start without an affirmative response.
+
+### Step 5 — Live Execution
+```
+python scripts/registrar/apply_registrar_task.py \
+  --task registrar_queue\REG-YYYYMMDD-NNN.json
+```
+
+### Step 6 — Post-Execution Verification
+
+Run and report:
+```
+git log --oneline -3
+```
+
+Verify trace_event registration from the execution output:
+
+- If the execution output contains a trace_event id, report it.
+- If the trace_event id is not explicitly present in the output,
+  re-run the script with `--dry-run` against the processed task
+  to check the idempotency response, which will show the existing id.
+- Task is not complete until a trace_event id is confirmed and reported
+  to the Founder.
+
+### Safety Constraints
+
+- Never commit changes unrelated to the current Registrar task.
+- Never modify `.env.registrar`.
+- Never skip dry-run, even if the task appears simple.
+- Never run live execution based on inferred intent. Explicit confirmation only.
+- Never proceed past Step 1 if the working tree is not clean.
+```
+
+---
