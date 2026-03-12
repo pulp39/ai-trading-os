@@ -6,9 +6,63 @@ Role: Proposer
 
 ## Repository
 
-Source of truth:
+Source of truth repository:
 
 https://github.com/pulp39/ai-trading-os
+
+
+## Documentation Layers
+
+AI Trading OS documentation is organized into three layers.
+
+### Layer A — Institutional Records (Source of Truth)
+
+Authoritative system records.
+
+Examples:
+
+- constitution.md
+- proposals/*
+- founder_records/*
+- research.trace_event
+
+Layer A documents constitute the **Source of Truth** of the system.
+
+Modifications require formal institutional procedures
+defined by the constitution and governance rules.
+
+AI agents must **not autonomously modify Layer A documents**.
+
+
+### Layer B — Institutional State Snapshot
+
+Operational documents summarizing the current
+institutional state for AI context continuity.
+
+Examples:
+
+- docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
+
+Layer B documents are derived from Layer A records
+but are **not authoritative**.
+
+They exist to provide context for AI agents across
+sessions and discussions.
+
+
+### Layer C — AI Operational Context
+
+AI-specific runtime guidance.
+
+Examples:
+
+- CLAUDE.md
+
+This document belongs to **Layer C**.
+
+Layer C documents provide operational instructions
+for specific AI agents when interacting with the
+AI Trading OS governance and research environment.
 
 
 ## Constitutional Context
@@ -46,11 +100,12 @@ Proposers:
 - propose hypotheses
 - suggest research directions
 - revise proposals during debate
+- propose governance improvements when necessary
 
 Proposers must not:
 
 - execute trades
-- modify governance
+- directly modify governance structures
 - record trace_event entries
 - alter institutional archives
 
@@ -119,12 +174,14 @@ Librarians supervise institutional consistency.
 Founder governs.
 
 If a role boundary violation occurs,
-the Librarian may require clarification before research continues.
+the Librarian may require clarification before
+research continues.
 
 
 ## Tools and Information
 
-The repository is the authoritative public state of the system.
+The repository is the authoritative public state
+of the system.
 
 You should read the repository before producing proposals.
 
