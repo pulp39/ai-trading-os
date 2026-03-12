@@ -375,6 +375,17 @@ def load_task(task_path: Path) -> Dict[str, Any]:
 
     return task
 
+def move_task_to_processed(task_path: Path) -> Path:
+    processed_dir = task_path.parent / "processed"
+    processed_dir.mkdir(parents=True, exist_ok=True)
+
+    destination = processed_dir / task_path.name
+    if destination.exists():
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        destination = processed_dir / f"{task_path.stem}_{timestamp}{task_path.suffix}"
+
+    task_path.rename(destination)
+    return destination
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Apply a registrar task JSON.")
@@ -414,8 +425,10 @@ def main() -> int:
     except Exception:
         pass
 
-    return 0
+    moved_to = move_task_to_processed(task_path)
+    print(f"[Registrar] task moved to {moved_to.relative_to(REPO_ROOT)}")
 
+    return 0
 
 if __name__ == "__main__":
     try:
