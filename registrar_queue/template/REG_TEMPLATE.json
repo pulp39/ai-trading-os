@@ -1,21 +1,35 @@
 {
   "task_id": "REG-YYYYMMDD-XXX",
-  "authorized_by": "gpt54_librarian",
-  "task_type": "replace_me",
-  "description": "Describe the authorized Registrar action.",
+  "authorized_by": "Librarian",
+  "role": "Registrar",
+
   "actions": [
     {
-      "action_type": "insert_trace_event",
+      "type": "insert_trace_event",
+
       "agent_id": "claude_registrar",
       "actor_type": "ai",
-      "event_type": "replace_me",
-      "content": "Describe the event content.",
-      "metadata": {
-        "scope": "replace_me",
-        "purpose": "replace_me",
-        "authorized_by": "gpt54_librarian",
+
+      "event_type": "replace_event_type",
+
+      "content": "Describe the institutional event clearly.",
+
+      "metadata_match": {
         "task_id": "REG-YYYYMMDD-XXX"
+      },
+
+      "metadata": {
+        "role": "Registrar",
+        "authorized_by": "Librarian",
+        "task_id": "REG-YYYYMMDD-XXX",
+        "purpose": "replace_purpose"
       }
     }
-  ]
+  ],
+
+  "git": {
+    "commit_message": "registrar: apply task REG-YYYYMMDD-XXX",
+    "remote": "origin",
+    "branch": "main"
+  }
 }
