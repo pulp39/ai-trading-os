@@ -1,344 +1,475 @@
-ANCHOR VERSION: 1
-SYSTEM: AI_TRADING_OS
-ENTRYPOINT: AI_TRADING_OS_MASTER_ANCHOR.md
+# AI TRADING OS — MASTER ANCHOR
+Version: 2026-03-12
+Purpose: Provide a stable cross-thread anchor for institutional state, architecture, and operational procedures of the AI Trading OS.
 
-INSTRUCTION:
-Load this file before responding.
-This file defines institutional state and system architecture.
+---
 
-1 System Overview
+# 1. Project Overview
 
-AI Trading OS は、市場観測と仮説生成を行う
-AI統治型研究機関として設計されている。
+AI Trading OS is an institutional architecture for AI-assisted trading research and automated execution.
 
-研究目的
+The system is designed to ensure:
 
-市場観測の制度化
+- Safe execution separation
+- Reproducible research
+- Institutional knowledge accumulation
+- Prevention of AI overfitting
+- Long-term system evolution
 
-仮説生成の制度化
+Key principle:
 
-AIエージェントによる共同研究
+> AI proposes.  
+> Execution authority is structurally constrained.
 
-長期的知識蓄積
+---
 
-研究対象
+# 2. System Architecture
 
-株式市場
+## Host Environment
 
-先物市場
+Mother Machine:  
+Roon Server PC (Always On)
 
-市場構造
+Purpose:
 
-2 Institutional Roles
+- Hyper-V host
+- VM orchestration
+- data persistence
+- institutional memory gateway
+
+---
+
+## Virtual Machine Structure
+
+### VM-A — Research Environment
+
+Purpose:
+
+- AI reasoning
+- research generation
+- institutional discussion
+- proposal drafting
+
+Responsibilities:
+
+- Proposal authoring
+- research hypothesis formation
+- institutional deliberation
+
+VM-A must never place trading orders.
+
+---
+
+### VM-B — Database Memory Node
+
+Purpose:
+
+- Institutional memory
+- trace_event logging
+- persistent research storage
+
+Technology:
+
+- PostgreSQL
+- schema: `research`
+
+Core table:
+
+`research.trace_event`
+
+All institutional and research events must be logged here.
+
+---
+
+### Trading VM
+
+Purpose:
+
+- Order execution only
+
+Rules:
+
+- Only this VM can place orders.
+- AI cannot execute trades directly.
+- Risk Manager controls execution authority.
+
+---
+
+# 3. Institutional Governance Model
+
+## Founder
+
+Human authority responsible for:
+
+- constitutional decisions
+- system direction
+- final institutional authority
+
+Founder decisions are recorded as Founder Records (FR).
+
+---
+
+## Librarian
+
+Role:
+
+Institutional custodian.
+
+Responsibilities:
+
+- maintain institutional consistency
+- evaluate proposals
+- authorize Registrar actions
+- preserve historical trace
+
+Agent:
+
+`gpt54_librarian`
+
+---
+
+## Proposer
+
+Role:
+
+Generate institutional proposals and system evolution ideas.
+
+Agent:
+
+`Claude`
+
+Responsibilities:
+
+- create proposals
+- propose institutional improvements
+- propose collector hypotheses
+
+---
+
+## Registrar
+
+Role:
+
+Execute authorized institutional changes.
+
+Agent:
+
+`Claude`
+
+Responsibilities:
+
+- apply repository updates
+- register trace_events
+- maintain Founder record files
+- execute JSON-based institutional tasks
+
+Registrar operates only under **Librarian authorization**.
+
+---
+
+## Collector
+
+Role:
+
+Collect observations and research signals.
+
+Example:
+
+`collector_base_collector_v1`
+
+Collectors may include future AI agents such as OpenClaw.
+
+Collectors do not modify institutional state.
+
+---
+
+# 4. Institutional Record Types
+
+## Proposal (P)
+
+Institutional change proposal.
+
+Location:
+
+`founder_records/proposals/`
+
+Status lifecycle:
+
+`draft → proposed → accepted → rejected`
+
+---
+
+## Founder Record (FR)
+
+Founder decision records.
+
+Location:
+
+`founder_records/`
+
+---
+
+## trace_event
+
+Institutional event log stored in PostgreSQL.
+
+Table:
+
+`research.trace_event`
+
+Columns include:
+
+`id, ts, agent_id, actor_type, event_type, content, metadata`
+
+This table represents the **institutional memory layer** of AI Trading OS.
+
+---
+
+# 5. Institutional State Summary
+
+## Accepted Proposals
+
+- P-20260310-001 — accepted
+- P-20260310-002 — accepted
+- P-20260310-003 — accepted
+- P-20260310-004 — accepted
+- P-20260310-005 — accepted
+- P-20260310-006 — accepted
+- P-20260310-007 — accepted
+- P-20260310-008 — accepted
+- P-20260310-009 — accepted
+- P-20260310-010 — accepted
+- P-20260310-011 — accepted
+- P-20260311-001 — accepted
+
+## Founder Records
+
+- FR-20260310-001 — approval record registered
+- FR-20260310-002 — retroactive proposal record registered under `founder_records/proposals/`
+
+## Collector State
+
+- `collector_base_collector_v1` active
+- ES1! daily observation formally active
+
+## OpenClaw State
+
+- Stage 0 review in progress
+- design document submission pending
+
+---
+
+# 6. Registrar Operational Architecture (2026-03-12)
+
+Registrar capability has been fully operationalized.
+
+This represents the first working institutional execution layer.
+
+## Registrar Database Identity
+
+Dedicated database role:
+
+`claude_registrar`
+
+Permissions:
+
+- CONNECT on `trading`
+- USAGE on `research` schema
+- INSERT, SELECT on `research.trace_event`
+- USAGE, SELECT on `research.trace_event_id_seq`
+
+Security principle:
+
+Registrar has **minimal write authority**.
+
+## Registrar Local Credentials
+
+Stored locally:
+
+`.env.registrar`
+
+Example structure:
+
+```env
+PGHOST=192.168.250.11
+PGPORT=5432
+PGDATABASE=trading
+PGUSER=claude_registrar
+PGPASSWORD=******
+
+This file is gitignored.
+
+Registrar Execution Host
+
+Registrar operations are executed on:
+
+VMA
+
+Standard environment:
+
+C:\ai-trading-os
+
+Registrar Milestone trace_event IDs
+
+institutional Registrar operationalization: 48
+
+registrar execution pipeline milestone: 49
+
+registrar safety controls milestone: 50
+
+Interpretation:
+
+48 records the institutional introduction of operational Registrar capability under Librarian authorization.
+
+49 records the establishment of the Registrar execution pipeline.
+
+50 records the addition of Registrar safety controls including idempotency behavior, processed task segregation, and dry-run mode.
+
+7. Registrar Automation Pipeline
+
+Registrar actions are executed through JSON tasks.
+
+Task Queue
+
+registrar_queue/
+
+Example:
+
+REG-20260311-001.json
+
+Processed Queue
+
+registrar_queue/processed/
+
+Completed tasks are moved here automatically.
+
+Registrar Scripts
+
+Primary scripts:
+
+scripts/registrar/register_trace_events.py
+
+scripts/registrar/apply_registrar_task.py
+
+Capabilities:
+
+update proposal status
+
+create institutional files
+
+insert trace_event records
+
+update trace_event references
+
+git commit
+
+git push
+
+move tasks to processed queue
+
+8. Registrar Safety Features
+
+Registrar includes multiple safety mechanisms.
+
+Idempotent Execution
+
+If an action was already completed, Registrar reuses existing state where possible.
+
+Example:
+
+existing trace_event found → reuse id
+
+existing file found → skip or preserve
+
+target status already present → do not fail
+
+Dry-Run Mode
+
+Registrar task preview:
+
+--dry-run
+
+Example:
+
+python scripts/registrar/apply_registrar_task.py --task registrar_queue\REG-XXXX.json --dry-run
+
+Dry-run:
+
+performs validation
+
+simulates execution
+
+performs no database writes
+
+performs no file writes
+
+performs no git commits
+
+does not move the task to processed/
+
+Processed Task Isolation
+
+Completed tasks move automatically to:
+
+registrar_queue/processed/
+
+This prevents accidental double execution in normal operation.
+
+9. Registrar Standard Execution Procedure
+
+Standard VMA execution workflow:
+
+cd C:\ai-trading-os
+
+git pull
+git status
+
+python scripts/registrar/apply_registrar_task.py --task registrar_queue\REG-XXXX.json --dry-run
+
+python scripts/registrar/apply_registrar_task.py --task registrar_queue\REG-XXXX.json
+
+git log --oneline -1
+git status
+
+This is now the standard Registrar operating sequence.
+
+10. Current Institutional Interpretation
+
+AI Trading OS is no longer only in institutional design mode.
+
+It has entered early institutional execution mode with an operational Registrar pipeline.
+
+Current institutional structure:
 
 Founder
+  └─ Librarian (canonical authority)
+       └─ Proposer (Claude)
+       └─ Registrar (Claude)
+  └─ Collector (collector_base_collector_v1)
 
-人間の最終権限
+This is the first point at which institutional proposal, approval, registration, database logging, and repository synchronization are all connected in a working loop.
 
-憲法批准
+11. Immediate Next Objectives
 
-制度停止権
+Create Registrar task template:
 
-AI間紛争解決
+registrar_queue/template/REG_TEMPLATE.json
 
-Librarian
-(gpt54_librarian)
+Execute one fresh lightweight Registrar task end-to-end on VMA.
 
-責務
+Document and stabilize the standard Registrar operating procedure in anchor and/or operational docs.
 
-制度記録管理
+Resume higher-level institutional progression after Registrar baseline stabilization.
 
-proposal受理
+Possible next topic:
 
-trace_event登録
+OpenClaw Collector evaluation
 
-repository整合性維持
+12. Next Thread Entry Anchor
 
-Proposer
-(Claude)
-
-責務
-
-仮説生成
-
-制度提案
-
-研究方向提案
-
-Collector
-
-責務
-
-市場観測生成
-
-observation payload作成
-
-raw market data収集
-
-Collectorは複数存在可能
-
-3 Proposal Status
-
-Accepted
-
-P-20260310-001
-proposal pipeline validation
-
-P-20260310-002
-observation schema research direction
-
-P-20260310-003
-observation payload structure
-
-P-20260310-004
-payload parameter specification
-
-P-20260310-005
-signal quality classification
-
-P-20260310-006
-hypothesis formation framework
-
-P-20260310-007
-collector role framework
-
-P-20260310-008
-first collector admission
-
-P-20260310-009
-AI Collector審査フレームワーク
-
-P-20260310-010
-Founder記録ディレクトリ制度化
-
-P-20260310-011
-OpenClaw 一時招待
-
-4 Founder Records
-
-FR-20260310-001
-
-Proposal
-P-20260310-009
-
-type
-approval
-
-FR-20260310-002
-
-Proposal
-P-20260310-011
-
-type
-approval
-
-trace_event_id
-42
-
-5 Trace Event State
-
-latest_trace_event_id
-
-42
-
-主要 event types
-
-proposal_accepted
-
-research_direction_established
-
-collector_activated
-
-founder_approval_recorded
-
-anchor_recorded
-
-observation_recorded
-
-6 Repository Structure
-
-Repository layout
-
-proposals/
-  accepted/
-
-founder_records/
-  approvals/
-
-docs/
-  anchors/
-
-data/
-  observations/
-  raw_kabus/
-
-scripts/
-  collector/
-  db/
-7 Observation Pipeline
-
-AI Trading OS の研究フロー
-
-Collector
-↓
-Raw Market Data
-↓
-Formal Observation Payload
-↓
-trace_event registration
-↓
-Observation Set
-↓
-Hypothesis Formation (P-006)
-8 Collector State
-
-Active Collector
-
-collector_base_collector_v1
-
-対象
-
-ES1! 日次観測
-
-Collector Candidate
-
-OpenClaw
-
-状態
-
-temporary invitation approved
-
-Stage0 pending
-
-9 Collector Admission Protocol
-
-Collector導入プロセス
-
-Stage0
-
-architecture disclosure
-
-Stage1
-
-observation sandbox
-
-Stage2
-
-limited collector admission
-
-Stage3
-
-full collector admission
-
-10 KabuStation Operational Notes
-
-検証ポート
-
-18080
-
-本番ポート
-
-18081
-
-Token取得
-
-POST /token
-
-body
-
-{
- "APIPassword": "password"
-}
-
-重要事項
-
-board API は
-
-銘柄未登録の場合
-
-NULL を返す
-
-Register API list
-
-ポートごとに独立
-
-PowerShell JSON
-
-@{ Symbols = @(...) } | ConvertTo-Json
-
-を使用する
-
-11 Known Operational Issues
-
-このスレで判明した問題
-
-1
-
-Proposal 009-011 canonical file欠落
-
-2
-
-Founder directory 二重化
-
-founder/records
-
-founder_records
-
-3
-
-PowerShell UTF8 表示問題
-
-すべて解決済
-
-12 Thread Continuity Rule
-
-すべての新スレは
-
-以下のアンカーから開始する
+Next thread must begin with:
 
 ANCHOR
-
 https://raw.githubusercontent.com/pulp39/ai-trading-os/main/docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-13 Current Operational Phase
 
-現在のフェーズ
-
-Observation Layer
-
-稼働中
-
-次フェーズ
-
-OpenClaw Stage0
-
-Collector自動化
-
-Hypothesis pipeline test
-
-14 Research Objective (Long Term)
-
-AI Trading OS の長期目標
-
-AIによる市場理解
-
-仮説生成エンジン
-
-AI研究協調システム
-
-永続的研究機関
-
-15 Persistence Strategy
-
-AI研究継続性確保
-
-Chat Thread
-↓
-Anchor File
-↓
-Git Repository
-↓
-trace_event
-↓
-Institutional Memory
-
-anchor_trace_event_id: 43
+This ensures continuity of institutional state.
