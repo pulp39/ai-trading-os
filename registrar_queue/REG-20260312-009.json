@@ -1,0 +1,50 @@
+{
+  "task_id": "REG-20260312-009",
+  "date": "2026-03-12",
+  "authorized_by": "Founder",
+  "role": "Registrar",
+  "description": "Register FR-20260312-009 (Founder Decision P-20260312-006), create proposal files P-20260312-005 and P-20260312-006, and insert trace_event (operational_governance_rule_enacted). CRC-04 closed.",
+  "actions": [
+    {
+      "type": "create_file",
+      "file": "founder_records/proposals/FR-20260312-009.md",
+      "content": "---\nrecord_id: FR-20260312-009\nrecord_type: founder_decision\nstatus: enacted\ndate: 2026-03-12\nrelated_proposal: P-20260312-006\ncrc_deliberation: CRC-04\n---\n\n# Founder Decision\n\nThe Founder approves Proposal P-20260312-006 \"Collector Governance Framework\".\n\nThis decision establishes operational governance rules for Collector concurrency,\ntrace_event generation, and Collector lifecycle management within the AI Trading OS.\n\n## Key Points\n\n- Hybrid Collector Model (Primary / Secondary) is formally adopted\n- canonical_observation / supplemental_observation trace_event model is adopted\n- Collector Lifecycle governance (suspension, demotion, deactivation, disqualification,\n  Primary Collector succession) is formally defined\n- base_collector_v1 is designated as Primary Collector\n- P-20260310-009 (AI Collector Evaluation Framework) remains in effect as the\n  entry-stage governance; P-20260312-006 governs concurrent operation thereafter\n\nNo constitutional amendment is performed by this decision.\n\n## CRC Status\n\nCRC Deliberation 04 is formally closed by this Founder decision.\n"
+    },
+    {
+      "type": "create_file",
+      "file": "proposals/accepted/P-20260312-005.md",
+      "skip_if_exists": true,
+      "content": "---\nproposal_id: P-20260312-005\ntitle: \"Anchor Governance Framework\"\nstatus: accepted\ndate: 2026-03-12\nrevision: 1\nauthor: Proposer (Claude)\nrole: Proposer\ncontext_references:\n  - FR-20260312-007 (Founder Initiative)\n  - FR-20260312-008 (Founder Decision)\n  - constitution.md (v1.3)\n  - docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md\n  - CLAUDE.md\namendment_type: operational_governance_rule\ncrc_required: false\n---\n\n## Scope Statement\n\nThis proposal establishes operational governance rules for the classification,\nupdate authority, and update triggers of anchor documents in AI Trading OS.\n\nThis proposal is not a constitutional amendment. Anchor documents are not\ninstitutional records. This proposal clarifies their operational position.\n\n## Documentation Layers\n\n### Layer A — Institutional Records (Source of Truth)\n\n- constitution.md\n- proposals/*\n- founder_records/*\n- research.trace_event\n\n### Layer B — Institutional State Snapshot\n\n- docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md\n\nUpdate authority: AI proposal -> Librarian approval\n\n### Layer C — AI Operational Context\n\n- CLAUDE.md\n\nUpdate authority: AI proposal -> Founder approval\n\n## Principles\n\n- Anchors are not Source of Truth\n- Anchors should change rarely\n- AI agents must not autonomously modify any layer\n\n## Draft Anchor Process\n\ndraft anchor -> proposal artifact -> review -> Founder approval\n-> formal anchor update or discard record\n\n---\n\n*Submitted by: Proposer (Claude)*\n*Proposal ID: P-20260312-005*\n*Revision: 1*\n*Date: 2026-03-12*\n*Status: accepted*\n*Founder Decision: FR-20260312-008*\n"
+    },
+    {
+      "type": "create_file",
+      "file": "proposals/accepted/P-20260312-006.md",
+      "skip_if_exists": true,
+      "content": "---\nproposal_id: P-20260312-006\ntitle: \"Collector Governance Framework\"\nstatus: accepted\ndate: 2026-03-12\nrevision: 1\nauthor: Proposer (Claude)\nrole: Proposer\ncontext_references:\n  - constitution.md (v1.3)\n  - P-20260310-007 (Collector Role Definition)\n  - P-20260310-008 (base_collector_v1)\n  - P-20260310-009 (AI Collector Evaluation Framework)\n  - P-20260310-011 (OpenClaw Provisional Invitation)\n  - CRC Deliberation 04\namendment_type: operational_governance_rule\ncrc_required: false\n---\n\n## Scope Statement\n\nThis proposal establishes operational governance rules for Collector concurrency,\ntrace_event generation model, and Collector lifecycle management in AI Trading OS.\n\nThis proposal is not a constitutional amendment. Constitution Article 4 role\nboundary (observation only, no interpretation) is preserved as the foundation.\n\n## Part I — Collector Concurrency Model (Hybrid)\n\n### Primary Collector\n\n- Generates canonical_observation trace_events\n- Designated by Founder after Stage evaluation (P-20260310-009)\n- Current designation: base_collector_v1\n\n### Secondary Collector\n\n- Generates supplemental_observation trace_events\n- Functions as fallback when Primary is unavailable\n\n### Instrument Scope (supplementary concept)\n\nOptional per-Collector instrument assignment to structurally prevent\nobservation conflicts.\n\n## Part II — trace_event Generation Model (Model C)\n\nPrimary -> event_type: canonical_observation\nSecondary -> event_type: supplemental_observation\n\nmetadata must include: collector_id, observation_class, instrument\n\nNo trace_event schema change required.\n\n## Part III — Collector Lifecycle\n\n| Event | Condition | Authority | trace_event |\n|---|---|---|---|\n| Temporary Suspension | Quality degradation / technical failure | Librarian | collector_suspended |\n| Reactivation | Cause resolved | Librarian | collector_reactivated |\n| Demotion (Primary->Secondary) | Better Collector designated / quality drop | Librarian recommendation + Founder approval | collector_demoted |\n| Permanent Deactivation | Serious violation / role boundary breach | Librarian recommendation + Founder approval | collector_deactivated |\n| Disqualification | Deactivation + no re-approval | Librarian recommendation + Founder approval + Founder Record | collector_deactivated (disqualified: true) |\n| Primary Succession | System-critical operational change | Proposal -> Librarian review -> Founder approval | primary_collector_changed |\n\nDisqualification does not delete institutional history. append-only principle applies.\n\n## Part IV — Lifecycle trace_event Types\n\ncanonical_observation, supplemental_observation,\ncollector_suspended, collector_reactivated,\ncollector_demoted, collector_deactivated,\nprimary_collector_changed\n\n## Limitations\n\n- P-20260310-009 entry-stage evaluation remains in effect\n- This proposal governs concurrent operation, not entry evaluation\n\n---\n\n*Submitted by: Proposer (Claude)*\n*Proposal ID: P-20260312-006*\n*Revision: 1*\n*Date: 2026-03-12*\n*Status: accepted*\n*Founder Decision: FR-20260312-009*\n*CRC: Deliberation 04 -- CLOSED*\n"
+    },
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "registrar",
+      "event_type": "operational_governance_rule_enacted",
+      "content": "P-20260312-006 Collector Governance Framework enacted. Founder decision FR-20260312-009. CRC Deliberation 04 closed.",
+      "metadata": {
+        "proposal_id": "P-20260312-006",
+        "founder_record": "FR-20260312-009",
+        "crc_deliberation": "CRC-04",
+        "crc_status": "closed",
+        "governance_rule": "Collector Governance Framework",
+        "primary_collector": "base_collector_v1"
+      },
+      "metadata_match": {
+        "proposal_id": "P-20260312-006",
+        "governance_rule": "Collector Governance Framework"
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "Register FR-20260312-009: Collector Governance Framework enacted (P-20260312-006, CRC-04 closed)",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
