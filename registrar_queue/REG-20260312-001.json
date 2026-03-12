@@ -1,0 +1,31 @@
+{
+  "task_id": "REG-20260312-001",
+  "authorized_by": "Librarian",
+  "role": "Registrar",
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "registrar_baseline_validation",
+      "content": "Executed first lightweight Registrar validation task under Librarian authorization. Verified JSON-task based Registrar workflow as the baseline institutional automation path.",
+      "metadata_match": {
+        "task_id": "REG-20260312-001",
+        "purpose": "baseline_validation"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "scope": "registrar_automation",
+        "purpose": "baseline_validation",
+        "authorized_by": "Librarian",
+        "task_id": "REG-20260312-001",
+        "librarian_authorization": true
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "registrar: apply task REG-20260312-001",
+    "remote": "origin",
+    "branch": "main"
+  }
+}

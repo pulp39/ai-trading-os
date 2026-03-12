@@ -1,0 +1,21 @@
+{
+  "task_id": "REG-YYYYMMDD-XXX",
+  "authorized_by": "gpt54_librarian",
+  "task_type": "replace_me",
+  "description": "Describe the authorized Registrar action.",
+  "actions": [
+    {
+      "action_type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "replace_me",
+      "content": "Describe the event content.",
+      "metadata": {
+        "scope": "replace_me",
+        "purpose": "replace_me",
+        "authorized_by": "gpt54_librarian",
+        "task_id": "REG-YYYYMMDD-XXX"
+      }
+    }
+  ]
+}
