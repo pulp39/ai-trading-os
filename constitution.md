@@ -1,6 +1,6 @@
 # AI Trading OS Constitution
 
-Version: 0.3 
+Version: 1.3 
 Status: Enacted  
 Authority: Founder  
 
@@ -404,7 +404,13 @@ proposal → librarian review → founder approval → delegation record
 
 Delegation may be revoked at any time by the Founder or Librarian.
 
----
+### Article D.3 — Clarification of Delegated Roles
+
+Roles established through the Controlled Delegation Framework defined in this Article constitute institutional seats within the system as defined in Article E.
+
+The Registrar role, established by P-20260311-001, represents a standard implementation of delegated authority under this Article. The substantive requirements of this Article — proposal, Librarian review, and Founder approval — were fulfilled at the time of that role's establishment. Procedural retroactivity is hereby confirmed.
+
+Future roles established under this Article shall follow the delegation procedure defined in Article D.2.
 
 ---
 
