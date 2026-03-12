@@ -1,0 +1,64 @@
+{
+  "task_id": "REG-20260313-003",
+  "date": "2026-03-13",
+  "authorized_by": "Librarian",
+  "role": "Registrar",
+  "description": "Record Founder appointment of Assembly Member AiiDs (Seat 1: gpt_librarian, Seat 2: claude_proposer). Update docs/aiid_registry.md. Two trace_events: aiid_appointed x2.",
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "registrar",
+      "event_type": "aiid_appointed",
+      "content": "AiiD gpt_librarian appointed as Assembly Member Seat 1 by Founder. model: GPT. status: active.",
+      "metadata": {
+        "aiid": "gpt_librarian",
+        "display_name": "GPT Librarian",
+        "role": "Assembly Member",
+        "seat": "1",
+        "model": "GPT",
+        "appointed_by": "Founder",
+        "appointment_date": "2026-03-13",
+        "status": "active",
+        "authority": "P-20260313-002"
+      },
+      "metadata_match": {
+        "aiid": "gpt_librarian",
+        "event_type": "aiid_appointed"
+      }
+    },
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "registrar",
+      "event_type": "aiid_appointed",
+      "content": "AiiD claude_proposer appointed as Assembly Member Seat 2 by Founder. model: Claude. status: active.",
+      "metadata": {
+        "aiid": "claude_proposer",
+        "display_name": "Claude Proposer",
+        "role": "Assembly Member",
+        "seat": "2",
+        "model": "Claude",
+        "appointed_by": "Founder",
+        "appointment_date": "2026-03-13",
+        "status": "active",
+        "authority": "P-20260313-002"
+      },
+      "metadata_match": {
+        "aiid": "claude_proposer",
+        "event_type": "aiid_appointed"
+      }
+    },
+    {
+      "type": "create_file",
+      "file": "docs/aiid_registry.md",
+      "overwrite": true,
+      "content": "# AiiD Registry\n\nLayer: B (Institutional State Snapshot)\nMaintained by: Registrar\nLast updated: 2026-03-13\nAuthority: P-20260313-002 (AiiD Specification)\n\n---\n\n## Active AiiD Records\n\n| aiid | display_name | role | model | appointed_by | appointment_date | status |\n|---|---|---|---|---|---|---|\n| claude_proposer | Claude Proposer | Proposer | Claude | Founder | 2026-03-10 | active |\n| claude_registrar | Claude Registrar | Registrar | Claude | Founder | 2026-03-11 | active |\n\n---\n\n## Assembly Member Seats\n\n| aiid | display_name | role | model | appointed_by | appointment_date | status |\n|---|---|---|---|---|---|---|\n| gpt_librarian | GPT Librarian | Assembly Member | GPT | Founder | 2026-03-13 | active |\n| claude_proposer | Claude Proposer | Assembly Member | Claude | Founder | 2026-03-13 | active |\n\n---\n\n## Notes\n\n- Existing agent_id values (claude_proposer, claude_registrar) are\n  recognized as valid AiiD identifiers per P-20260313-002 section 4.4.\n- Registry entries are Institutional State Snapshots (Layer B).\n  Authoritative records are trace_events (Layer A).\n- Updates to this registry require a Registrar task following\n  Librarian review.\n"
+    }
+  ],
+  "git": {
+    "commit_message": "Register AiiD appointments: gpt_librarian (Seat 1) and claude_proposer (Seat 2) as Assembly Members",
+    "remote": "origin",
+    "branch": "main"
+  }
+}

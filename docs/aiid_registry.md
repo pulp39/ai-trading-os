@@ -20,10 +20,8 @@ Authority: P-20260313-002 (AiiD Specification)
 
 | aiid | display_name | role | model | appointed_by | appointment_date | status |
 |---|---|---|---|---|---|---|
-| — | — | Assembly Member (Seat 1) | — | — | pending | vacant |
-| — | — | Assembly Member (Seat 2) | — | — | pending | vacant |
-
-Assembly Member AiiDs are pending Founder appointment.
+| gpt_librarian | GPT Librarian | Assembly Member | GPT | Founder | 2026-03-13 | active |
+| claude_proposer | Claude Proposer | Assembly Member | Claude | Founder | 2026-03-13 | active |
 
 ---
 
