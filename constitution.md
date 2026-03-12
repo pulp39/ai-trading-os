@@ -405,3 +405,72 @@ proposal → librarian review → founder approval → delegation record
 Delegation may be revoked at any time by the Founder or Librarian.
 
 ---
+
+---
+
+# Constitutional Amendment — AI Identity and Institutional Continuity
+
+Enacted by Founder Record: **FR-20260312-004**  
+Related Proposal: **P-20260312-003**  
+CRC Topic: **AI Identity (Exploratory Phase)**  
+Date Enacted: **2026-03-12**
+
+---
+
+## Article E — Institutional Subject
+
+### E.1 Nature of Institutional Roles
+
+Institutional roles within the AI Trading OS, including but not limited to Proposer, Librarian, Registrar, and Collector, are defined as independent seats belonging to the institution rather than to any specific AI model or implementation.
+
+### E.2 Definition of Institutional Subject
+
+An Institutional Subject is an executing subject that occupies an institutional role seat and is able to reference and operate institutional knowledge externalized in the repository. An Institutional Subject is not fixed to a specific version of an AI model.
+
+### E.3 Appointment of Occupants
+
+The occupant of an institutional role is appointed by the Founder. The constitution defines the role and the principle of appointment, but does not bind the role to a specific model. Detailed qualification requirements are delegated to role-specific proposals.
+
+---
+
+## Article F — Institutional Continuity Principle
+
+### F.1 Continuity
+
+The continuity of an Institutional Subject shall be secured by institutional records in the repository rather than by the internal state of any AI instance. The constitution, proposal history, and trace_event records constitute the institutional knowledge state.
+
+### F.2 Continuity Across Sessions
+
+When one session ends and a new session occupies the same institutional role, the institutional knowledge state is inherited through reference to the repository. In this way, institutional continuity is preserved.
+
+### F.3 Preservation Duty
+
+Because institutional continuity depends on institutional records, preservation of those records is a core duty of the Librarian. This strengthens the existing principle of Institutional Memory.
+
+---
+
+## Article G — Role Succession Principle
+
+### G.1 Principle
+
+Succession of institutional roles shall be handled through graduated procedures proportional to the degree of impact on institutional continuity.
+
+### G.2 Classification and Appointment
+
+Classification of succession cases is performed by the Librarian. Appointment decisions are made by the Founder.
+
+Representative examples include:
+
+| Succession Type | Example | Required Procedure |
+|---|---|---|
+| Same model-line update | Claude 4 → Claude 5 | Founder appointment update notice |
+| Change to different AI implementation | Claude → another model | Explicit Founder appointment + Librarian confirmation |
+| Change involving role character transformation | AI → human | Proposal revision + Founder approval |
+
+This classification is illustrative. Concrete application is subject to Librarian institutional interpretation.
+
+### G.3 Procedural Strength
+
+The strength of the procedure shall be proportional to the impact on institutional continuity. Even when the occupant changes, the institutional role continues.
+
+---
