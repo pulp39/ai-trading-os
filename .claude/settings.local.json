@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git pull:*)",
+      "Bash(python registrar_queue/write_reg_20260313_001.py)",
+      "Bash(python scripts/registrar/apply_registrar_task.py --task registrar_queue/REG-20260313-001.json --dry-run)"
+    ]
+  }
+}
