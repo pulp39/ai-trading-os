@@ -589,3 +589,119 @@ Institutional health metrics
 Anchor documents themselves are not yet formally defined in the constitutional system.
 
 The institutional status, lifecycle, and governance of anchor documents should be discussed in a future CRC session.
+
+---
+
+# 2026-03-12 Operational Governance Milestone
+
+## Anchor Governance Framework Adopted
+
+Founder Decision  
+FR-20260312-008
+
+Related Proposal  
+P-20260312-005
+
+Result  
+Operational governance rules for anchor documents established.
+
+Meaning  
+The documentation structure of AI Trading OS is now formally
+organized into three layers.
+
+---
+
+## Documentation Layer Model
+
+### Layer A — Institutional Records (Source of Truth)
+
+Authoritative system records.
+
+Examples
+
+constitution.md  
+proposals/*  
+founder_records/*  
+research.trace_event  
+
+Characteristics
+
+- authoritative
+- institutional procedure required for modification
+- AI cannot modify autonomously
+
+---
+
+### Layer B — Institutional State Snapshot
+
+Operational documents summarizing the current institutional state.
+
+Example
+
+docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
+
+Characteristics
+
+- derived from Layer A
+- not authoritative
+- used for AI context continuity
+
+---
+
+### Layer C — AI Operational Context
+
+AI-specific runtime guidance documents.
+
+Example
+
+CLAUDE.md
+
+Characteristics
+
+- AI specific
+- runtime operational guidance
+- independent from institutional record
+
+---
+
+## Source of Truth Principle
+
+Anchor documents do **not** constitute institutional records.
+
+Institutional authority resides exclusively in:
+
+constitution.md  
+proposals/*  
+founder_records/*  
+research.trace_event  
+
+Anchors function only as **context snapshots** for AI agents.
+
+---
+
+## Institutional Evolution (Summary)
+
+CRC01  
+Execution Authority Boundary
+
+CRC02  
+AI Institutional Identity
+
+CRC03  
+Delegated Institutional Seats
+
+P-20260312-005  
+Anchor Governance Framework
+
+Result
+
+The system now separates:
+
+constitutional governance  
+institutional roles  
+operational documentation
+
+This completes the foundational governance structure
+of AI Trading OS.
+
+---
