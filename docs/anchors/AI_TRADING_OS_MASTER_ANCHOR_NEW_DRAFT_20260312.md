@@ -310,4 +310,101 @@ AI Trading OS now has:
 The project is now ready for the first true operational governance cycle
 with Claude acting as Proposer.
 
+---
+
+# Draft Update — 2026-03-12
+
+## Constitutional Expansion
+
+Two constitutional amendments were enacted during CRC deliberations.
+
+Amendment 1  
+Execution Authority Clarification
+
+Articles introduced  
+A–D
+
+Purpose  
+Define the boundary of AI execution authority.
+
+---
+
+Amendment 2  
+AI Identity and Institutional Continuity
+
+Articles introduced  
+E–G
+
+Purpose  
+Define institutional identity and continuity of AI roles.
+
+---
+
+## Constitutional Architecture
+
+AI Trading OS Constitution
+
+Layer 1  
+Foundational Governance  
+Article 1–10
+
+Layer 2  
+Execution Boundary  
+Article A–D
+
+Layer 3  
+Institutional Identity  
+Article E–G
+
+---
+
+## Institutional Principles Introduced
+
+Institutional Subject  
+AI roles are institutional seats independent of specific model implementations.
+
+Institutional Continuity Principle  
+Institutional continuity is guaranteed through repository records rather than AI internal state.
+
+Role Succession Principle  
+Role succession procedures scale with the impact on institutional continuity.
+
+---
+
+## Historical Significance
+
+CRC Deliberation 02 represents a self-referential institutional moment:
+
+AI agents participated in a formal deliberation to define the institutional identity of AI agents themselves.
+
+---
+
+## Open Governance Topics
+
+Future CRC topics include:
+
+Registrar delegation constitutional formalization
+
+Collector governance framework
+
+Institutional health metrics
+
+Anchor document governance
+
+---
+
+## Anchor Governance Question (To be discussed)
+
+The institutional role of anchor documents remains undefined.
+
+Questions for future discussion:
+
+Are anchors operational documentation or institutional artifacts?
+
+Should anchors be governed by proposal process?
+
+Should anchors be versioned as institutional records?
+
+This topic should be placed on a future CRC agenda.
+
 END OF ANCHOR

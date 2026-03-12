@@ -473,3 +473,119 @@ ANCHOR
 https://raw.githubusercontent.com/pulp39/ai-trading-os/main/docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
 
 This ensures continuity of institutional state.
+
+---
+
+# 2026-03-12 Constitutional Milestone Update
+
+## CRC Deliberation 01 — Execution Authority Gap
+
+Outcome  
+Constitutional Amendment enacted.
+
+Related Proposal  
+P-20260312-002
+
+Founder Enactment  
+FR-20260312-003
+
+Result  
+Articles A–D added to constitution.
+
+Meaning  
+Execution Authority boundary established.
+
+---
+
+## CRC Deliberation 02 — AI Identity (Exploratory Phase)
+
+Outcome  
+Constitutional Amendment enacted.
+
+Related Proposal  
+P-20260312-003  
+"AI Identity and Institutional Continuity"
+
+Founder Enactment  
+FR-20260312-004
+
+Constitution Update  
+Articles E–G added.
+
+Core Principles introduced
+
+Institutional Subject  
+Institutional Continuity Principle  
+Role Succession Principle
+
+Meaning  
+AI institutional identity formally defined.
+
+---
+
+## Constitution Structure (Current)
+
+AI Trading OS Constitution
+
+Article 1–10  
+Fundamental Governance Principles
+
+Article A–D  
+Execution Authority
+
+Article E–G  
+AI Identity and Institutional Continuity
+
+---
+
+## Institutional Record Chain (P-20260312-003)
+
+Proposal  
+proposals/accepted/P-20260312-003.md
+
+CRC Recommendation  
+trace_event 65
+
+Founder Enactment  
+FR-20260312-004  
+trace_event 68
+
+Constitution Update  
+trace_event 69
+
+Founder Historical Record  
+FR-20260312-005  
+trace_event 70
+
+Proposal Archive Registration  
+commit 6b7f31f  
+trace_event 71
+
+Status  
+COMPLETE
+
+---
+
+## CRC Status
+
+CRC Deliberation 02  
+Status: CLOSED
+
+Next Deliberation Candidates
+
+Deliberation 03  
+Registrar delegation constitutional formalization
+
+Deliberation 04  
+Collector governance framework
+
+Deliberation 05  
+Institutional health metrics
+
+---
+
+## Note
+
+Anchor documents themselves are not yet formally defined in the constitutional system.
+
+The institutional status, lifecycle, and governance of anchor documents should be discussed in a future CRC session.
