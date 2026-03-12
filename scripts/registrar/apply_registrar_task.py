@@ -217,32 +217,47 @@ Founderは{data["original_date"]}に、OpenClawをAI Collector候補として制
     raise RegistrarError(f"Unknown template: {template_name}")
 
 
-def process_actions(task: Dict[str, Any], commit_changes: bool, push_changes: bool) -> List[ActionResult]:
+def process_actions(
+    task: Dict[str, Any],
+    commit_changes: bool,
+    push_changes: bool,
+    dry_run: bool,
+) -> List[ActionResult]:
     results: List[ActionResult] = []
     pending_trace_event_updates: List[Tuple[Path, str, int]] = []
 
-    conn = get_connection()
+    conn = None if dry_run else get_connection()
+
     try:
         for action in task["actions"]:
             action_type = action["type"]
 
             if action_type == "update_status":
                 file_path = repo_rel_to_abs(action["file"])
-                status_result = update_status(file_path, action["from"], action["to"])
-                if status_result == "already_target":
+
+                if dry_run:
                     results.append(
                         ActionResult(
                             action_type,
-                            f"Status already {action['to']} in {action['file']}"
+                            f"[DRY RUN] would update status {action['from']} -> {action['to']} in {action['file']}"
                         )
                     )
                 else:
-                    results.append(
-                        ActionResult(
-                            action_type,
-                            f"Updated status in {action['file']}"
+                    status_result = update_status(file_path, action["from"], action["to"])
+                    if status_result == "already_target":
+                        results.append(
+                            ActionResult(
+                                action_type,
+                                f"Status already {action['to']} in {action['file']}"
+                            )
                         )
-                    )
+                    else:
+                        results.append(
+                            ActionResult(
+                                action_type,
+                                f"Updated status in {action['file']}"
+                            )
+                        )
 
             elif action_type == "create_file":
                 file_path = repo_rel_to_abs(action["file"])
@@ -251,100 +266,148 @@ def process_actions(task: Dict[str, Any], commit_changes: bool, push_changes: bo
                 else:
                     content = render_template(action["template"], action["data"])
 
-                create_result = create_file_from_text(
-                    file_path,
-                    content,
-                    overwrite=action.get("overwrite", False),
-                    skip_if_exists=action.get("skip_if_exists", False),
-                )
-
-                if create_result == "already_exists":
+                if dry_run:
                     results.append(
                         ActionResult(
                             action_type,
-                            f"File already exists: {action['file']}"
-                        )
-                    )
-                elif create_result == "overwritten":
-                    results.append(
-                        ActionResult(
-                            action_type,
-                            f"Overwritten file {action['file']}"
+                            f"[DRY RUN] would create or reuse file {action['file']}"
                         )
                     )
                 else:
-                    results.append(
-                        ActionResult(
-                            action_type,
-                            f"Created file {action['file']}"
-                        )
+                    create_result = create_file_from_text(
+                        file_path,
+                        content,
+                        overwrite=action.get("overwrite", False),
+                        skip_if_exists=action.get("skip_if_exists", False),
                     )
+
+                    if create_result == "already_exists":
+                        results.append(
+                            ActionResult(
+                                action_type,
+                                f"File already exists: {action['file']}"
+                            )
+                        )
+                    elif create_result == "overwritten":
+                        results.append(
+                            ActionResult(
+                                action_type,
+                                f"Overwritten file {action['file']}"
+                            )
+                        )
+                    else:
+                        results.append(
+                            ActionResult(
+                                action_type,
+                                f"Created file {action['file']}"
+                            )
+                        )
 
             elif action_type == "insert_trace_event":
                 metadata = dict(action["metadata"])
                 metadata.setdefault("registrar_execution", True)
                 metadata.setdefault("task_id", task["task_id"])
 
-                existing_id = None
-                metadata_match = action.get("metadata_match")
-                if metadata_match:
-                    existing_id = event_already_exists(conn, action["event_type"], metadata_match)
-
-                if existing_id is not None:
-                    event_id = existing_id
-                    detail = f"Reused existing trace_event id={event_id} for {action['event_type']}"
-                else:
-                    event_id = insert_trace_event(
-                        conn=conn,
-                        agent_id=action["agent_id"],
-                        actor_type=action["actor_type"],
-                        event_type=action["event_type"],
-                        content=action["content"],
-                        metadata=metadata,
-                    )
-                    detail = f"Inserted trace_event id={event_id} for {action['event_type']}"
-
-                for target in action.get("post_update_files", []):
-                    pending_trace_event_updates.append(
-                        (
-                            repo_rel_to_abs(target["file"]),
-                            target["placeholder"],
-                            event_id,
+                if dry_run:
+                    results.append(
+                        ActionResult(
+                            action_type,
+                            f"[DRY RUN] would insert or reuse trace_event for {action['event_type']}"
                         )
                     )
+                else:
+                    existing_id = None
+                    metadata_match = action.get("metadata_match")
+                    if metadata_match:
+                        existing_id = event_already_exists(conn, action["event_type"], metadata_match)
 
-                results.append(ActionResult(action_type, detail, trace_event_id=event_id))
+                    if existing_id is not None:
+                        event_id = existing_id
+                        detail = f"Reused existing trace_event id={event_id} for {action['event_type']}"
+                    else:
+                        event_id = insert_trace_event(
+                            conn=conn,
+                            agent_id=action["agent_id"],
+                            actor_type=action["actor_type"],
+                            event_type=action["event_type"],
+                            content=action["content"],
+                            metadata=metadata,
+                        )
+                        detail = f"Inserted trace_event id={event_id} for {action['event_type']}"
+
+                    for target in action.get("post_update_files", []):
+                        pending_trace_event_updates.append(
+                            (
+                                repo_rel_to_abs(target["file"]),
+                                target["placeholder"],
+                                event_id,
+                            )
+                        )
+
+                    results.append(ActionResult(action_type, detail, trace_event_id=event_id))
 
             elif action_type == "update_trace_event_id":
                 file_path = repo_rel_to_abs(action["file"])
-                update_trace_event_id(file_path, action["placeholder"], int(action["trace_event_id"]))
-                results.append(
-                    ActionResult(
-                        action_type,
-                        f"Updated trace_event_id in {action['file']}"
+
+                if dry_run:
+                    results.append(
+                        ActionResult(
+                            action_type,
+                            f"[DRY RUN] would update trace_event_id in {action['file']}"
+                        )
                     )
-                )
+                else:
+                    trace_result = update_trace_event_id(file_path, action["placeholder"], int(action["trace_event_id"]))
+                    if trace_result == "already_target":
+                        results.append(
+                            ActionResult(
+                                action_type,
+                                f"trace_event_id already {action['trace_event_id']} in {action['file']}"
+                            )
+                        )
+                    else:
+                        results.append(
+                            ActionResult(
+                                action_type,
+                                f"Updated trace_event_id in {action['file']}"
+                            )
+                        )
 
             else:
                 raise RegistrarError(f"Unknown action type: {action_type}")
 
-        for file_path, placeholder, event_id in pending_trace_event_updates:
-            update_trace_event_id(file_path, placeholder, event_id)
-            results.append(
-                ActionResult(
-                    "update_trace_event_id",
-                    f"Updated trace_event_id in {file_path.relative_to(REPO_ROOT)} to {event_id}",
-                    trace_event_id=event_id,
-                )
-            )
+        if not dry_run:
+            for file_path, placeholder, event_id in pending_trace_event_updates:
+                trace_result = update_trace_event_id(file_path, placeholder, event_id)
+                if trace_result == "already_target":
+                    results.append(
+                        ActionResult(
+                            "update_trace_event_id",
+                            f"trace_event_id already {event_id} in {file_path.relative_to(REPO_ROOT)}",
+                            trace_event_id=event_id,
+                        )
+                    )
+                else:
+                    results.append(
+                        ActionResult(
+                            "update_trace_event_id",
+                            f"Updated trace_event_id in {file_path.relative_to(REPO_ROOT)} to {event_id}",
+                            trace_event_id=event_id,
+                        )
+                    )
 
-        conn.commit()
+            conn.commit()
 
     except Exception:
-        conn.rollback()
+        if conn is not None:
+            conn.rollback()
         raise
     finally:
-        conn.close()
+        if conn is not None:
+            conn.close()
+
+    if dry_run:
+        return results
 
     changed_files = run_git(["status", "--porcelain"]).splitlines()
     changed_paths = [line[3:] for line in changed_files if line]
@@ -393,6 +456,7 @@ def main() -> int:
     parser.add_argument("--env-file", default=str(DEFAULT_ENV_FILE), help="Path to registrar env file")
     parser.add_argument("--no-commit", action="store_true", help="Do not commit git changes")
     parser.add_argument("--no-push", action="store_true", help="Do not push git changes")
+    parser.add_argument("--dry-run", action="store_true", help="Preview actions without changing files, DB, or git state")
     args = parser.parse_args()
 
     task_path = Path(args.task)
@@ -413,6 +477,7 @@ def main() -> int:
         task=task,
         commit_changes=not args.no_commit,
         push_changes=not args.no_push,
+        dry_run=args.dry_run,
     )
 
     print("[Registrar] results:")
@@ -425,8 +490,11 @@ def main() -> int:
     except Exception:
         pass
 
-    moved_to = move_task_to_processed(task_path)
-    print(f"[Registrar] task moved to {moved_to.relative_to(REPO_ROOT)}")
+    if args.dry_run:
+        print("[Registrar] dry run completed; task file not moved")
+    else:
+        moved_to = move_task_to_processed(task_path)
+        print(f"[Registrar] task moved to {moved_to.relative_to(REPO_ROOT)}")
 
     return 0
 
