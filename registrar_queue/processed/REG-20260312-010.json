@@ -1,0 +1,40 @@
+{
+  "task_id": "REG-20260312-010",
+  "date": "2026-03-12",
+  "authorized_by": "Librarian",
+  "role": "Registrar",
+  "description": "Register P-20260312-007 (Proposal Authority Boundary Framework) as accepted under Tier 1 autonomous governance. CRC-05 closed. trace_event: operational_governance_rule_enacted.",
+  "actions": [
+    {
+      "type": "create_file",
+      "file": "proposals/accepted/P-20260312-007.md",
+      "skip_if_exists": true,
+      "content": "---\nproposal_id: P-20260312-007\ntitle: \"Proposal Authority Boundary Framework\"\nstatus: accepted\ndate: 2026-03-12\nrevision: 0\nauthor: Proposer (Claude)\nrole: Proposer\ntier: 1\nlibrarian_classification: Tier 1 — Autonomous Governance\ncontext_references:\n  - constitution.md (v1.3)\n  - CRC Deliberation 05\n  - Founder Operational Preference (2026-03-12)\namendment_type: operational_governance_rule\ncrc_required: false\n---\n\n## Scope Statement\n\nThis proposal establishes the Proposal Authority Boundary Framework,\ndefining autonomous close authority, Founder approval conditions,\nLibrarian classification authority, and institutional protection mechanisms.\n\nThis proposal is not a constitutional amendment.\nThis proposal transitions AI Trading OS to\nFounder-supervised autonomous governance (Phase 2).\n\n## Part I — Proposal Tier Classification\n\n### Tier 1 — Autonomous Governance\n\nConditions (all must apply):\n  - No constitutional change\n  - No execution authority change\n  - No system safety concern\n\nFlow:\n  Proposal -> Librarian review + Tier classification\n  -> (no veto) -> accepted -> Founder notification (post-hoc)\n\nFounder involvement: notification only. No approval required.\n\n### Tier 2 — Founder Approval Required\n\nConditions (any one applies):\n  - Constitutional change\n  - Execution authority change\n  - System safety override\n\nFlow:\n  Proposal -> Librarian review + Tier classification\n  -> Founder approval -> accepted\n\nFounder involvement: approval required.\n\n## Part II — Tier Classification Authority\n\nThe Proposer may suggest a tier.\nThe Librarian makes the final tier classification.\n\nLibrarian tier classification authority is an extension of\ninstitutional consistency review as defined in the constitution.\n\nIf the Librarian reclassifies a Tier 1 proposal as Tier 2,\nthe Proposer must revise or request reclassification.\n\n## Part III — Protection Mechanisms\n\n### Librarian Veto\n\nTrigger conditions:\n  - Proposal conflicts with institutional records\n  - Tier classification is inappropriate\n  - Institutional consistency would be compromised\n\nEffect: proposal_blocked\nNext: Proposer revision -> re-review\n\n### Founder Override\n\nTrigger: Founder discretion (at any time)\n\nEffect:\n  - reopen_proposal (reopen a closed proposal)\n  - reject (reject a proposal)\n\nConstraint: Override does not delete institutional history.\n            append-only principle applies.\n\n### Institutional Reopen Rule\n\nIf institutional risk or inconsistency is discovered\nafter a proposal is closed, the Founder or Librarian\nmay reopen that proposal.\n\nReopen = corrective review, not reversal.\ntrace_event: proposal_reopened\n\n## Part IV — Founder Notification Protocol (Tier 1)\n\nNotification occurs in the next institutional communication\nbetween AI governance agents and the Founder.\n\nNotification content:\n  - proposal_id\n  - title\n  - accepted trace_event id\n  - summary (1-3 sentences)\n\nThe Founder may exercise override rights upon receiving notification.\n\n## Part V — Governance Phase Statement\n\nPhase 1 (prior): Human-approved governance\n  All proposals required Founder approval.\n\nPhase 2 (this proposal enacted): Founder-supervised autonomous governance\n  Tier 1 -> AI autonomous close (Founder notification only)\n  Tier 2 -> Founder approval required\n\n## Limitations\n\n- This proposal is an operational governance rule, not a constitutional amendment\n- Founder sovereign authority (final institutional authority) is unchanged\n- Tier 2 conditions are defined by constitutional provisions\n\n---\n\n*Submitted by: Proposer (Claude)*\n*Proposal ID: P-20260312-007*\n*Revision: 0*\n*Date: 2026-03-12*\n*Status: accepted*\n*Tier: 1 (Librarian classification)*\n*CRC: Deliberation 05 -- CLOSED*\n"
+    },
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "registrar",
+      "event_type": "operational_governance_rule_enacted",
+      "content": "P-20260312-007 Proposal Authority Boundary Framework enacted under Tier 1 autonomous governance. CRC Deliberation 05 closed. AI Trading OS Phase 2 begins.",
+      "metadata": {
+        "proposal_id": "P-20260312-007",
+        "tier": "1",
+        "librarian_classification": "Tier 1 — Autonomous Governance",
+        "crc_deliberation": "CRC-05",
+        "crc_status": "closed",
+        "governance_rule": "Proposal Authority Boundary Framework",
+        "phase_transition": "Phase 1 -> Phase 2"
+      },
+      "metadata_match": {
+        "proposal_id": "P-20260312-007",
+        "governance_rule": "Proposal Authority Boundary Framework"
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "Register P-20260312-007: Proposal Authority Boundary Framework enacted (Tier 1, CRC-05 closed, Phase 2)",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
