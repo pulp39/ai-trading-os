@@ -25,6 +25,18 @@ Authority: P-20260313-002 (AiiD Specification)
 
 ---
 
+## Observation Layer
+
+| aiid | display_name | role | model | deployment | appointed_by | appointment_date | status |
+|---|---|---|---|---|---|---|---|
+| collector_core | Collector Core | Collector | OpenClaw | VM-A | Founder | 2026-03-13 | active |
+
+Collector designation: Primary Collector (canonical_observation)
+Phase: Phase A — observation-only
+Authority: P-20260313-003
+
+---
+
 ## Notes
 
 - Existing agent_id values (claude_proposer, claude_registrar) are
