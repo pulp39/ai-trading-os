@@ -1,6 +1,6 @@
 ---
 AI TRADING OS — MASTER ANCHOR
-Version: 2026-03-13-r2
+Version: 2026-03-13-r3
 Layer: B (Institutional State Snapshot)
 Purpose: >
   Provide a stable cross-thread anchor for institutional state,
@@ -10,7 +10,7 @@ Canonical repository: ai-trading-os-private (private)
 
 # AI TRADING OS — MASTER ANCHOR
 
-Version: 2026-03-13-r2
+Version: 2026-03-13-r3
 Layer: B (Institutional State Snapshot)
 
 ## 1. Project Overview
@@ -30,9 +30,6 @@ Key principle: AI proposes. Execution authority is structurally constrained.
 
 ### Dual Repository Model
 
-As of 2026-03-13, AI Trading OS operates under a dual repository model
-authorized by Founder.
-
 ```
 Canonical operational repository: ai-trading-os-private (private)
   -> All institutional operations, proposals, trace_events
@@ -50,11 +47,8 @@ private = canonical operational
 ```
 
 All Registrar tasks execute against canonical (private) repository.
-All institutional synchronization must use the private repository anchor.
 
 ### Canonical Anchor Access
-
-The canonical Master Anchor is located at:
 
 ```
 Repository: pulp39/ai-trading-os-private
@@ -81,19 +75,16 @@ VM-A -- Research Environment
   Purpose: AI reasoning, research generation, institutional discussion,
            proposal drafting
   Responsibilities:
-    - Proposal authoring
-    - Research hypothesis formation
+    - Proposal authoring / Research hypothesis formation
     - Institutional deliberation
     - Registrar execution (Claude Code)
     - Observation Layer (OpenClaw / collector_core)
   VM-A must never place trading orders.
 
 VM-B -- Database Memory Node
-  Purpose: Institutional memory, trace_event logging, persistent research storage
-  Technology: PostgreSQL
-  Schema: research
+  Purpose: Institutional memory, trace_event logging
+  Technology: PostgreSQL | Schema: research
   Core table: research.trace_event
-  All institutional and research events must be logged here.
 
 Trading VM
   Purpose: Order execution only
@@ -132,28 +123,23 @@ Founder
 
 ```
 Founder
-  Human sovereign. Final authority on all institutional matters.
-  Founder decisions recorded as Founder Records (FR).
+  Human sovereign. Final authority. Decisions recorded as Founder Records (FR).
 
 Librarian (gpt_librarian)
   Institutional custodian. Speaker of the AI Assembly.
-  Evaluates proposals. Authorizes Registrar actions.
   AiiD: gpt_librarian | Model: GPT | Status: active
   Capability: GitHub repository read access (added 2026-03-13)
 
 Proposer (claude_proposer)
-  Generates institutional proposals and system evolution ideas.
-  AI Assembly Member Seat 2.
+  Generates institutional proposals. AI Assembly Member Seat 2.
   AiiD: claude_proposer | Model: Claude | Status: active
 
 Registrar (claude_registrar)
   Executes authorized institutional changes via Claude Code on VM-A.
-  Operates only under Librarian authorization.
   AiiD: claude_registrar | Model: Claude | Status: active
 
 Collector (collector_core)
-  Observation Layer. Collects market signals.
-  Does not modify institutional state.
+  Observation Layer. Does not modify institutional state.
   AiiD: collector_core | Occupant: OpenClaw | Deployment: VM-A
   Phase: Phase A (kabuStation only) | Status: active
 ```
@@ -162,101 +148,65 @@ Collector (collector_core)
 
 Established: 2026-03-13 | trace_event: 80
 
-### Session Types
-
 ```
 Ordinary Session     : Opened/closed by Founder via Librarian declaration.
-                       Closed state: idle.
-Emergency Session    : Convened by Librarian. Suspends Ordinary Session.
-                       Ends to idle (no automatic resumption).
+Emergency Session    : Convened by Librarian. Ends to idle.
 Constitutional Review: Auto-elevated when constitutional amendment is on agenda.
+Single-Agenda Rule   : Only one agenda item under deliberation at a time.
 ```
-
-Single-Agenda Rule: Only one agenda item may be under deliberation at a time.
 
 ### Current Assembly Seats
 
 ```
-aiid             | role                              | model | trace_event
-gpt_librarian    | Assembly Member Seat 1            | GPT   | 84
-claude_proposer  | Assembly Member Seat 2            | Claude| 85
+aiid             | role                    | model | trace_event
+gpt_librarian    | Assembly Member Seat 1  | GPT   | 84
+claude_proposer  | Assembly Member Seat 2  | Claude| 85
 ```
 
 ## 6. AiiD Registry Summary (P-20260313-002)
 
 Established: 2026-03-13 | trace_event: 81
-Registry location: docs/aiid_registry.md (Layer B)
-AiiD = institutional seat (not AI instance).
-Defined per Constitution Article E, F.
-
-### Active AiiD Records
+Registry: docs/aiid_registry.md (Layer B)
 
 ```
-aiid             | role                                      | model     | status
-claude_proposer  | Proposer / Assembly Member Seat 2         | Claude    | active
-claude_registrar | Registrar                                 | Claude    | active
-gpt_librarian    | Assembly Member Seat 1 / Librarian        | GPT       | active
-collector_core   | Collector / Primary Collector             | OpenClaw  | active
+aiid             | role                               | model     | status
+claude_proposer  | Proposer / Assembly Member Seat 2  | Claude    | active
+claude_registrar | Registrar                          | Claude    | active
+gpt_librarian    | Assembly Member Seat 1 / Librarian | GPT       | active
+collector_core   | Collector / Primary Collector      | OpenClaw  | active
 ```
 
-## 7. Observation Layer (P-20260313-003, P-20260313-004, P-20260313-005)
-
-### Collector Core Seat (P-20260313-003)
-
-```
-Established: 2026-03-13 | trace_events: 86, 87
-aiid: collector_core
-occupant: OpenClaw
-deployment: VM-A
-phase: Phase A
-status: active
-designation: Primary Collector (canonical_observation)
-authority: P-20260312-006
-```
-
-### OpenClaw Operational Integration (P-20260313-004)
-
-```
-Established: 2026-03-13 | trace_event: 88
-Phase A data scope (kabuStation only):
-  symbol, price, volume, previous_close, order_book, timestamp
-```
-
-### Market Observation Governance (P-20260313-005 / CRC-05)
+## 7. Observation Layer (CRC-05 / P-20260313-005)
 
 Established: 2026-03-13 | trace_event: 91
 
-#### Instrument Model
+### Instrument Model
 
 ```
-Instrument = market-level institutional object (independent of API)
-instrument_id format: {asset_class}_{symbol_canonical}
-  e.g., equity_7203
+Instrument = market-level institutional object
+instrument_id format: {asset_class}_{symbol_canonical}  e.g., equity_7203
 Phase A scope: equity only
-Futures/options: recognized but not observed
 ```
 
-#### Observation Model
+### Observation Model
 
 ```
-observation_type : price_bar
-interval         : 1m
-unit             : JPY
+observation_type : price_bar | interval: 1m | unit: JPY
 source           : kabuStation (canonical, Phase A)
 ```
 
-#### Observation Integrity Rules (1-6)
+### Observation Integrity Rules (1-6)
 
 ```
 Rule 1: Source policy governs before comparison policy
-Rule 2: kabuStation = canonical source (Phase A, equity price_bar)
+Rule 2: kabuStation = canonical source (Phase A)
 Rule 3: Supplemental observations do not override canonical
 Rule 4: Conflict = same instrument_id/timestamp/type, different payload
 Rule 5: Conflict resolution deferred to Phase B+
-Rule 6: All Phase A canonical_observation trace_events carry integrity_role = "canonical" only
+Rule 6: All Phase A canonical_observation carry integrity_role = "canonical"
 ```
 
-#### canonical_observation trace_event structure
+### canonical_observation trace_event (key fields)
 
 ```json
 {
@@ -265,18 +215,14 @@ Rule 6: All Phase A canonical_observation trace_events carry integrity_role = "c
   "metadata": {
     "instrument_id": "equity_7203",
     "observation_type": "price_bar",
-    "interval": "1m",
     "source": "kabuStation",
-    "api_symbol": "7203",
-    "api_exchange": 1,
-    "quality_tier": "canonical",
     "integrity_role": "canonical",
     "phase": "Phase A"
   }
 }
 ```
 
-## 8. Hypothesis Layer (P-20260313-006 / CRC-06)
+## 8. Hypothesis Layer (CRC-06 / P-20260313-006)
 
 Established: 2026-03-13 | trace_event: 92
 
@@ -285,14 +231,11 @@ Established: 2026-03-13 | trace_event: 92
 ```
 hypothesis_id      : UUID
 instrument_id      : CRC-05 canonical object
-hypothesis_type    : trend | mean_reversion | breakout | event_driven | other
 direction          : long | short | neutral
 confidence         : 0.0 - 1.0 (AI self-assessment, Phase A)
 confidence_basis   : Natural language rationale (required)
-evidence           : JSON
-source_observation : {trace_event_id, instrument_id, timestamp}
-expiry_timestamp   : ISO8601 (required)
 status             : generated | active | expired | invalidated
+expiry_timestamp   : ISO8601 (required)
 phase              : Phase A
 ```
 
@@ -306,29 +249,90 @@ bet_status          : proposed | accepted | rejected | executed | expired
 acceptance_authority: Founder only (Phase A)
 ```
 
-Rules B1-B6 in effect (advisory only, Hypothesis binding, immutable after proposed).
+Rules B1-B6 in effect. Rules E1-E5 (Evaluation) in effect.
 
-### Hypothesis Evaluation Framework (summary)
+## 9. Execution Layer (CRC-07 / P-20260313-008)
+
+Established: 2026-03-13 | trace_event: 94
+
+### Execution Definition
+
+Execution = any act causing irreversible or quasi-irreversible change
+to the external state or internal institutional state of ATOS.
+Execution requires explicit authorization. No implicit inheritance.
+
+### Execution Modes
 
 ```
-outcome             : hit | miss | partial | inconclusive
-evaluated_by        : registrar | founder (Phase A)
-                      system reserved (Phase B+)
-Aggregate metrics   : computed on demand, NOT stored in trace_event
+Simulation Mode    : Full simulation. No external impact.
+Paper Mode         : Live data reference. No real orders.
+Shadow Mode        : Theoretical decisions without orders.
+                     Candidates recorded as shadow_execution_candidate.
+Assisted Live Mode : Real execution with mandatory Founder approval per order.
+                     [Phase A TARGET MODE]
+Autonomous Live    : NOT OPEN. Requires independent CRC.
 ```
 
-Rules E1-E5 in effect (non-punitive Phase A, immutable records).
-
-### Cognition-Decision-Action Pipeline
+### Minimum Approval Rules
 
 ```
-hypothesis_generated
-  -> bet_proposed
-  -> bet_accepted / bet_rejected (Founder authority)
-  -> hypothesis_evaluated
+Rule A: Simulation/Paper/Shadow -- Founder individual approval not required
+Rule B: Assisted Live -- execution_request + Risk Manager review +
+        Founder final approval + trace_event before/after + kill switch confirmed
+Rule C: Autonomous Live -- NOT APPROVED in CRC-07
 ```
 
-## 9. Accepted Proposal Registry (Complete)
+### execution_request (key fields)
+
+```yaml
+execution_request_id: ER-YYYYMMDD-NNN
+mode: simulation | paper | shadow | assisted_live
+source_hypotheses: []  # minimum 1 required for assisted_live
+approval_required_from: []
+status: drafted | submitted | under_review | approved | denied |
+        expired | executed | partially_executed | cancelled | emergency_blocked
+```
+
+### Risk Constraints (execution_policy references)
+
+```
+max_notional_per_order | max_daily_loss | max_position_per_instrument
+max_open_orders | trading_session_boundary | instrument_allowlist
+mode_allowlist | broker_route_allowlist
+```
+
+### Emergency Powers
+
+```
+Kill Switch: required. Stops orders, loops, jobs, autonomous chains.
+kill_switch_state_changed trace_event: mandatory on every state change
+  new_state values: enabled | disabled | partially_restricted | emergency_locked
+Final stop authority: Founder
+```
+
+### New trace_event types (CRC-07)
+
+```
+kill_switch_state_changed   : kill switch state transition
+shadow_execution_candidate  : hypothetical execution under Shadow Mode
+```
+
+### Policy / Adapter Boundary
+
+```
+execution_policy = institutional layer (CRC-07 scope)
+broker_adapter   = infrastructure layer (outside CRC-07 scope)
+```
+
+### Reserved Future Constitutional Agenda
+
+```
+Article H (candidate): Autonomous Execution Conditions
+Article I (candidate): Execution Override Rights
+Article J (candidate): Accountability Chain for Autonomous Execution
+```
+
+## 10. Accepted Proposal Registry (Complete)
 
 ### 2026-03-10
 
@@ -373,10 +377,12 @@ P-20260313-003  Collector Core Seat Establishment                TE:86,87
 P-20260313-004  OpenClaw Operational Integration                 TE:88
 P-20260313-005  Market Observation Governance (CRC-05)           TE:91
 P-20260313-006  Hypothesis Governance Framework (CRC-06)         TE:92
-P-20260313-007  Master Anchor Update (Phase A Completion)        [this update]
+P-20260313-007  Master Anchor Update (Phase A Completion)        TE:93
+P-20260313-008  Execution Governance Framework (CRC-07)          TE:94
+P-20260313-009  Master Anchor Update (CRC-07 Sync)               [this update]
 ```
 
-## 10. CRC Deliberation History
+## 11. CRC Deliberation History
 
 ```
 CRC01  Execution Authority Gap         Articles A-D enacted    P-20260312-002  TE:65
@@ -385,61 +391,41 @@ CRC03  Delegated Institutional Seats   Enacted                 P-20260312-004
 CRC04  Anchor Governance               Framework enacted       P-20260312-005
 CRC05  Market Observation Governance   CLOSED                  P-20260313-005  TE:91
 CRC06  Hypothesis Object Model         CLOSED                  P-20260313-006  TE:92
-CRC07  Execution Governance            PENDING (next session)
+CRC07  Execution Governance            CLOSED                  P-20260313-008  TE:94
 ```
 
-## 11. Registrar Operational Architecture
-
-### Execution Environment
+## 12. Registrar Operational Architecture
 
 ```
-Host:           VM-A
-Directory:      C:\ai-trading-os
-Agent:          Claude Code
+Host: VM-A | Directory: C:\ai-trading-os | Agent: Claude Code
 Authentication: billyinocean@gmail.com
-```
-
-### Registrar Identity
-
-```
 Database role: claude_registrar
-Permissions:   INSERT/SELECT on research.trace_event
-Credentials:   .env.registrar (gitignored, local only)
+Permissions: INSERT/SELECT on research.trace_event
+Credentials: .env.registrar (gitignored, local only)
 ```
 
 ### Standard Execution Procedure (per CLAUDE.md Layer C)
 
 ```
 1. git pull
-2. git status (must be clean -- stop if not)
+2. git status (must be clean)
 3. Review task JSON
 4. dry-run: python scripts/registrar/apply_registrar_task.py --task <file> --dry-run
 5. Present dry-run result to Founder
-6. Await Founder confirmation (yes/no)
+6. Await Founder confirmation
 7. Live execution
 8. git log --oneline -3
 9. Confirm trace_event id
 ```
 
-### Safety Features
-
-```
-Idempotent execution (reuse existing state)
-Dry-run mode (no writes)
-Processed task isolation (registrar_queue/processed/)
-.env.registrar modification prohibited
-Unrelated commit prohibition
-```
-
 ### Known Issue
 
 ```
-apply_registrar_task.py: run_git() uses stdout.strip() -- leading space in
-git status --porcelain may cause path parse issues when using
-create_file + overwrite: true. Future fix candidate.
+apply_registrar_task.py stdout.strip() may misparse leading space in
+git status --porcelain with create_file + overwrite:true. Future fix candidate.
 ```
 
-## 12. trace_event Key Milestones
+## 13. trace_event Key Milestones
 
 ```
 id | event_type                           | content
@@ -453,8 +439,6 @@ id | event_type                           | content
 69 | constitution_update                   | Articles E-G enacted
 80 | operational_governance_rule_enacted   | P-20260313-001 AI Assembly
 81 | operational_governance_rule_enacted   | P-20260313-002 AiiD Specification
-82 | aiid_appointed                        | gpt_librarian (Assembly Seat 1)
-83 | aiid_appointed                        | claude_proposer (Assembly Seat 2)
 84 | aiid_appointed                        | gpt_librarian confirmed
 85 | aiid_appointed                        | claude_proposer confirmed
 86 | aiid_appointed                        | collector_core (OpenClaw / VM-A)
@@ -463,15 +447,15 @@ id | event_type                           | content
 90 | repository_governance_update          | Dual repo model, canonical = private
 91 | operational_governance_rule_enacted   | P-20260313-005 Market Observation (CRC-05)
 92 | operational_governance_rule_enacted   | P-20260313-006 Hypothesis Governance (CRC-06)
+93 | documentation_governance_update       | Master Anchor v2026-03-13-r2 (Phase A complete)
+94 | operational_governance_rule_enacted   | P-20260313-008 Execution Governance (CRC-07)
 ```
 
-## 13. Institutional Layer Model (Phase A Complete)
+## 14. Institutional Layer Model (Phase A Complete)
 
 ```
 Layer A -- Institutional Records (Source of Truth)
-  constitution.md
-  proposals/*
-  founder_records/*
+  constitution.md / proposals/* / founder_records/*
   research.trace_event
 
 Layer B -- Institutional State Snapshot
@@ -482,17 +466,17 @@ Layer C -- AI Operational Context
   CLAUDE.md
 
 Layer D -- Market Observation Layer  [CRC-05 / P-20260313-005]
-  canonical_observation
-  Instrument Model (instrument_id: equity_{symbol})
-  Observation Integrity Rules 1-6
-  Two-tier recording: collector_core -> Registrar -> trace_event
+  canonical_observation / Instrument Model / Integrity Rules 1-6
 
 Layer E -- Hypothesis Layer          [CRC-06 / P-20260313-006]
   Hypothesis Object / Bet Proposal Object / Evaluation Framework
-  Cognition-Decision-Action-Learning pipeline
+
+Layer F -- Execution Layer           [CRC-07 / P-20260313-008]
+  execution_request / execution_policy / Execution Modes
+  kill_switch / shadow_execution_candidate / Auditability
 ```
 
-## 14. Full Institutional Pipeline (Phase A)
+## 15. Full Institutional Pipeline (Phase A — Complete)
 
 ```
 Market
@@ -517,7 +501,8 @@ Founder Review
   | trace_event: bet_accepted / bet_rejected
   v
 Execution Layer (Trading VM)
-  |
+  | execution_request + Risk Manager review + Founder approval
+  | trace_event: execution events
   v
 Hypothesis Evaluation
   | trace_event: hypothesis_evaluated
@@ -525,7 +510,9 @@ Hypothesis Evaluation
 Institutional Learning Record
 ```
 
-## 15. Phase A Governance Status
+End-to-end pipeline is fully governed as of 2026-03-13.
+
+## 16. Phase A Governance Status (COMPLETE)
 
 ```
 Phase A governance is complete as of 2026-03-13.
@@ -541,17 +528,19 @@ Completed:
   [x] Collector governance (P-20260312-006)
   [x] Market Observation Layer (CRC05)
   [x] Hypothesis Layer (CRC06)
+  [x] Execution Governance (CRC07)
 
 Pending (requires separate proposals):
-  [ ] CRC-07: Execution Governance (next session)
   [ ] OpenClaw VM-A technical implementation (operational)
   [ ] Observation frequency determination (Founder decision)
   [ ] apply_registrar_task.py bug fix (Founder judgment)
+  [ ] Broker adapter definition (operational proposal)
   [ ] Phase B: Statistical confidence calibration
-  [ ] Phase B: Automated evaluation engine
+  [ ] Phase B: AI-assisted Risk Manager
+  [ ] Phase B: Autonomous execution (requires independent CRC)
 ```
 
-## 16. Next Thread Entry
+## 17. Next Thread Entry
 
 Next thread must begin with:
 
@@ -562,7 +551,7 @@ https://github.com/pulp39/ai-trading-os-private/blob/main/docs/anchors/AI_TRADIN
 
 Note: Authenticated GitHub access required (private repository).
 
-Recommended reading order for new session:
+Recommended reading order:
 
 ```
 1. constitution.md
@@ -573,12 +562,13 @@ Recommended reading order for new session:
 ```
 
 ```
-Next agenda: CRC-07 Execution Governance
+Phase A governance complete.
+Next session: operational implementation or new CRC as Founder directs.
 ```
 
 ---
 
 Layer B document. Not authoritative. Derived from Layer A records.
 
-Updated: 2026-03-13-r2 by Registrar (REG-20260313-009)
-Authority: Founder (P-20260313-007)
+Updated: 2026-03-13-r3 by Registrar (REG-20260313-011)
+Authority: Founder (P-20260313-009)
