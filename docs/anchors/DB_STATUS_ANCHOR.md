@@ -1,23 +1,21 @@
 # DB_STATUS_ANCHOR
 
-Version: 1.1
+Version: 1.2
 Date: 2026-03-14
 Status: active
-Purpose: Canonical database state reference for AI Trading OS
+Purpose: Database state reference for AI Trading OS
 
 ---
 
-## 1. Purpose
+## 1. About This Document
 
-This document defines the canonical database state currently recognized
-by AI Trading OS.
+This document describes the current database state of AI Trading OS.
 
-It serves as the institutional reference for database host identity,
-schema structure, core tables, known users, and current design assumptions
-relevant to execution, trace_event recording, and future registrar-linked
-runner design.
+It serves as a reference for database host identity, schema structure,
+core tables, known users, and current design assumptions relevant to
+execution, trace_event recording, and runner design.
 
-This anchor must be interpreted consistently with:
+This document is intended to be read alongside:
 
 - `constitution.md`
 - `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
@@ -33,10 +31,6 @@ Current canonical database:
 - Database name: `trading`
 - Confirmed PostgreSQL version: `PostgreSQL 16.13`
 
-This anchor describes the database state of the AI Trading OS
-institutional environment and is not merely a generic PostgreSQL
-description.
-
 Note: The runtime OS distribution was observed during inspection but
 has not been precisely confirmed. See Section 14 for unverified items.
 
@@ -44,140 +38,91 @@ has not been precisely confirmed. See Section 14 for unverified items.
 
 ## 3. Host and Access Context
 
-Canonical DB host:
+Canonical DB host: `192.168.250.11`
 
-`192.168.250.11`
-
-Canonical SSH access path:
-```text
-ssh makoto@192.168.250.11
-```
-
-This host is the current canonical database node for the AI Trading OS
-environment.
+SSH access: `ssh makoto@192.168.250.11`
 
 At the time of inspection, the SQL session was established via a local
 Unix socket connection. When connected through a local Unix socket,
-the PostgreSQL functions `inet_server_addr()` and `inet_server_port()`
-return NULL, as they reflect the TCP network address rather than the
-socket path. This NULL result is a property of the connection method,
-not an indication of missing host configuration.
-
-The canonical host address `192.168.250.11` is confirmed through network
-configuration, not through these SQL functions.
+`inet_server_addr()` and `inet_server_port()` return NULL — this is a
+property of the connection method, not an indication of missing host
+configuration. The host address `192.168.250.11` is confirmed through
+network configuration.
 
 ---
 
-## 4. Canonical Database Rule
+## 4. Canonical Database
 
-For institutional purposes, the canonical operational database is:
+The operational database for AI Trading OS is:
 
 `trading`
 
-All schema interpretation, trace_event design, proposal persistence,
-collector status interpretation, and future registrar-linked DB work
-must align with this database unless explicitly superseded through
-institutional procedure.
+Schema interpretation, trace_event design, proposal persistence,
+collector status, and registrar-linked DB work all align with this
+database unless explicitly updated through institutional procedure.
 
 ---
 
 ## 5. Schemas
 
-Confirmed schemas relevant to AI Trading OS:
+Operational schemas:
 
 - `public`
 - `ops`
 - `research`
 
-Additional default PostgreSQL schemas were also present during inspection:
-
-- `information_schema`
-- `pg_catalog`
-- `pg_toast`
-
-For institutional interpretation, the operational schema focus is:
-
-- `public`
-- `ops`
-- `research`
+Additional default PostgreSQL schemas (not part of operational scope):
+`information_schema`, `pg_catalog`, `pg_toast`
 
 ---
 
-## 6. Confirmed Base Tables
-
-Confirmed base tables in the institutional schemas at inspection time:
+## 6. Confirmed Tables
 
 ### 6.1 ops
-
 - `ops.collector_status`
 
 ### 6.2 public
-
 - `public.board_snapshots`
 
 ### 6.3 research
-
 - `research.agent`
 - `research.agent_role`
 - `research.proposal`
 - `research.role`
 - `research.trace_event`
 
-These tables are part of the currently observed database state.
+---
+
+## 7. Core Tables
+
+| Table | Purpose |
+|---|---|
+| public.board_snapshots | Market data core |
+| ops.collector_status | Collector operational status |
+| research.trace_event | Institutional event log |
+| research.proposal | Proposal persistence |
 
 ---
 
-## 7. Core Institutional Tables
+## 8. Reserved Table (Not Yet Active)
 
-The following tables are the core tables relevant to the current
-institutional operating model.
+`ops.market_snapshot` was checked and was not present at inspection
+time.
 
-### 7.1 public.board_snapshots
-
-Market data core table.
-
-### 7.2 ops.collector_status
-
-Collector operational status table.
-
-### 7.3 research.trace_event
-
-Institutional event recording table.
-
-### 7.4 research.proposal
-
-Proposal persistence table.
-
-These four tables form the minimum database backbone for current
-collector, governance, and execution-linked institutional recording.
+It remains a reserved future consolidation target. Current market data
+is stored in `public.board_snapshots`. Runner and collector design
+should not assume `ops.market_snapshot` is active unless this document
+has been updated to reflect a verified change.
 
 ---
 
-## 8. Confirmed Non-Present Reserved Table
-
-The following table was checked and was not present at inspection time:
-
-`ops.market_snapshot`
-
-Institutional interpretation:
-
-- `ops.market_snapshot` remains a reserved future consolidation target
-- it is not currently the active market-data core table
-- current market-data core status belongs to `public.board_snapshots`
-
-This distinction is important for future runner design and DB evolution.
-
----
-
-## 9. Table Structure Summary
+## 9. Table Structures
 
 ### 9.1 public.board_snapshots
 
-Confirmed columns:
-
-| Column | Type | Constraints |
+| Column | Type | Notes |
 |---|---|---|
-| id | bigint | primary key, default sequence |
+| id | bigint | primary key |
 | captured_at | timestamptz | not null, default now() |
 | symbol | text | not null |
 | exchange | integer | not null |
@@ -190,16 +135,14 @@ Confirmed columns:
 | vwap | numeric | |
 | payload | jsonb | not null |
 
-Interpretation: board_snapshots stores structured market observation
-records with both normalized fields and raw/extended JSON payload.
+Stores structured market observation records with normalized fields
+and raw JSON payload.
 
 ### 9.2 ops.collector_status
 
-Confirmed columns:
-
-| Column | Type | Constraints |
+| Column | Type | Notes |
 |---|---|---|
-| id | bigint | primary key, default sequence |
+| id | bigint | primary key |
 | ts | timestamptz | not null, default now() |
 | collector_name | text | not null |
 | run_id | text | |
@@ -209,18 +152,16 @@ Confirmed columns:
 | rows_written | integer | default 0 |
 | message | text | |
 | error_detail | text | |
-| metadata | jsonb | not null, default '{}'::jsonb |
+| metadata | jsonb | not null, default '{}' |
 
-Interpretation: collector_status captures collector execution state,
-run metadata, result counts, and failure context.
+Captures collector execution state, run metadata, result counts, and
+failure context.
 
 ### 9.3 research.trace_event
 
-Confirmed columns:
-
-| Column | Type | Constraints |
+| Column | Type | Notes |
 |---|---|---|
-| id | bigint | primary key, default sequence |
+| id | bigint | primary key |
 | ts | timestamptz | not null, default now() |
 | session_id | text | |
 | agent_id | text | not null |
@@ -230,19 +171,16 @@ Confirmed columns:
 | exchange | integer | |
 | content | text | |
 | parent_event_id | bigint | |
-| metadata | jsonb | not null, default '{}'::jsonb |
+| metadata | jsonb | not null, default '{}' |
 
-Interpretation: trace_event is the canonical institutional event log
-for AI Trading OS. It is suitable for recording bounded execution
-outcomes, governance-relevant actions, and institutional traceability.
+The canonical institutional event log. Suitable for recording bounded
+execution outcomes and governance-relevant actions.
 
 ### 9.4 research.proposal
 
-Confirmed columns:
-
-| Column | Type | Constraints |
+| Column | Type | Notes |
 |---|---|---|
-| id | bigint | primary key, default sequence |
+| id | bigint | primary key |
 | ts | timestamptz | not null, default now() |
 | session_id | text | |
 | agent_id | text | not null |
@@ -254,160 +192,95 @@ Confirmed columns:
 | confidence | numeric | |
 | status | text | not null, default 'proposed' |
 | linked_event_id | bigint | |
-| metadata | jsonb | not null, default '{}'::jsonb |
+| metadata | jsonb | not null, default '{}' |
 
-Interpretation: proposal is the canonical proposal log table and
-supports proposal typing, text persistence, confidence annotation,
-status tracking, linkage to events, and structured metadata.
-
----
-
-## 10. Primary Key State
-
-Confirmed primary keys in relevant schemas:
-
-| Table | Primary Key |
-|---|---|
-| ops.collector_status | id |
-| public.board_snapshots | id |
-| research.agent | id |
-| research.agent_role | id |
-| research.proposal | id |
-| research.role | id |
-| research.trace_event | id |
-
-Institutional interpretation: The database currently uses a simple and
-legible primary-key convention centered on `id` bigint sequence-backed
-identifiers.
+Supports proposal typing, text persistence, status tracking, and
+linkage to events.
 
 ---
 
-## 11. Known Users
+## 10. Primary Keys
 
-Confirmed database roles relevant to the institutional environment:
-
-| Role | Superuser | CREATEROLE | CREATEDB | Login |
-|---|---|---|---|---|
-| trading_user | no | no | no | yes |
-| research | no | no | no | yes |
-| claude_registrar | no | no | no | yes |
-
-Institutional interpretation:
-
-`claude_registrar` is present as a real database login role and can
-therefore be treated as a concrete DB integration target for Assistant
-Registrar execution design, subject to privilege confirmation and
-implementation rules.
-
-Note: The detailed privilege scope of `claude_registrar` — including
-which schemas and tables it may read from or write to — has not yet
-been verified. Confirmation of INSERT/SELECT scope is required before
-runner implementation proceeds. See Section 14.
+All institutional tables use `id bigint` as the primary key, backed
+by a sequence.
 
 ---
 
-## 12. Current Design Rule
+## 11. Known Database Roles
 
-Current canonical design rule:
+| Role | Login | Superuser | Notes |
+|---|---|---|---|
+| trading_user | yes | no | |
+| research | yes | no | |
+| claude_registrar | yes | no | Privilege scope not yet verified |
 
-`public.board_snapshots` is the active market-data core table.
-
-`ops.market_snapshot` is reserved for future consolidation and is not
-currently active.
-
-This rule must be respected by:
-
-- collector design
-- runner design
-- DB migration planning
-- trace_event-linked execution design
-- registrar task automation planning
-
-No new component should assume `ops.market_snapshot` is already active
-unless the database state has actually changed and this anchor has been
-updated institutionally.
+`claude_registrar` is a real login role and a candidate integration
+target for Assistant Registrar execution. Privilege verification
+(INSERT/SELECT scope) is needed before runner implementation proceeds.
+See Section 14.
 
 ---
 
-## 13. Use in Future Execution Design
+## 12. Current Design Note
 
-This DB anchor must be consulted for future work involving:
+`public.board_snapshots` is the active market data table.
+`ops.market_snapshot` is reserved for future use and is not currently
+active.
+
+This distinction is relevant for collector design, runner design, and
+DB migration planning.
+
+---
+
+## 13. Relevance to Future Work
+
+This document is a useful reference for:
 
 - trace_event insertion design
 - registrar-linked execution reporting
 - OpenClaw database access design
-- claude_registrar integration validation
-- runner design such as `registrar_task_runner.py`
+- claude_registrar integration
+- runner design (e.g., `registrar_task_runner.py`)
 - proposal/trace linkage design
-- collector-to-governance data path interpretation
-
-This file is the canonical DB reference for institutional alignment.
 
 ---
 
 ## 14. Confirmed Facts and Unverified Items
 
-### 14.1 Confirmed Facts
+### 14.1 Confirmed
 
-The following facts are considered confirmed because they were directly
-verified from a live DB session:
+- Database name: `trading`
+- PostgreSQL version: `16.13`
+- Host: `192.168.250.11`
+- Schemas: `public`, `ops`, `research`
+- Tables listed in Section 6
+- `ops.market_snapshot` not present
+- Column structures in Section 9
+- Primary key convention
+- Existence of roles: `trading_user`, `research`, `claude_registrar`
+- Login capability of all three roles
+- NULL behavior of `inet_server_addr()` under Unix socket connection
 
-- database name: `trading`
-- PostgreSQL version: `PostgreSQL 16.13`
-- canonical DB host: `192.168.250.11`
-- schema list: `public`, `ops`, `research`
-- confirmed table list (Section 6)
-- absence of `ops.market_snapshot`
-- core table column structures (Section 9)
-- primary key conventions (Section 10)
-- existence of known roles: `trading_user`, `research`, `claude_registrar`
-- login capability of all three roles
-- NULL behavior of `inet_server_addr()` under local Unix socket connection
+### 14.2 Not Yet Verified
 
-### 14.2 Unverified Items
-
-The following items were not fully established during inspection and
-should be verified before dependent implementation proceeds:
-
-- exact runtime OS distribution
-  (observed as Ubuntu 24.04 series; precise distribution not confirmed)
-- detailed privilege matrix for each role
-  (INSERT/SELECT scope for `claude_registrar` is a priority item
-   before runner implementation; see Section 11)
-- foreign key relationships, if any
-- row counts and operational data volumes
-- application-side connection path used by each runtime participant
+- Exact runtime OS distribution
+  (observed as Ubuntu 24.04 series; precise version not confirmed)
+- Privilege scope for `claude_registrar`
+  (priority item before runner implementation)
+- Foreign key relationships
+- Row counts and data volumes
+- Application-side connection paths
 
 ---
 
-## 15. Final Rule
+## 15. Current Reference State
 
-Until superseded by a later verified institutional update:
+Until updated through institutional procedure:
 
-- `trading` is the canonical DB
-- `192.168.250.11` is the canonical DB host
-- `public.board_snapshots` is the market-data core
-- `research.trace_event` is the institutional event log core
-- `research.proposal` is the proposal persistence core
-- `claude_registrar` is a real login-role integration target for future
-  Assistant Registrar execution design, pending privilege verification
-
-This file is the canonical database state reference for AI Trading OS.
-```
-
----
-
-## 変更サマリー
-```
-Section 2  : "Ubuntu 24.04 family environment" 削除
-             → Section 14.2 へ移動、注記追加
-Section 3  : inet_server_addr() の NULL 挙動を説明補足
-             (local Unix socket の性質として明示)
-Section 9  : 表形式に整理 (内容変更なし)
-Section 10 : 表形式に整理 (内容変更なし)
-Section 11 : claude_registrar 権限未確認の注記追加
-             runner実装前に確認必要と明示
-Section 14 : タイトルを "Confirmed Facts and Unverified Items" に変更
-             14.1 確認済み / 14.2 未確認 に分離
-             未確認項目に2項目追加
-Version    : 1.0 → 1.1
+- `trading` is the operational database
+- `192.168.250.11` is the DB host
+- `public.board_snapshots` is the market data table
+- `research.trace_event` is the event log
+- `research.proposal` is the proposal store
+- `claude_registrar` is the target role for Assistant Registrar DB
+  integration, pending privilege verification

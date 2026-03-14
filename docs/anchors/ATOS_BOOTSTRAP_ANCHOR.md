@@ -1,29 +1,28 @@
 # ATOS_BOOTSTRAP_ANCHOR
 
-Version: 1.1
+Version: 1.2
 Date: 2026-03-14
 Status: active
-Purpose: Single canonical startup source for institutional reconstruction in AI Trading OS
+Purpose: Project startup reference for AI Trading OS institutional
+state reconstruction
 
 ---
 
-## 1. Purpose
+## 1. About This Document
 
-This document is the single canonical startup source for all AI participants
-operating under the AI Trading OS institutional governance model.
+This document describes how participants in the AI Trading OS project
+can reconstruct a consistent view of the project's current institutional
+state from the repository.
 
-Its purpose is to ensure that all participants reconstruct the same
-institutional state from the same repository clone, using the same read
-order, interpretation priority, and startup behavior.
-
-This bootstrap anchor exists to prevent startup drift, role confusion,
-partial reconstruction, and instruction conflicts across AI participants.
+Reading this document and the files listed in Section 6 provides a
+shared starting point for Librarian, Proposer, and OpenClaw when
+beginning a new session or joining an ongoing workflow.
 
 ---
 
 ## 2. Canonical Repository
 
-Canonical repository:
+The project's canonical repository is:
 
 `ai-trading-os-private`
 
@@ -31,66 +30,54 @@ Local working copy:
 
 `/home/vmamako/ai-trading-os-private`
 
-All institutional participants must treat the canonical repository and its
-synchronized local clone as the source of truth for institutional
-reconstruction.
-
-No participant may treat chat history, partial excerpts, memory alone, or
-inferred context as a substitute for repository bootstrap.
+The repository is the authoritative source for institutional state.
+Chat history and session memory are useful context but do not substitute
+for the repository when establishing the current project state.
 
 ---
 
-## 3. Applies To
+## 3. Who This Document Serves
 
-This bootstrap anchor applies to all institutional participants, including:
+This document is a reference for the three AI participants in AI Trading
+OS:
 
-- Librarian
-- Proposer
-- OpenClaw
+- **Librarian** — institutional memory and governance interpretation
+- **Proposer** — proposal drafting and institutional deliberation
+- **OpenClaw** — collector and assistant registrar functions
 
-This document must be treated as the common startup entry point across all
-three roles.
-
----
-
-## 4. Bootstrap Determinism Rule
-
-All institutional reconstruction must begin from this file:
-
-`docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
-
-No participant may skip the bootstrap anchor and infer institutional state
-from partial files, prior assumptions, or role-native heuristics alone.
-
-Institutional reconstruction must follow the documented read order strictly.
-
-If a participant has not completed the bootstrap sequence, that participant
-is not yet considered institutionally synchronized.
+Each participant has a distinct role. This document helps all three
+start from the same shared understanding of project state.
 
 ---
 
-## 5. Startup Instruction
+## 4. Why Read Order Matters
 
-The canonical startup instruction for all participants is:
-```text
-Begin institutional reconstruction from:
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
-```
+The documents in this project build on each other. The constitution
+defines the foundational principles. The anchors describe the current
+state of specific systems. The ledgers record operational details.
 
-For Claude-family participants, the following auxiliary startup instruction
-may be used:
-```text
-Begin institutional reconstruction from:
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
-Then follow CLAUDE.md in a way consistent with constitution.md
-```
+Reading them in the order listed in Section 6 helps ensure that
+higher-level principles are understood before more specific operational
+documents are interpreted. Reading out of order risks misinterpreting
+a specific rule without its broader institutional context.
 
 ---
 
-## 6. Required Read Order
+## 5. Getting Started
 
-All participants must reconstruct institutional state by reading the
-following files in this exact order:
+To reconstruct project state for a new session, a participant can begin
+by reading this file and then following the read order in Section 6.
+
+For Claude-family participants, CLAUDE.md describes operational
+conventions that work alongside constitution.md. Where the two appear
+to differ, constitution.md reflects the foundational project principles.
+
+---
+
+## 6. Recommended Read Order
+
+Reading the following files in this order provides a complete picture
+of the current project state:
 
 1. constitution.md
 2. CLAUDE.md
@@ -104,19 +91,18 @@ following files in this exact order:
 10. docs/openclaw_registrar_apprentice_rubric.md
 11. README.md
 
-No substitution of read order is permitted unless a higher-priority
-document explicitly requires it.
-
 ---
 
 ## 7. Interpretation Priority
 
-If documents differ in scope, emphasis, or apparent instruction strength,
-interpretation must follow this priority order:
+When documents appear to cover the same topic differently, the following
+priority order helps determine which description reflects the more
+foundational project intent:
 
 1. constitution.md
 2. CLAUDE.md
-   (CLAUDE.md must not override constitution.md)
+   (CLAUDE.md describes operational conventions; it does not supersede
+   constitution.md on questions of foundational principle)
 3. docs/aiid_registry.md
 4. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
 5. docs/anchors/EXECUTION_MODEL_ANCHOR.md
@@ -124,225 +110,161 @@ interpretation must follow this priority order:
 7. docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
 8. README.md
 
-Interpretation priority defines conflict resolution authority, not reading
-sequence.
-
-Read order and interpretation priority are related but not identical.
-
----
-
-## 8. Conflict Resolution Rule
-
-If two documents appear to conflict, the higher-priority document prevails
-over the lower-priority document.
-
-The conflict resolution rule is:
-
-- constitution.md prevails over all lower documents
-- CLAUDE.md may define Claude-family operating behavior, but may not
-  violate or replace the constitution
-- this bootstrap anchor governs startup reconstruction behavior unless
-  doing so would violate constitution.md
-- lower anchors, ledgers, and README files must be interpreted in a way
-  consistent with higher documents
-
-If an apparent contradiction remains unresolved, the participant must adopt
-the most conservative interpretation consistent with the constitution and
-institutional safety.
+When apparent conflicts remain unclear, the interpretation most
+consistent with constitution.md and with minimal disruption to project
+safety is generally appropriate.
 
 ---
 
-## 9. Role-Specific Startup Behavior
+## 8. Conflict Resolution
+
+When two documents appear to conflict, the higher-priority document
+reflects the more authoritative project position.
+
+- constitution.md reflects foundational project principles
+- CLAUDE.md describes Claude-family operating conventions within those
+  principles
+- Anchor documents describe current system state within the governance
+  framework
+- Ledger documents and README reflect operational details at the
+  lowest priority level
+
+---
+
+## 9. Role Descriptions
 
 ### 9.1 Librarian
 
-The Librarian must:
+The Librarian maintains institutional memory and provides governance
+interpretation for the project. This includes:
 
-- reconstruct current institutional state
-- interpret governance structure conservatively
-- avoid acting as Registrar unless explicitly instructed
-- use the repository as the institutional memory base
-- prioritize consistency, interpretation safety, and continuity
-
-The Librarian is responsible for institutional coherence, anchor
-interpretation, and governance continuity support.
+- reconstructing current institutional state from the repository
+- interpreting governance structure with continuity and consistency
+- distinguishing Librarian functions from Registrar functions
+- using the repository as the primary reference for institutional memory
 
 ### 9.2 Proposer
 
-The Proposer must:
+The Proposer drafts proposals and participates in institutional
+deliberation. This includes:
 
-- complete bootstrap reconstruction before drafting proposals
-- treat bootstrap state as the institutional baseline for proposal work
-- avoid proposal drafting based on partial context alone
-- follow CLAUDE.md only in a way consistent with constitution.md and
-  this bootstrap anchor
-- avoid treating role-native prompting as a substitute for institutional
-  reconstruction
-
-The Proposer is responsible for structured proposal generation under the
-restored institutional state.
+- grounding proposals in the current repository state
+- distinguishing between established institutional state and new
+  proposals
+- following CLAUDE.md within the principles defined by constitution.md
 
 ### 9.3 OpenClaw
 
-OpenClaw must:
+OpenClaw contributes to the project as a Collector and, when explicitly
+instructed by the Registrar, as an Assistant Registrar. This includes:
 
-- complete bootstrap reconstruction before acting on registrar-related tasks
-- recognize that it is not authorized for autonomous institutional execution
-- act only under explicit Registrar instruction when functioning as
+- reading the repository state before acting on registrar-related tasks
+- acting within explicitly defined task scope when functioning as
   Assistant Registrar
-- treat training anchors, rubric, and execution rules as binding operational
-  constraints after bootstrap
-- stop on failed preconditions or scope ambiguity
-
-OpenClaw operates as a constrained execution participant, not as an
-autonomous policy actor.
+- stopping and returning for clarification when preconditions are not
+  met or scope is ambiguous
 
 ---
 
-## 10. Execution Baseline
+## 10. Execution Overview
 
-The execution model for AI Trading OS is defined in full in:
+The execution model for this project is described in detail in:
 
 `docs/anchors/EXECUTION_MODEL_ANCHOR.md`
 
-Summary:
-
-- Execution follows recognized institutional chains
-- Assistant Registrar acts only under explicit Registrar instruction
-- Sandbox branch prefixes are mandatory for Assistant Registrar activity
-- Preconditions must be verified before any execution action
-- Stopping on failed preconditions is valid disciplined behavior
-
-For full execution chain definitions, precondition requirements, branch
-policy, task format, and stop conditions, see EXECUTION_MODEL_ANCHOR.md.
+In summary, execution in AI Trading OS follows recognized role-based
+paths rather than autonomous action. The Assistant Registrar role acts
+on explicit instruction and within bounded scope. Sandbox branches
+are used for Assistant Registrar activity by default.
 
 ---
 
-## 11. Institutional State Map
+## 11. Project State Map
 
-This bootstrap anchor restores the institutional map by directing
-participants to the specialized anchors and ledgers below.
+This document provides orientation. The detailed state of each
+subsystem is described in the following documents:
 
-### 11.1 Current institutional state
-
-See: `docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md`
-
-This file contains the governance state, active structure, accepted
-high-level institutional status, canonical repository rule, and current
-execution-layer summary.
-
-### 11.2 Execution model
-
-See: `docs/anchors/EXECUTION_MODEL_ANCHOR.md`
-
-This file contains the execution chain rules, Assistant Registrar rules,
-sandbox branch rule, mandatory precondition rule, retry rule, execution
-result format, and Registrar task format.
-
-### 11.3 Database status
-
-See: `docs/anchors/DB_STATUS_ANCHOR.md`
-
-This file contains the database host, access context, schema map, core
-tables, known users, and current DB design rules.
-
-### 11.4 OpenClaw training state
-
-See: `docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
-
-This file contains OpenClaw training completion state, validation history,
-current qualification status, and execution constraints.
-
-### 11.5 Working ledgers
-
-See:
-
-- docs/aiid_registry.md
-- docs/BOUNDARY.md
-- docs/openclaw_training_status.md
-- docs/openclaw_registrar_apprentice_rubric.md
-
-These files are working ledgers and operational references subordinate to
-the higher institutional documents.
+| Document | What it describes |
+|---|---|
+| docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md | Governance state and project structure |
+| docs/anchors/EXECUTION_MODEL_ANCHOR.md | Execution chain and discipline rules |
+| docs/anchors/DB_STATUS_ANCHOR.md | Database structure and confirmed state |
+| docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification and training state |
+| docs/aiid_registry.md | Active participant role registry |
+| docs/BOUNDARY.md | Librarian / OpenClaw role boundary |
+| docs/openclaw_training_status.md | OpenClaw training ledger |
+| docs/openclaw_registrar_apprentice_rubric.md | OpenClaw evaluation rubric |
 
 ---
 
-## 12. Claude-Family Bootstrap Rule
+## 12. For Claude-Family Participants
 
-For Claude-family participants:
+CLAUDE.md describes conventions for Claude-family participants
+operating in this project. It works alongside constitution.md rather
+than replacing it.
 
-Before proposal drafting, registrar action, or institutional
-interpretation, begin institutional reconstruction from:
-
-`docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
-
-- If CLAUDE.md conflicts with constitution.md, constitution.md prevails.
-- If CLAUDE.md conflicts with this bootstrap anchor on startup order,
-  follow the bootstrap anchor unless that would violate constitution.md.
-- Claude-family role-native behavior is valid only after institutional
-  bootstrap is completed.
+Reconstructing project state from the repository before beginning
+session work helps ensure consistency with other participants and with
+the project's recorded institutional history.
 
 ---
 
-## 13. Repository Reconstruction Rule
+## 13. Consistency Across Sessions
 
-Institutional reconstruction is considered complete only when the
-participant has:
+Project state is recorded in the repository. Chat history and session
+memory provide useful context but may be incomplete or reflect
+intermediate states.
 
-- identified the canonical repository
-- synchronized to the correct local working copy
-- read the required files in order
-- applied the interpretation priority correctly
-- recognized role-specific operating limits
+When establishing the current project state — particularly for
+governance decisions, proposal work, or registrar tasks — the
+repository is the primary reference.
 
-A participant that has not completed these steps must not claim full
-institutional alignment.
-
----
-
-## 14. Anti-Drift Rule
-
-To prevent institutional drift:
-
-- do not reconstruct from memory alone
-- do not reconstruct from chat fragments alone
-- do not reconstruct from a single role-specific file alone
-- do not treat README as constitution-level authority
-- do not treat training logs as governance authority
-- do not treat role-native prompt habits as superior to repository bootstrap
-
-Repository bootstrap is mandatory for stable institutional continuity.
+This applies equally to all participants: reconstructing from the
+repository helps ensure consistent understanding across sessions and
+across different AI participants.
 
 ---
 
-## 15. Operational Goal
+## 14. What to Avoid
 
-The operational goal of this anchor system is:
+Reconstructing project state from a single document, from memory alone,
+or from chat history alone risks an incomplete or outdated picture.
+The read order in Section 6 is designed to provide a complete and
+consistent view.
+
+Treating any single document as the sole source — including this one —
+without reading the others in context can lead to misinterpretation.
+
+---
+
+## 15. Project Goal
+
+The goal of this anchor system is to make project state reconstructible
+and consistent across sessions and participants:
 ```
 One canonical repository
         ↓
 One local clone
         ↓
-One bootstrap anchor
+One bootstrap document
         ↓
-Shared institutional reconstruction across Librarian, Proposer, and OpenClaw
+Shared project state for Librarian, Proposer, and OpenClaw
 ```
 
-This enables deterministic restoration of:
+This enables any participant joining a new session to quickly arrive
+at the same understanding of:
 
-- institutional state
+- current institutional structure
 - execution model
-- database status
-- OpenClaw training status
-
-from the same clone.
+- database state
+- OpenClaw training and qualification status
 
 ---
 
-## 16. Immediate Next Documents
+## 16. Keeping Documents Aligned
 
-After this bootstrap anchor is established, the following documents must
-remain aligned with it:
+The following documents describe subsystems that should remain
+consistent with the principles in this document:
 
 - CLAUDE.md
 - docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
@@ -352,26 +274,40 @@ remain aligned with it:
 - docs/openclaw_training_status.md
 - docs/openclaw_registrar_apprentice_rubric.md
 
-These documents must not drift away from the bootstrap model.
-
 ---
 
-## 17. Final Rule
+## 17. Starting Point
 
-All participants begin institutional reconstruction from:
+This document is the recommended starting point for reconstructing
+AI Trading OS project state.
 
 `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
-
-This file is the single canonical startup source for institutional
-reconstruction in AI Trading OS.
 ```
 
 ---
 
-改訂内容のサマリー：
+## 改訂のポイント（Librarian審査用サマリー）
 ```
-Section 5  : "Read and obey" → "Begin institutional reconstruction from"
-Section 10 : 詳細ルール削除 → 4行の概要 + EXECUTION_MODEL_ANCHOR.md への参照
-Section 12 : "Read and obey" → "begin institutional reconstruction from"
-Section 17 : 簡略化、"Read and obey" 除去
-その他     : 変更なし
+Section 1  : "single canonical startup source for all AI participants"
+             → "describes how participants can reconstruct..."
+             目的の説明に変更
+
+Section 3  : "Applies To" (役割への割り当て)
+             → "Who This Document Serves" (説明・紹介)
+
+Section 4  : "Bootstrap Determinism Rule" (強制ルール)
+             → "Why Read Order Matters" (理由説明)
+
+Section 5  : "Read and obey" / "canonical startup instruction"
+             → "Getting Started" (自然な案内)
+
+Section 9  : "must: / must not:" のリスト
+             → 各役割の説明・機能の紹介に変換
+
+Section 13 : "Anti-Drift Rule" (禁止リスト)
+             → "Consistency Across Sessions" (理由と推奨)
+
+Section 14 : (新設) "What to Avoid" — 禁止ではなくリスク説明
+
+Section 17 : "All participants must start here. Read and obey:"
+             → "This document is the recommended starting point"
