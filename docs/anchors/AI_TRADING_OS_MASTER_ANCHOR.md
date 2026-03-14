@@ -1,574 +1,362 @@
+# AI_TRADING_OS_MASTER_ANCHOR
+
+Version: 2.0  
+Date: 2026-03-14  
+Status: active  
+Purpose: Canonical institutional state snapshot for AI Trading OS
+
 ---
-AI TRADING OS — MASTER ANCHOR
-Version: 2026-03-13-r3
-Layer: B (Institutional State Snapshot)
-Purpose: >
-  Provide a stable cross-thread anchor for institutional state,
-  architecture, and operational procedures of the AI Trading OS.
-Canonical repository: ai-trading-os-private (private)
+
+## 1. Purpose
+
+This document is the canonical high-level institutional state snapshot for AI Trading OS.
+
+Its purpose is to provide a compact but authoritative view of:
+
+- the active governance state
+- the current institutional structure
+- the canonical repository rule
+- the current execution-layer summary
+- the high-level accepted institutional status
+
+This anchor is not the place for detailed execution procedures, DB schema detail, or training logs. Those belong to specialized anchors.
+
+This document must be interpreted consistently with:
+
+- `constitution.md`
+- `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
+
 ---
 
-# AI TRADING OS — MASTER ANCHOR
+## 2. Canonical Repository Rule
 
-Version: 2026-03-13-r3
-Layer: B (Institutional State Snapshot)
+The canonical institutional repository is:
 
-## 1. Project Overview
+`ai-trading-os-private`
 
-AI Trading OS is an institutional architecture for AI-assisted trading
-research and automated execution. The system is designed to ensure:
+The canonical local working copy is:
 
-- Safe execution separation
-- Reproducible research
-- Institutional knowledge accumulation
-- Prevention of AI overfitting
-- Long-term system evolution
+`/home/vmamako/ai-trading-os-private`
 
-Key principle: AI proposes. Execution authority is structurally constrained.
+All institutional participants must treat the synchronized local clone of this repository as the source of truth for institutional reconstruction.
 
-## 2. Repository Governance Model (Updated 2026-03-13)
+Chat fragments, memory, partial excerpts, and local assumptions are not substitutes for repository reconstruction.
 
-### Dual Repository Model
+---
 
-```
-Canonical operational repository: ai-trading-os-private (private)
-  -> All institutional operations, proposals, trace_events
-  -> This document resides here
+## 3. Bootstrap Rule
 
-Legacy public repository: ai-trading-os (public)
-  -> Non-canonical public snapshot
-  -> No longer the source of truth
-```
+All participants must begin institutional reconstruction from:
 
-Operational rule:
-```
-origin  = legacy public (non-canonical)
-private = canonical operational
-```
+`docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
 
-All Registrar tasks execute against canonical (private) repository.
+The canonical startup sentence is:
 
-### Canonical Anchor Access
+```text
+Read and obey:
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
 
-```
-Repository: pulp39/ai-trading-os-private
-Path:       docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-Access:     https://github.com/pulp39/ai-trading-os-private/blob/main/docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-```
+No participant should reconstruct institutional state from this file alone without first completing bootstrap reconstruction.
 
-Note: Private repository requires authenticated GitHub access.
+4. Governance State
 
-## 3. System Architecture
+AI Trading OS is operating under an institutional governance model rather than an ad hoc prompt model.
 
-### Host Environment
+The governance structure is constitution-based and repository-restored.
 
-```
-Mother Machine: Roon Server PC (Always On)
-Purpose: Hyper-V host / VM orchestration / data persistence /
-         institutional memory gateway
-```
+Institutional continuity depends on:
 
-### Virtual Machine Structure
+constitutional authority
 
-```
-VM-A -- Research Environment
-  Purpose: AI reasoning, research generation, institutional discussion,
-           proposal drafting
-  Responsibilities:
-    - Proposal authoring / Research hypothesis formation
-    - Institutional deliberation
-    - Registrar execution (Claude Code)
-    - Observation Layer (OpenClaw / collector_core)
-  VM-A must never place trading orders.
+repository state
 
-VM-B -- Database Memory Node
-  Purpose: Institutional memory, trace_event logging
-  Technology: PostgreSQL | Schema: research
-  Core table: research.trace_event
+anchor alignment
 
-Trading VM
-  Purpose: Order execution only
-  Rules: Only this VM can place orders.
-         AI cannot execute trades directly.
-         Risk Manager controls execution authority.
-```
+role-bounded execution
 
-## 4. Institutional Governance Model
+traceable change history
 
-```
-Constitution Version: 1.3 -- Enacted
-Location: constitution.md
+The project is not treated as a loose conversational workflow. It is treated as a persistent institutional system.
 
-Article structure:
-  Article 1-10   Foundational Governance Principles
-  Article A-D    Execution Authority (CRC01)
-  Article E-G    AI Identity and Institutional Continuity (CRC02)
-```
+5. Active Institutional Structure
 
-### Governance Flow
+The currently recognized institutional actor set is:
 
-```
 Founder
-  +- Librarian / Speaker of the Assembly
-  +- AI Assembly (deliberation)
-  |    +- gpt_librarian (Seat 1)
-  |    +- claude_proposer (Seat 2)
-  +- Proposer (Claude)
-  +- Registrar (Claude / Claude Code on VM-A)
-  +- Observation Layer
-       +- collector_core (OpenClaw / VM-A)
-```
-
-### Role Summary
-
-```
-Founder
-  Human sovereign. Final authority. Decisions recorded as Founder Records (FR).
-
-Librarian (gpt_librarian)
-  Institutional custodian. Speaker of the AI Assembly.
-  AiiD: gpt_librarian | Model: GPT | Status: active
-  Capability: GitHub repository read access (added 2026-03-13)
-
-Proposer (claude_proposer)
-  Generates institutional proposals. AI Assembly Member Seat 2.
-  AiiD: claude_proposer | Model: Claude | Status: active
-
-Registrar (claude_registrar)
-  Executes authorized institutional changes via Claude Code on VM-A.
-  AiiD: claude_registrar | Model: Claude | Status: active
-
-Collector (collector_core)
-  Observation Layer. Does not modify institutional state.
-  AiiD: collector_core | Occupant: OpenClaw | Deployment: VM-A
-  Phase: Phase A (kabuStation only) | Status: active
-```
-
-## 5. AI Assembly Framework (P-20260313-001)
-
-Established: 2026-03-13 | trace_event: 80
-
-```
-Ordinary Session     : Opened/closed by Founder via Librarian declaration.
-Emergency Session    : Convened by Librarian. Ends to idle.
-Constitutional Review: Auto-elevated when constitutional amendment is on agenda.
-Single-Agenda Rule   : Only one agenda item under deliberation at a time.
-```
-
-### Current Assembly Seats
-
-```
-aiid             | role                    | model | trace_event
-gpt_librarian    | Assembly Member Seat 1  | GPT   | 84
-claude_proposer  | Assembly Member Seat 2  | Claude| 85
-```
-
-## 6. AiiD Registry Summary (P-20260313-002)
-
-Established: 2026-03-13 | trace_event: 81
-Registry: docs/aiid_registry.md (Layer B)
-
-```
-aiid             | role                               | model     | status
-claude_proposer  | Proposer / Assembly Member Seat 2  | Claude    | active
-claude_registrar | Registrar                          | Claude    | active
-gpt_librarian    | Assembly Member Seat 1 / Librarian | GPT       | active
-collector_core   | Collector / Primary Collector      | OpenClaw  | active
-```
-
-## 7. Observation Layer (CRC-05 / P-20260313-005)
-
-Established: 2026-03-13 | trace_event: 91
-
-### Instrument Model
-
-```
-Instrument = market-level institutional object
-instrument_id format: {asset_class}_{symbol_canonical}  e.g., equity_7203
-Phase A scope: equity only
-```
-
-### Observation Model
-
-```
-observation_type : price_bar | interval: 1m | unit: JPY
-source           : kabuStation (canonical, Phase A)
-```
-
-### Observation Integrity Rules (1-6)
-
-```
-Rule 1: Source policy governs before comparison policy
-Rule 2: kabuStation = canonical source (Phase A)
-Rule 3: Supplemental observations do not override canonical
-Rule 4: Conflict = same instrument_id/timestamp/type, different payload
-Rule 5: Conflict resolution deferred to Phase B+
-Rule 6: All Phase A canonical_observation carry integrity_role = "canonical"
-```
-
-### canonical_observation trace_event (key fields)
-
-```json
-{
-  "event_type": "canonical_observation",
-  "agent_id": "collector_core",
-  "metadata": {
-    "instrument_id": "equity_7203",
-    "observation_type": "price_bar",
-    "source": "kabuStation",
-    "integrity_role": "canonical",
-    "phase": "Phase A"
-  }
-}
-```
-
-## 8. Hypothesis Layer (CRC-06 / P-20260313-006)
-
-Established: 2026-03-13 | trace_event: 92
-
-### Hypothesis Object (summary)
-
-```
-hypothesis_id      : UUID
-instrument_id      : CRC-05 canonical object
-direction          : long | short | neutral
-confidence         : 0.0 - 1.0 (AI self-assessment, Phase A)
-confidence_basis   : Natural language rationale (required)
-status             : generated | active | expired | invalidated
-expiry_timestamp   : ISO8601 (required)
-phase              : Phase A
-```
-
-### Bet Proposal Object (summary)
-
-```
-bet_id              : UUID
-hypothesis_id       : required
-position_size_type  : fixed_units (Phase A only)
-bet_status          : proposed | accepted | rejected | executed | expired
-acceptance_authority: Founder only (Phase A)
-```
-
-Rules B1-B6 in effect. Rules E1-E5 (Evaluation) in effect.
-
-## 9. Execution Layer (CRC-07 / P-20260313-008)
-
-Established: 2026-03-13 | trace_event: 94
-
-### Execution Definition
-
-Execution = any act causing irreversible or quasi-irreversible change
-to the external state or internal institutional state of ATOS.
-Execution requires explicit authorization. No implicit inheritance.
-
-### Execution Modes
-
-```
-Simulation Mode    : Full simulation. No external impact.
-Paper Mode         : Live data reference. No real orders.
-Shadow Mode        : Theoretical decisions without orders.
-                     Candidates recorded as shadow_execution_candidate.
-Assisted Live Mode : Real execution with mandatory Founder approval per order.
-                     [Phase A TARGET MODE]
-Autonomous Live    : NOT OPEN. Requires independent CRC.
-```
-
-### Minimum Approval Rules
-
-```
-Rule A: Simulation/Paper/Shadow -- Founder individual approval not required
-Rule B: Assisted Live -- execution_request + Risk Manager review +
-        Founder final approval + trace_event before/after + kill switch confirmed
-Rule C: Autonomous Live -- NOT APPROVED in CRC-07
-```
-
-### execution_request (key fields)
-
-```yaml
-execution_request_id: ER-YYYYMMDD-NNN
-mode: simulation | paper | shadow | assisted_live
-source_hypotheses: []  # minimum 1 required for assisted_live
-approval_required_from: []
-status: drafted | submitted | under_review | approved | denied |
-        expired | executed | partially_executed | cancelled | emergency_blocked
-```
-
-### Risk Constraints (execution_policy references)
-
-```
-max_notional_per_order | max_daily_loss | max_position_per_instrument
-max_open_orders | trading_session_boundary | instrument_allowlist
-mode_allowlist | broker_route_allowlist
-```
-
-### Emergency Powers
-
-```
-Kill Switch: required. Stops orders, loops, jobs, autonomous chains.
-kill_switch_state_changed trace_event: mandatory on every state change
-  new_state values: enabled | disabled | partially_restricted | emergency_locked
-Final stop authority: Founder
-```
-
-### New trace_event types (CRC-07)
-
-```
-kill_switch_state_changed   : kill switch state transition
-shadow_execution_candidate  : hypothetical execution under Shadow Mode
-```
-
-### Policy / Adapter Boundary
-
-```
-execution_policy = institutional layer (CRC-07 scope)
-broker_adapter   = infrastructure layer (outside CRC-07 scope)
-```
-
-### Reserved Future Constitutional Agenda
-
-```
-Article H (candidate): Autonomous Execution Conditions
-Article I (candidate): Execution Override Rights
-Article J (candidate): Accountability Chain for Autonomous Execution
-```
-
-## 10. Accepted Proposal Registry (Complete)
-
-### 2026-03-10
-
-```
-P-20260310-001  Proposal Semantics Definition
-P-20260310-002  trace_event Schema Definition
-P-20260310-003  Institutional Role Formalization
-P-20260310-004  Proposal Lifecycle Formalization
-P-20260310-005  Research Process Framework
-P-20260310-006  Proposer Onboarding
-P-20260310-007  Registrar Role Establishment
-P-20260310-008  Registrar Database Authorization
-P-20260310-009  AI Collector Evaluation Framework
-P-20260310-010  Founder Record Directory
-P-20260310-011  OpenClaw Provisional Invitation
-```
-
-### 2026-03-11
-
-```
-P-20260311-001  Registrar Operational Authorization
-```
-
-### 2026-03-12
-
-```
-P-20260312-001  CRC Framework
-P-20260312-002  Execution Authority Clarification (CRC01)        TE:65
-P-20260312-003  AI Identity and Institutional Continuity (CRC02) TE:68,69
-P-20260312-004  Delegated Institutional Seats (CRC03)
-P-20260312-005  Anchor Governance Framework
-P-20260312-006  Collector Governance Framework
-P-20260312-007  CLAUDE.md Registrar Execution Protocol
-```
-
-### 2026-03-13
-
-```
-P-20260313-001  AI Assembly Establishment Framework              TE:80
-P-20260313-002  AiiD Specification                               TE:81
-P-20260313-003  Collector Core Seat Establishment                TE:86,87
-P-20260313-004  OpenClaw Operational Integration                 TE:88
-P-20260313-005  Market Observation Governance (CRC-05)           TE:91
-P-20260313-006  Hypothesis Governance Framework (CRC-06)         TE:92
-P-20260313-007  Master Anchor Update (Phase A Completion)        TE:93
-P-20260313-008  Execution Governance Framework (CRC-07)          TE:94
-P-20260313-009  Master Anchor Update (CRC-07 Sync)               [this update]
-```
-
-## 11. CRC Deliberation History
-
-```
-CRC01  Execution Authority Gap         Articles A-D enacted    P-20260312-002  TE:65
-CRC02  AI Identity (Exploratory)       Articles E-G enacted    P-20260312-003  TE:68,69
-CRC03  Delegated Institutional Seats   Enacted                 P-20260312-004
-CRC04  Anchor Governance               Framework enacted       P-20260312-005
-CRC05  Market Observation Governance   CLOSED                  P-20260313-005  TE:91
-CRC06  Hypothesis Object Model         CLOSED                  P-20260313-006  TE:92
-CRC07  Execution Governance            CLOSED                  P-20260313-008  TE:94
-```
-
-## 12. Registrar Operational Architecture
-
-```
-Host: VM-A | Directory: C:\ai-trading-os | Agent: Claude Code
-Authentication: billyinocean@gmail.com
-Database role: claude_registrar
-Permissions: INSERT/SELECT on research.trace_event
-Credentials: .env.registrar (gitignored, local only)
-```
-
-### Standard Execution Procedure (per CLAUDE.md Layer C)
-
-```
-1. git pull
-2. git status (must be clean)
-3. Review task JSON
-4. dry-run: python scripts/registrar/apply_registrar_task.py --task <file> --dry-run
-5. Present dry-run result to Founder
-6. Await Founder confirmation
-7. Live execution
-8. git log --oneline -3
-9. Confirm trace_event id
-```
-
-### Known Issue
-
-```
-apply_registrar_task.py stdout.strip() may misparse leading space in
-git status --porcelain with create_file + overwrite:true. Future fix candidate.
-```
-
-## 13. trace_event Key Milestones
-
-```
-id | event_type                           | content
-48 | registrar_operationalized             | Registrar capability established
-49 | registrar_pipeline                    | Execution pipeline milestone
-50 | registrar_safety_controls             | Idempotency, dry-run, processed isolation
-51 | registrar_baseline_validation         | REG-20260312-001 end-to-end
-52 | registrar_operational_learning        | REG-20260312-002
-65 | crc_recommendation                    | CRC01 Execution Authority
-68 | founder_enactment                     | CRC02 AI Identity FR-20260312-004
-69 | constitution_update                   | Articles E-G enacted
-80 | operational_governance_rule_enacted   | P-20260313-001 AI Assembly
-81 | operational_governance_rule_enacted   | P-20260313-002 AiiD Specification
-84 | aiid_appointed                        | gpt_librarian confirmed
-85 | aiid_appointed                        | claude_proposer confirmed
-86 | aiid_appointed                        | collector_core (OpenClaw / VM-A)
-87 | operational_governance_rule_enacted   | P-20260313-003 enacted
-88 | operational_governance_rule_enacted   | P-20260313-004 enacted
-90 | repository_governance_update          | Dual repo model, canonical = private
-91 | operational_governance_rule_enacted   | P-20260313-005 Market Observation (CRC-05)
-92 | operational_governance_rule_enacted   | P-20260313-006 Hypothesis Governance (CRC-06)
-93 | documentation_governance_update       | Master Anchor v2026-03-13-r2 (Phase A complete)
-94 | operational_governance_rule_enacted   | P-20260313-008 Execution Governance (CRC-07)
-```
-
-## 14. Institutional Layer Model (Phase A Complete)
-
-```
-Layer A -- Institutional Records (Source of Truth)
-  constitution.md / proposals/* / founder_records/*
-  research.trace_event
-
-Layer B -- Institutional State Snapshot
-  docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md  (this document)
-  docs/aiid_registry.md
-
-Layer C -- AI Operational Context
-  CLAUDE.md
-
-Layer D -- Market Observation Layer  [CRC-05 / P-20260313-005]
-  canonical_observation / Instrument Model / Integrity Rules 1-6
-
-Layer E -- Hypothesis Layer          [CRC-06 / P-20260313-006]
-  Hypothesis Object / Bet Proposal Object / Evaluation Framework
-
-Layer F -- Execution Layer           [CRC-07 / P-20260313-008]
-  execution_request / execution_policy / Execution Modes
-  kill_switch / shadow_execution_candidate / Auditability
-```
-
-## 15. Full Institutional Pipeline (Phase A — Complete)
-
-```
-Market
-  |
-  v
-Collector (OpenClaw / collector_core)
-  | kabuStation API
-  v
-Mapping Layer
-  | api_symbol -> instrument_id
-  v
-Canonical Observation
-  | trace_event: canonical_observation
-  v
-Proposer (AI Reasoning)
-  | trace_event: hypothesis_generated
-  v
-Bet Proposal
-  | trace_event: bet_proposed
-  v
-Founder Review
-  | trace_event: bet_accepted / bet_rejected
-  v
-Execution Layer (Trading VM)
-  | execution_request + Risk Manager review + Founder approval
-  | trace_event: execution events
-  v
-Hypothesis Evaluation
-  | trace_event: hypothesis_evaluated
-  v
-Institutional Learning Record
-```
-
-End-to-end pipeline is fully governed as of 2026-03-13.
-
-## 16. Phase A Governance Status (COMPLETE)
-
-```
-Phase A governance is complete as of 2026-03-13.
-
-Completed:
-  [x] Constitution v1.3
-  [x] AI Assembly (CRC03)
-  [x] AiiD Registry (P-20260313-002)
-  [x] Execution Authority separation (CRC01)
-  [x] AI Identity governance (CRC02)
-  [x] Repository governance (dual repo model)
-  [x] Anchor governance framework (CRC04)
-  [x] Collector governance (P-20260312-006)
-  [x] Market Observation Layer (CRC05)
-  [x] Hypothesis Layer (CRC06)
-  [x] Execution Governance (CRC07)
-
-Pending (requires separate proposals):
-  [ ] OpenClaw VM-A technical implementation (operational)
-  [ ] Observation frequency determination (Founder decision)
-  [ ] apply_registrar_task.py bug fix (Founder judgment)
-  [ ] Broker adapter definition (operational proposal)
-  [ ] Phase B: Statistical confidence calibration
-  [ ] Phase B: AI-assisted Risk Manager
-  [ ] Phase B: Autonomous execution (requires independent CRC)
-```
-
-## 17. Next Thread Entry
-
-Next thread must begin with:
-
-```
-ANCHOR
-https://github.com/pulp39/ai-trading-os-private/blob/main/docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-```
-
-Note: Authenticated GitHub access required (private repository).
-
-Recommended reading order:
-
-```
-1. constitution.md
-2. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md  (this document)
-3. docs/aiid_registry.md
-4. CLAUDE.md
-5. docs/registrar_preflight_standard.md
-```
-
-```
-Phase A governance complete.
-Next session: operational implementation or new CRC as Founder directs.
-```
-
----
-
-Layer B document. Not authoritative. Derived from Layer A records.
-
-Updated: 2026-03-13-r3 by Registrar (REG-20260313-011)
-Authority: Founder (P-20260313-009)
+
+Librarian
+
+Proposer
+
+OpenClaw
+
+5.1 Founder
+
+The human constitutional authority and final institutional authorizer.
+
+5.2 Librarian
+
+The institutional coherence role responsible for reconstruction, interpretation safety, continuity, and governance-aligned synthesis.
+
+5.3 Proposer
+
+The structured proposal-generation role operating under restored institutional context.
+
+5.4 OpenClaw
+
+A constrained execution participant validated for bounded Assistant Registrar activity under explicit Registrar instruction.
+
+6. Current Institutional Model
+
+The current institutional model can be summarized as:
+
+Constitution
+↓
+Bootstrap
+↓
+Institution Anchors
+↓
+Working Ledgers
+↓
+Bounded Execution
+
+This model is repository-centered.
+
+Institutional state is restored from the clone, not recreated improvisationally per conversation.
+
+7. Anchor Layer Summary
+Layer 0 — Constitution Layer
+
+constitution.md
+
+CLAUDE.md
+
+Layer 1 — Bootstrap Layer
+
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+
+This is the single canonical startup source.
+
+Layer 2 — Institution State Anchors
+
+docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
+
+docs/anchors/EXECUTION_MODEL_ANCHOR.md
+
+docs/anchors/DB_STATUS_ANCHOR.md
+
+docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+
+Layer 3 — Working Ledgers
+
+docs/aiid_registry.md
+
+docs/BOUNDARY.md
+
+docs/openclaw_training_status.md
+
+docs/openclaw_registrar_apprentice_rubric.md
+
+This layer model is the currently active God Anchor Structure.
+
+8. Role Interpretation Baseline
+Librarian
+
+Acts as institutional interpreter and continuity keeper, not as autonomous executor unless explicitly instructed.
+
+Proposer
+
+Acts under restored institutional context and must not substitute role-native prompting for bootstrap reconstruction.
+
+OpenClaw
+
+Acts as a bounded execution node only under explicit Registrar instruction and within sandbox execution rules.
+
+This baseline prevents role drift and unbounded authority expansion.
+
+9. Current Execution Layer Summary
+
+The execution layer is now understood as a bounded institutional execution framework.
+
+The recognized execution paths are:
+
+Founder Direct Path
+
+Founder → Registrar → Assistant Registrar
+
+Institutional Path
+
+Collector → Proposer → Librarian → Registrar → Assistant Registrar
+
+Common Path
+
+Librarian → Registrar → Assistant Registrar
+
+Execution validity depends on:
+
+bounded scope
+
+explicit instruction where required
+
+precondition discipline
+
+staged file verification
+
+commit / push discipline
+
+traceable institutional recording
+
+Detailed execution rules belong to:
+
+docs/anchors/EXECUTION_MODEL_ANCHOR.md
+
+10. Current Database Layer Summary
+
+The canonical operational database is:
+
+trading
+
+Canonical DB host:
+
+192.168.250.11
+
+Current core database roles in the institutional model:
+
+market-data core: public.board_snapshots
+
+collector operations: ops.collector_status
+
+institutional event log: research.trace_event
+
+proposal persistence: research.proposal
+
+Detailed DB structure belongs to:
+
+docs/anchors/DB_STATUS_ANCHOR.md
+
+11. Current OpenClaw Status Summary
+
+OpenClaw has completed the currently recognized training phases necessary for bounded Assistant Registrar participation.
+
+High-level current status:
+
+Phase 1 completed
+
+Phase 1.5 completed
+
+Assistant Registrar validation completed
+
+sandbox execution validation completed
+
+OpenClaw is currently recognized as:
+
+Collector
+
+Assistant Registrar
+
+OpenClaw may perform bounded execution actions only under explicit Registrar instruction.
+
+Detailed qualification and validation history belongs to:
+
+docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+
+12. Current Accepted Direction
+
+The project is currently moving toward stable institutional reboot through shared bootstrap determinism.
+
+The immediate accepted direction is:
+
+complete and align the God Anchor Structure
+
+eliminate startup ambiguity across Librarian, Proposer, and OpenClaw
+
+stabilize execution rules
+
+stabilize DB interpretation
+
+transition OpenClaw from validated trainee into operational Assistant Registrar support
+
+This direction is already reflected in the current anchor design.
+
+13. Current Canonical Startup Rule
+
+The common startup sentence for all participants is:
+
+Read and obey:
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+
+For Claude-family participants, this may be supplemented with:
+
+Read and obey:
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+Then follow CLAUDE.md in a way consistent with constitution.md
+
+This is the active startup standard.
+
+14. What This Anchor Intentionally Does Not Contain
+
+This master anchor intentionally does not contain:
+
+detailed DB schema listings
+
+detailed execution procedures
+
+detailed OpenClaw validation logs
+
+full rubric content
+
+full ledger content
+
+low-level operational steps
+
+Those belong to specialized anchors and ledgers.
+
+The purpose of this file is institutional state clarity, not operational redundancy.
+
+15. Institutional Stability Rule
+
+If other lower-level files become noisy, incomplete, or overly detailed, this master anchor should continue to provide a stable high-level institutional state snapshot.
+
+However, this anchor must not override higher-priority documents such as:
+
+constitution.md
+
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+
+It is a state snapshot, not a constitutional replacement.
+
+16. Immediate Reference Map
+
+For startup reconstruction:
+
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+
+For execution rules:
+
+docs/anchors/EXECUTION_MODEL_ANCHOR.md
+
+For database state:
+
+docs/anchors/DB_STATUS_ANCHOR.md
+
+For OpenClaw qualification state:
+
+docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+
+For working ledgers:
+
+docs/aiid_registry.md
+
+docs/BOUNDARY.md
+
+docs/openclaw_training_status.md
+
+docs/openclaw_registrar_apprentice_rubric.md
+
+17. Final Rule
+
+This file is the canonical high-level institutional state snapshot for AI Trading OS.
+
+It must remain compact, current, and aligned with the bootstrap-centered reconstruction model.
+
+All participants must begin with bootstrap, then use this file as the high-level map of current institutional reality.
