@@ -1,0 +1,39 @@
+{
+  "task_id": "REG-20260314-001",
+  "date": "2026-03-14",
+  "authorized_by": "Founder",
+  "role": "Registrar",
+  "description": "Register P-20260314-001 (Registrar Operational Assistance Policy) as an enacted operational governance rule. Create policy document at docs/registrar_operational_assistance_policy.md and record trace_event.",
+  "actions": [
+    {
+      "type": "create_file",
+      "file": "docs/registrar_operational_assistance_policy.md",
+      "skip_if_exists": true,
+      "content": "---\ndocument_id: registrar_operational_assistance_policy\ntitle: \"Registrar Operational Assistance Policy\"\nlayer: C (Operational Policy)\nauthority: P-20260314-001\nstatus: active\ndate: 2026-03-14\nenacted_by: Founder\n---\n\n# Registrar Operational Assistance Policy\n\n## 1. Purpose\n\nThis policy defines the delegation model for routine Registrar operations\nto the Auxiliary AiiD openclaw_aux, reducing resource consumption of\nhigh-reasoning AI actors while preserving institutional authority boundaries.\n\n## 2. Delegation Scope\n\n### 2.1 Permitted (Delegable to openclaw_aux)\n\n\n\n### 2.2 Excluded (Not Delegable)\n\n\n\n## 3. Activation Condition\n\nDelegated work by openclaw_aux must be explicitly initiated by\nRegistrar or Founder instruction.\n\nAutonomous initiation of delegated work by openclaw_aux is not permitted.\n\n## 4. Review and Confirmation\n\nAll delegated work must be reviewed and confirmed by the Registrar\nbefore execution.\n\nRegistrar confirmation of delegated work shall be recorded in the\nrelevant trace_event or task record.\n\n## 5. Authority Boundaries\n\n\n\n## 6. Constitutional Basis\n\n\n\n---\n\n*Enacted: 2026-03-14*\n*Authority: Founder (P-20260314-001)*\n*Proposal author: Librarian*\n*Amendments: Proposer (review recording, explicit activation condition)*\n"
+    },
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "registrar",
+      "event_type": "operational_governance_rule_enacted",
+      "content": "P-20260314-001 Registrar Operational Assistance Policy enacted. Auxiliary AiiD openclaw_aux authorized to assist registrar operations under explicit authorization and registrar review. Delegation scope: drafting, formatting, summarization, registry entry prep, trace_event drafting, research support, record organization. Excluded: institutional interpretation, constitutional reasoning, authority decisions. Registrar retains full execution responsibility.",
+      "metadata": {
+        "proposal_id": "P-20260314-001",
+        "title": "Registrar Operational Assistance Policy",
+        "layer": "C",
+        "delegable_to": "openclaw_aux",
+        "activation": "explicit_instruction_only",
+        "review_required": true,
+        "authority_change": false
+      },
+      "metadata_match": {
+        "proposal_id": "P-20260314-001"
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "Register P-20260314-001: Registrar Operational Assistance Policy enacted (openclaw_aux delegation model)",
+    "remote": "private",
+    "branch": "main"
+  }
+}
