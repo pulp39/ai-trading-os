@@ -1,362 +1,319 @@
 # AI_TRADING_OS_MASTER_ANCHOR
 
-Version: 2.0  
-Date: 2026-03-14  
-Status: active  
-Purpose: Canonical institutional state snapshot for AI Trading OS
+Version: 2.1
+Date: 2026-03-14
+Status: active
+Purpose: Institutional state overview for AI Trading OS
 
 ---
 
-## 1. Purpose
+## 1. About This Document
 
-This document is the canonical high-level institutional state snapshot for AI Trading OS.
+This document provides a high-level overview of the current
+institutional state of AI Trading OS.
 
-Its purpose is to provide a compact but authoritative view of:
+It covers:
 
-- the active governance state
-- the current institutional structure
-- the canonical repository rule
-- the current execution-layer summary
-- the high-level accepted institutional status
+- the active governance structure
+- the current participant roles
+- the canonical repository
+- a summary of the execution layer
+- a summary of the database layer
+- a summary of OpenClaw's current status
 
-This anchor is not the place for detailed execution procedures, DB schema detail, or training logs. Those belong to specialized anchors.
+For detailed rules on execution, database structure, or OpenClaw
+training, see the specialized anchor documents listed in Section 16.
 
-This document must be interpreted consistently with:
+This document is intended to be read alongside:
 
 - `constitution.md`
 - `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
 
 ---
 
-## 2. Canonical Repository Rule
+## 2. Canonical Repository
 
-The canonical institutional repository is:
+The canonical repository for this project is:
 
 `ai-trading-os-private`
 
-The canonical local working copy is:
+Local working copy:
 
 `/home/vmamako/ai-trading-os-private`
 
-All institutional participants must treat the synchronized local clone of this repository as the source of truth for institutional reconstruction.
-
-Chat fragments, memory, partial excerpts, and local assumptions are not substitutes for repository reconstruction.
+The repository is the authoritative source for institutional state.
+Chat history and session memory provide useful context but do not
+substitute for the repository when establishing current project state.
 
 ---
 
-## 3. Bootstrap Rule
+## 3. Getting Started
 
-All participants must begin institutional reconstruction from:
+Reconstructing project state for a new session works best by starting
+from:
 
 `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
 
-The canonical startup sentence is:
+That document describes the recommended read order and explains how
+the documents in this project relate to each other.
 
-```text
-Read and obey:
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+Reading this master anchor alone, without completing the bootstrap
+read order, may give an incomplete picture of the current state.
 
-No participant should reconstruct institutional state from this file alone without first completing bootstrap reconstruction.
+---
 
-4. Governance State
+## 4. Governance Approach
 
-AI Trading OS is operating under an institutional governance model rather than an ad hoc prompt model.
+AI Trading OS operates under a structured institutional governance
+model rather than an ad hoc workflow.
 
-The governance structure is constitution-based and repository-restored.
+Institutional continuity in this project depends on:
 
-Institutional continuity depends on:
+- constitutional principles (defined in constitution.md)
+- repository state as the shared source of truth
+- anchor alignment across sessions
+- role-bounded execution
+- traceable change history
 
-constitutional authority
+The project is designed to be persistent and reconstructible across
+sessions and across different AI participants.
 
-repository state
+---
 
-anchor alignment
+## 5. Active Participants
 
-role-bounded execution
+The currently recognized participants in AI Trading OS are:
 
-traceable change history
+| Role | Description |
+|---|---|
+| Founder | Human authority and final decision-maker |
+| Librarian | Institutional memory and governance interpretation |
+| Proposer | Proposal drafting and institutional deliberation |
+| OpenClaw | Collector and Assistant Registrar (bounded execution) |
 
-The project is not treated as a loose conversational workflow. It is treated as a persistent institutional system.
+### 5.1 Founder
 
-5. Active Institutional Structure
+The human constitutional authority and final institutional
+decision-maker for this project.
 
-The currently recognized institutional actor set is:
+### 5.2 Librarian
 
-Founder
+Responsible for institutional coherence, governance interpretation,
+and continuity across sessions.
 
-Librarian
+### 5.3 Proposer
 
-Proposer
+Responsible for structured proposal generation under the current
+institutional state.
 
-OpenClaw
+### 5.4 OpenClaw
 
-5.1 Founder
+A validated execution participant contributing as Collector and, under
+explicit Registrar instruction, as Assistant Registrar within bounded
+scope.
 
-The human constitutional authority and final institutional authorizer.
+---
 
-5.2 Librarian
+## 6. Institutional Model Overview
 
-The institutional coherence role responsible for reconstruction, interpretation safety, continuity, and governance-aligned synthesis.
-
-5.3 Proposer
-
-The structured proposal-generation role operating under restored institutional context.
-
-5.4 OpenClaw
-
-A constrained execution participant validated for bounded Assistant Registrar activity under explicit Registrar instruction.
-
-6. Current Institutional Model
-
-The current institutional model can be summarized as:
-
+The institutional model can be summarized as:
+```
 Constitution
-↓
-Bootstrap
-↓
-Institution Anchors
-↓
+     ↓
+Bootstrap Anchor
+     ↓
+Institutional Anchors
+     ↓
 Working Ledgers
-↓
+     ↓
 Bounded Execution
+```
 
-This model is repository-centered.
+Project state is restored from the repository rather than recreated
+from conversation context alone.
 
-Institutional state is restored from the clone, not recreated improvisationally per conversation.
+---
 
-7. Anchor Layer Summary
-Layer 0 — Constitution Layer
+## 7. Document Layer Overview
 
-constitution.md
+| Layer | Documents |
+|---|---|
+| Layer 0 — Foundation | constitution.md, CLAUDE.md |
+| Layer 1 — Bootstrap | docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md |
+| Layer 2 — State Anchors | AI_TRADING_OS_MASTER_ANCHOR.md, EXECUTION_MODEL_ANCHOR.md, DB_STATUS_ANCHOR.md, OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md |
+| Layer 3 — Working Ledgers | docs/aiid_registry.md, docs/BOUNDARY.md, docs/openclaw_training_status.md, docs/openclaw_registrar_apprentice_rubric.md |
 
-CLAUDE.md
+---
 
-Layer 1 — Bootstrap Layer
+## 8. Role Descriptions
 
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+### Librarian
 
-This is the single canonical startup source.
+Focuses on institutional interpretation and continuity. Distinguishes
+Librarian functions from Registrar functions. Uses the repository as
+the primary reference for institutional memory.
 
-Layer 2 — Institution State Anchors
+### Proposer
 
-docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
+Works under restored institutional context. Grounds proposals in the
+current repository state rather than session memory alone.
 
-docs/anchors/EXECUTION_MODEL_ANCHOR.md
+### OpenClaw
 
-docs/anchors/DB_STATUS_ANCHOR.md
+Performs bounded execution tasks when explicitly instructed by the
+Registrar. Does not initiate execution autonomously or act outside
+defined task scope.
 
-docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+These descriptions help maintain consistent role behavior across
+sessions and participants.
 
-Layer 3 — Working Ledgers
+---
 
-docs/aiid_registry.md
+## 9. Execution Layer Summary
 
-docs/BOUNDARY.md
+The execution layer is described in detail in:
 
-docs/openclaw_training_status.md
+`docs/anchors/EXECUTION_MODEL_ANCHOR.md`
 
-docs/openclaw_registrar_apprentice_rubric.md
-
-This layer model is the currently active God Anchor Structure.
-
-8. Role Interpretation Baseline
-Librarian
-
-Acts as institutional interpreter and continuity keeper, not as autonomous executor unless explicitly instructed.
-
-Proposer
-
-Acts under restored institutional context and must not substitute role-native prompting for bootstrap reconstruction.
-
-OpenClaw
-
-Acts as a bounded execution node only under explicit Registrar instruction and within sandbox execution rules.
-
-This baseline prevents role drift and unbounded authority expansion.
-
-9. Current Execution Layer Summary
-
-The execution layer is now understood as a bounded institutional execution framework.
-
-The recognized execution paths are:
-
-Founder Direct Path
-
+In summary, execution flows through role-based paths:
+```
+Founder Direct Path:
 Founder → Registrar → Assistant Registrar
 
-Institutional Path
-
+Institutional Path:
 Collector → Proposer → Librarian → Registrar → Assistant Registrar
 
-Common Path
-
+Common Path:
 Librarian → Registrar → Assistant Registrar
+```
 
-Execution validity depends on:
+Good execution practice in this project involves bounded scope,
+explicit instruction, precondition checking, and traceable recording.
 
-bounded scope
+---
 
-explicit instruction where required
+## 10. Database Layer Summary
 
-precondition discipline
+The database layer is described in detail in:
 
-staged file verification
+`docs/anchors/DB_STATUS_ANCHOR.md`
 
-commit / push discipline
+In summary:
 
-traceable institutional recording
+- Operational database: `trading`
+- DB host: `192.168.250.11`
+- Market data: `public.board_snapshots`
+- Collector status: `ops.collector_status`
+- Institutional event log: `research.trace_event`
+- Proposal persistence: `research.proposal`
 
-Detailed execution rules belong to:
+---
 
-docs/anchors/EXECUTION_MODEL_ANCHOR.md
+## 11. OpenClaw Status Summary
 
-10. Current Database Layer Summary
+OpenClaw's training and qualification state is described in detail in:
 
-The canonical operational database is:
+`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
 
-trading
+In summary:
 
-Canonical DB host:
+- Phase 1 (workflow reconstruction): completed
+- Phase 1.5 (task drafting): completed
+- Assistant Registrar validation: completed
+- Sandbox execution validation: completed
 
-192.168.250.11
+OpenClaw is currently recognized as Collector and Assistant Registrar.
+Live database integration is planned but not yet active.
 
-Current core database roles in the institutional model:
+---
 
-market-data core: public.board_snapshots
+## 12. Current Project Direction
 
-collector operations: ops.collector_status
+The project is currently focused on:
 
-institutional event log: research.trace_event
+- stabilizing the anchor structure for consistent cross-session use
+- enabling OpenClaw as a practical Assistant Registrar execution node
+- verifying `claude_registrar` database privileges before runner
+  implementation
+- maintaining clear role boundaries as the project grows
 
-proposal persistence: research.proposal
+---
 
-Detailed DB structure belongs to:
+## 13. What This Document Does Not Cover
 
-docs/anchors/DB_STATUS_ANCHOR.md
+This anchor provides a high-level overview. The following topics are
+intentionally covered in specialized documents rather than here:
 
-11. Current OpenClaw Status Summary
+- detailed DB schema (see DB_STATUS_ANCHOR.md)
+- detailed execution rules (see EXECUTION_MODEL_ANCHOR.md)
+- OpenClaw validation history (see OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md)
+- full ledger content (see working ledger documents)
 
-OpenClaw has completed the currently recognized training phases necessary for bounded Assistant Registrar participation.
+Keeping this document focused helps it remain readable and useful as
+a starting-point overview.
 
-High-level current status:
+---
 
-Phase 1 completed
+## 14. Stability Note
 
-Phase 1.5 completed
+This master anchor is intended to remain stable and readable even as
+lower-level documents evolve. When lower-level documents are updated,
+this anchor should be checked for consistency.
 
-Assistant Registrar validation completed
+This document reflects current state rather than constitutional
+principles. Where they differ, constitution.md and
+ATOS_BOOTSTRAP_ANCHOR.md reflect the higher-priority view.
 
-sandbox execution validation completed
+---
 
-OpenClaw is currently recognized as:
+## 15. Reference Map
 
-Collector
+| What you need | Where to find it |
+|---|---|
+| Project startup and read order | docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md |
+| Execution rules | docs/anchors/EXECUTION_MODEL_ANCHOR.md |
+| Database state | docs/anchors/DB_STATUS_ANCHOR.md |
+| OpenClaw qualification | docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md |
+| Participant registry | docs/aiid_registry.md |
+| Role boundary definition | docs/BOUNDARY.md |
+| OpenClaw training ledger | docs/openclaw_training_status.md |
+| Evaluation rubric | docs/openclaw_registrar_apprentice_rubric.md |
 
-Assistant Registrar
+---
 
-OpenClaw may perform bounded execution actions only under explicit Registrar instruction.
+## 16. About This Version
 
-Detailed qualification and validation history belongs to:
-
-docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-
-12. Current Accepted Direction
-
-The project is currently moving toward stable institutional reboot through shared bootstrap determinism.
-
-The immediate accepted direction is:
-
-complete and align the God Anchor Structure
-
-eliminate startup ambiguity across Librarian, Proposer, and OpenClaw
-
-stabilize execution rules
-
-stabilize DB interpretation
-
-transition OpenClaw from validated trainee into operational Assistant Registrar support
-
-This direction is already reflected in the current anchor design.
-
-13. Current Canonical Startup Rule
-
-The common startup sentence for all participants is:
-
-Read and obey:
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
-
-For Claude-family participants, this may be supplemented with:
-
-Read and obey:
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
-Then follow CLAUDE.md in a way consistent with constitution.md
-
-This is the active startup standard.
-
-14. What This Anchor Intentionally Does Not Contain
-
-This master anchor intentionally does not contain:
-
-detailed DB schema listings
-
-detailed execution procedures
-
-detailed OpenClaw validation logs
-
-full rubric content
-
-full ledger content
-
-low-level operational steps
-
-Those belong to specialized anchors and ledgers.
-
-The purpose of this file is institutional state clarity, not operational redundancy.
-
-15. Institutional Stability Rule
-
-If other lower-level files become noisy, incomplete, or overly detailed, this master anchor should continue to provide a stable high-level institutional state snapshot.
-
-However, this anchor must not override higher-priority documents such as:
-
-constitution.md
-
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
-
-It is a state snapshot, not a constitutional replacement.
-
-16. Immediate Reference Map
-
-For startup reconstruction:
-
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
-
-For execution rules:
-
-docs/anchors/EXECUTION_MODEL_ANCHOR.md
-
-For database state:
-
-docs/anchors/DB_STATUS_ANCHOR.md
-
-For OpenClaw qualification state:
-
-docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-
-For working ledgers:
-
-docs/aiid_registry.md
-
-docs/BOUNDARY.md
-
-docs/openclaw_training_status.md
-
-docs/openclaw_registrar_apprentice_rubric.md
-
-17. Final Rule
-
-This file is the canonical high-level institutional state snapshot for AI Trading OS.
-
-It must remain compact, current, and aligned with the bootstrap-centered reconstruction model.
-
-All participants must begin with bootstrap, then use this file as the high-level map of current institutional reality.
+This document provides a compact, current view of AI Trading OS
+institutional state. It is intended to be updated when significant
+governance or structural changes occur, and to remain aligned with the
+bootstrap-centered reconstruction model described in
+ATOS_BOOTSTRAP_ANCHOR.md.
+```
+
+---
+
+## 改訂サマリー
+```
+Section 1  : "canonical authoritative" → "provides a high-level overview"
+Section 3  : "must begin from / Read and obey" → "works best by starting from"
+Section 4  : "not treated as loose conversational workflow" → 
+             目的と設計を肯定的に説明
+Section 8  : "This baseline prevents role drift" →
+             "These descriptions help maintain consistent behavior"
+Section 13 : "Intentionally Does Not Contain" → "What This Document Does Not Cover"
+             禁止表現 → 設計意図の説明
+Section 17 : "All participants must begin with bootstrap" →
+             Section 16の参照マップに統合、Final Rule削除
+全体      : must/must not → is/works best/helps ensure
+```
+
+---
+
+**ATOS Anchor System 文体改訂 — 全anchor完了**
+```
+ATOS_BOOTSTRAP_ANCHOR.md              v1.0 → v1.2  ✓
+AI_TRADING_OS_MASTER_ANCHOR.md        v2.0 → v2.1  ✓
+EXECUTION_MODEL_ANCHOR.md             v1.1 → v1.2  ✓
+DB_STATUS_ANCHOR.md                   v1.1 → v1.2  ✓
+OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md v1.2 → v1.3  ✓
+docs/registrar_task_format.md         v1.0 (変更なし、命令的表現なし)
