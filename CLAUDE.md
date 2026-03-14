@@ -295,4 +295,15 @@ Verify trace_event registration from the execution output:
 - Never proceed past Step 1 if the working tree is not clean.
 ```
 
+## Bootstrap Rule for Claude-Family Participants
+
+Before proposal drafting, registrar action, or institutional interpretation, read and obey:
+
+`docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
+
+If `CLAUDE.md` conflicts with `constitution.md`, `constitution.md` prevails.
+
+If `CLAUDE.md` conflicts with `ATOS_BOOTSTRAP_ANCHOR.md` on startup order, follow the bootstrap anchor unless that would violate `constitution.md`.
+
+Claude-family role-native behavior is valid only after institutional bootstrap is completed.
 ---
