@@ -58,7 +58,7 @@ def run_git(args: List[str]) -> str:
         capture_output=True,
         check=True,
     )
-    return completed.stdout.strip()
+    return completed.stdout
 
 
 def repo_rel_to_abs(path_str: str) -> Path:
