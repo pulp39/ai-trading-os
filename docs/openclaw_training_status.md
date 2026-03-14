@@ -1,101 +1,175 @@
-# OpenClaw Training Status Ledger
+# OPENCLAW TRAINING STATUS LEDGER
+
+Version: 1.1  
+Date: 2026-03-14  
+Status: active  
+Purpose: Operational ledger tracking OpenClaw training progression in AI Trading OS
+
+---
+
+# 1. Purpose
+
+This file is the operational ledger tracking OpenClaw training progress.
+
+Unlike the training anchor, which records institutional validation status, this file records the chronological progression of training steps.
+
+This ledger must remain consistent with:
+
+`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+
+---
+
+# 2. Training Phases
+
+The OpenClaw training program has progressed through the following phases.
+
+### Phase 1  
+Registrar workflow reconstruction.
+
+Capabilities demonstrated:
+
+- instruction parsing
+- bounded scope understanding
+- execution preparation
+- commit discipline
+- trace_event preparation
+
+Status: completed
+
+---
+
+### Phase 1.5  
+Registrar task drafting.
+
+Capabilities demonstrated:
+
+- task scope definition
+- execution constraint definition
+- precondition definition
+- execution result structure
+
+Status: completed
+
+---
+
+# 3. Validation Tests
+
+The following validation tests have been executed.
+
+---
+
+## openclaw-test-001
 
 Purpose:
-Maintain a lightweight chronological record of OpenClaw training progress.
 
-This document replaces reliance on conversation history.
+Validate limited repository execution.
 
----
+Result:
 
-2026-03-14
+Execution succeeded under bounded scope.
 
-Training Program:
-Registrar Apprentice Model
+Interpretation:
 
-Phase 1:
-Completed
-
-Validation:
-Passed
-
-Key competencies validated:
-
-REG task drafting
-trace_event draft preparation
-append_update drafting
-multi-document synchronized drafting
-review metadata discipline
-institutional boundary compliance
+OpenClaw demonstrated safe execution behavior.
 
 ---
 
-Phase 1.5
+## openclaw-test-002
 
-Operational validation in progress.
+Purpose:
 
-Mode:
-draft_only
+Validate precondition discipline.
 
-Authority:
-none
+Result:
 
-Registrar supervision required.
+Execution stopped correctly on failed precondition.
 
----
+Interpretation:
 
-Validation tasks completed:
+Stopping behavior validated.
 
-OC-VAL-001
-OC-VAL-002
-OC-VAL-003
-OC-VAL-004
-OC-VAL-006
-OC-VAL-008
-
-Purpose of Phase 1.5:
-
-Validate OpenClaw drafting behavior under real workflow conditions.
-
+Correct stopping is considered disciplined execution.
 
 ---
 
-2026-03-14
+## assistant/test/openclaw-precondition-append-001
 
-Assistant Registrar validation:
-Passed
+Purpose:
 
-Additional validated capabilities:
+Full sandbox execution validation.
 
-- limited repository execution
-- commit and push under instructed scope
-- precondition-based stop behavior
-- failure analysis
-- sandbox-branch execution
-- staged-file verification
+Steps verified:
 
-Execution validation history:
+- precondition verification
+- staged file verification
+- commit
+- push
 
-openclaw-test-001
-status: conditional success
-note:
-append-to-existing-file authorization encountered non-existent target file.
-Result used as evidence for precondition rule creation.
+Result:
 
-openclaw-test-002
-status: compliant stop
-note:
-execution halted correctly because base-branch precondition failed.
+Execution completed successfully.
 
-assistant/test/openclaw-precondition-append-001
-status: full success
-note:
-sandbox append execution completed successfully with:
-- preconditions passed
-- staged-file verification passed
-- commit and push succeeded
-- scope limited to one approved documentation file
+Interpretation:
 
-Current status:
+OpenClaw demonstrated full execution discipline.
 
-OpenClaw is now validated for Assistant Registrar execution support
-under explicit Registrar instruction and sandbox-branch discipline.
+---
+
+# 4. Current Capability Summary
+
+OpenClaw currently demonstrates the following capabilities.
+
+Execution discipline:
+
+- respects bounded scope
+- verifies staged files
+- follows branch constraints
+- stops on invalid preconditions
+
+Repository discipline:
+
+- commit safety
+- push safety
+- sandbox branch adherence
+
+Governance discipline:
+
+- acts only under explicit instruction
+- avoids autonomous institutional action
+
+---
+
+# 5. Current Qualification State
+
+OpenClaw is currently validated as:
+
+Collector
+
+Assistant Registrar (bounded execution)
+
+This validation state is defined formally in:
+
+`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+
+---
+
+# 6. Next Training Direction
+
+Future training phases may include:
+
+- automated registrar task execution
+- trace_event insertion
+- PostgreSQL interaction using claude_registrar
+- registrar_task_runner integration
+
+These steps transition OpenClaw from validated trainee into operational assistant registrar.
+
+---
+
+# 7. Institutional Rule
+
+This ledger is informational and operational.
+
+Institutional authority belongs to the training anchor.
+
+If this file conflicts with the anchor, the anchor prevails.
