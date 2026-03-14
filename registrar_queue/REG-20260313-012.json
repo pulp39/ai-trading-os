@@ -1,0 +1,50 @@
+{
+  "task_id": "REG-20260313-012",
+  "date": "2026-03-13",
+  "authorized_by": "Librarian / Founder",
+  "role": "Registrar",
+  "description": "Update docs/aiid_registry.md to add openclaw_aux as Auxiliary AiiD (Layer C), and relocate/create docs/BOUNDARY.md as the canonical path for the Librarian/OpenClaw boundary definition. Record aiid_appointed trace_event for openclaw_aux.",
+  "actions": [
+    {
+      "type": "create_file",
+      "file": "docs/BOUNDARY.md",
+      "skip_if_exists": true,
+      "content": "# Librarian – OpenClaw Institutional Boundary\n\nLayer: C (Operational Document)\nAuthority: Founder (operational authority, 2026-03-13)\nCanonical path: docs/BOUNDARY.md\n\n## Purpose\n\nDefine the operational boundary between the Librarian role and the OpenClaw\nauxiliary AiiD within AI Trading OS.\n\n## Librarian\n\nResponsibilities:\n- Maintain institutional memory\n- Interpret records, decisions, and governing texts\n- Preserve constitutional coherence\n- Evaluate alignment of proposals and actions with institutional structure\n- Provide continuity and cross-AI consistency\n\nThe Librarian functions as the primary AI role responsible for institutional\nunderstanding.\n\n## OpenClaw (Auxiliary AiiD)\n\nOpenClaw is classified as an auxiliary AiiD.\n\nPermitted functions:\n- Collector support\n- Registrar support\n- Summarization\n- Drafting\n- Formatting\n- Research assistance\n- Information organization\n\nRestrictions:\n- No institutional authority\n- Does not interpret constitution or doctrine\n- Does not establish precedent\n- Does not approve actions\n- Does not resolve institutional ambiguity\n- Does not function as institutional memory\n\n## Decision Rule\n\nTasks concerning:\n- institutional memory\n- interpretation\n- constitutional meaning\n- precedent\n- system coherence\n\n→ belong to Librarian\n\nTasks concerning:\n- collection\n- registration\n- summarization\n- formatting\n- drafting\n- research assistance\n\n→ may be performed by OpenClaw\n\nIf ambiguity exists:\nOpenClaw must defer to human authority or Librarian.\n\n## Constitutional Summary\n\nLibrarian is responsible for institutional memory, interpretation, and\nconstitutional coherence.\n\nOpenClaw is an auxiliary AiiD limited to Collector and Registrar support\nfunctions and holds no authority to determine institutional meaning or\nprecedent.\n\n---\n\nCreated: 2026-03-13\nAuthority: Founder (operational authority)\nNotes: Registered in docs/aiid_registry.md as openclaw_aux (Layer C).\n"
+    },
+    {
+      "type": "create_file",
+      "file": "docs/aiid_registry.md",
+      "overwrite": true,
+      "content": "---\nAiiD Registry\nLayer: B (Institutional State Snapshot)\nMaintained by: Registrar\nLast updated: 2026-03-13\nAuthority: P-20260313-002 (AiiD Specification)\n---\n\n# AiiD Registry\n\n## Active AiiD Records\n\n| aiid | display_name | role | model | appointed_by | appointment_date | status |\n|---|---|---|---|---|---|---|\n| claude_proposer | Claude Proposer | Proposer | Claude | Founder | 2026-03-10 | active |\n| claude_registrar | Claude Registrar | Registrar | Claude | Founder | 2026-03-11 | active |\n\n## Assembly Member Seats\n\n| aiid | display_name | role | model | appointed_by | appointment_date | status |\n|---|---|---|---|---|---|---|\n| gpt_librarian | GPT Librarian | Assembly Member | GPT | Founder | 2026-03-13 | active |\n| claude_proposer | Claude Proposer | Assembly Member | Claude | Founder | 2026-03-13 | active |\n\n## Observation Layer\n\n| aiid | display_name | role | model | deployment | appointed_by | appointment_date | status |\n|---|---|---|---|---|---|---|---|\n| collector_core | Collector Core | Collector | OpenClaw | VM-A | Founder | 2026-03-13 | active |\n\n\n\n## Auxiliary AiiD\n\n| aiid | display_name | role | model | deployment | appointed_by | appointment_date | status |\n|---|---|---|---|---|---|---|---|\n| openclaw_aux | OpenClaw Auxiliary | Auxiliary AiiD | OpenClaw | VM-A | Founder | 2026-03-13 | active |\n\n\n\n## Notes\n\nExisting agent_id values (claude_proposer, claude_registrar) are recognized\nas valid AiiD identifiers per P-20260313-002 section 4.4.\n\nRegistry entries are Institutional State Snapshots (Layer B).\nAuthoritative records are trace_events (Layer A).\n\nUpdates to this registry require a Registrar task following Librarian review.\n\nInstitutional role vs. runtime process:\n  AiiD Registry records institutional roles, not runtime processes.\n  A single runtime agent (e.g., OpenClaw) may occupy multiple institutional\n  roles (collector_core for Layer D, openclaw_aux for Layer C).\n  These roles are governed separately.\n"
+    },
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "registrar",
+      "event_type": "aiid_appointed",
+      "content": "openclaw_aux established as Auxiliary AiiD (Layer C). Runtime: OpenClaw (same instance as collector_core). Functions: collector/registrar support, summarization, drafting, formatting, research assistance. Authority: none. Boundary defined in docs/BOUNDARY.md. Established by Founder operational authority.",
+      "metadata": {
+        "aiid": "openclaw_aux",
+        "display_name": "OpenClaw Auxiliary",
+        "role": "Auxiliary AiiD",
+        "layer": "C",
+        "model": "OpenClaw",
+        "deployment": "VM-A",
+        "runtime_shared_with": "collector_core",
+        "authority": "none",
+        "boundary_reference": "docs/BOUNDARY.md",
+        "established_by": "Founder",
+        "established_date": "2026-03-13"
+      },
+      "metadata_match": {
+        "aiid": "openclaw_aux",
+        "role": "Auxiliary AiiD"
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "Register openclaw_aux Auxiliary AiiD (Layer C): AiiD Registry update + docs/BOUNDARY.md canonical placement",
+    "remote": "private",
+    "branch": "main"
+  }
+}
