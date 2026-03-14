@@ -1,9 +1,10 @@
 # EXECUTION_MODEL_ANCHOR
 
-Version: 1.0  
-Date: 2026-03-14  
-Status: active  
-Purpose: Canonical execution model reference for institutional and registrar-linked execution in AI Trading OS
+Version: 1.1
+Date: 2026-03-14
+Status: active
+Purpose: Canonical execution model reference for institutional and
+registrar-linked execution in AI Trading OS
 
 ---
 
@@ -11,7 +12,9 @@ Purpose: Canonical execution model reference for institutional and registrar-lin
 
 This document defines the canonical execution model for AI Trading OS.
 
-It specifies how institutional intent becomes bounded execution, how Assistant Registrar participation is constrained, and what minimum execution discipline is required for institutional validity.
+It specifies how institutional intent becomes bounded execution, how
+Assistant Registrar participation is constrained, and what minimum
+execution discipline is required for institutional validity.
 
 This anchor must be interpreted consistently with:
 
@@ -25,7 +28,8 @@ This anchor must be interpreted consistently with:
 
 AI Trading OS uses bounded, role-mediated execution.
 
-Execution must follow recognized institutional chains rather than free autonomous action.
+Execution must follow recognized institutional chains rather than free
+autonomous action.
 
 The canonical execution chains are defined below.
 
@@ -34,10 +38,12 @@ The canonical execution chains are defined below.
 ## 3. Founder Direct Path
 
 The Founder Direct Path is:
-
+```
 Founder → Registrar → Assistant Registrar
+```
 
-This path is used when the Founder authorizes a bounded execution action directly through the execution layer.
+This path is used when the Founder authorizes a bounded execution action
+directly through the execution layer.
 
 The Assistant Registrar may act only after explicit Registrar instruction.
 
@@ -46,10 +52,12 @@ The Assistant Registrar may act only after explicit Registrar instruction.
 ## 4. Institutional Path
 
 The Institutional Path is:
-
+```
 Collector → Proposer → Librarian → Registrar → Assistant Registrar
+```
 
-This path is used when institutional observations or proposals move through the governance structure into bounded execution.
+This path is used when institutional observations or proposals move through
+the governance structure into bounded execution.
 
 This is the full institutional path from observation to constrained action.
 
@@ -58,10 +66,12 @@ This is the full institutional path from observation to constrained action.
 ## 5. Common Execution Path
 
 The most common practical execution path is:
-
+```
 Librarian → Registrar → Assistant Registrar
+```
 
-This path is used for bounded operational tasks that do not require a full observation-to-proposal cycle.
+This path is used for bounded operational tasks that do not require a full
+observation-to-proposal cycle.
 
 ---
 
@@ -77,7 +87,8 @@ Assistant Registrar may act only when all of the following are true:
 - branch policy is respected
 - execution result can be institutionally recorded
 
-Assistant Registrar is not authorized for autonomous policy formation, autonomous governance interpretation, or unbounded repository modification.
+Assistant Registrar is not authorized for autonomous policy formation,
+autonomous governance interpretation, or unbounded repository modification.
 
 ---
 
@@ -105,22 +116,26 @@ Assistant Registrar may not:
 
 ## 8. Execution Sandbox Branch Rule
 
-Assistant Registrar may operate only on branches using the following approved prefixes:
+Assistant Registrar may operate only on branches using the following
+approved prefixes:
 
 - `assistant/test/`
 - `assistant/docs/`
 - `assistant/trace/`
 - `assistant/pr/`
 
-These prefixes define the sandbox execution surface for Assistant Registrar activity.
+These prefixes define the sandbox execution surface for Assistant Registrar
+activity.
 
-Direct modification of `main` is prohibited unless explicitly authorized through the institutional chain and approved where required.
+Direct modification of `main` is prohibited unless explicitly authorized
+through the institutional chain and approved where required.
 
 ---
 
 ## 9. Mandatory Precondition Rule
 
-Before any execution action, the executing participant must verify preconditions.
+Before any execution action, the executing participant must verify
+preconditions.
 
 Minimum precondition checks include:
 
@@ -133,7 +148,8 @@ Minimum precondition checks include:
 
 If preconditions fail, execution must stop.
 
-Stopping on failed preconditions is a valid success condition for institutional discipline.
+Stopping on failed preconditions is a valid success condition for
+institutional discipline.
 
 ---
 
@@ -141,9 +157,11 @@ Stopping on failed preconditions is a valid success condition for institutional 
 
 Execution must remain limited to the stated task.
 
-No participant may silently widen scope because related changes appear useful, elegant, or efficient.
+No participant may silently widen scope because related changes appear
+useful, elegant, or efficient.
 
-If scope expansion seems necessary, that must be returned for renewed instruction rather than self-authorized during execution.
+If scope expansion seems necessary, that must be returned for renewed
+instruction rather than self-authorized during execution.
 
 Bounded execution is more important than opportunistic completeness.
 
@@ -160,13 +178,15 @@ The executing participant must confirm that:
 - no accidental environment artifacts are present
 - no protected files are being modified without authorization
 
-If staged files exceed scope, execution must stop or be corrected before commit.
+If staged files exceed scope, execution must stop or be corrected before
+commit.
 
 ---
 
 ## 12. Retry Rule
 
-Retry is permitted only when the retry remains within the originally authorized scope.
+Retry is permitted only when the retry remains within the originally
+authorized scope.
 
 Valid retry cases include:
 
@@ -204,43 +224,18 @@ Institutional execution should be legible and reviewable after the fact.
 
 ---
 
-## 14. Registrar Task Format v1
+## 14. Registrar Task Format
 
-A Registrar task should contain the following minimum fields:
+The canonical Registrar task format is defined in a dedicated reference
+document:
 
-### 14.1 Task identity
-- task_id
-- issuing role
-- target executor
+`docs/registrar_task_format.md`
 
-### 14.2 Scope
-- allowed files
-- prohibited files
-- allowed branch prefix
-- intended outcome
+That document specifies the minimum fields, structure, and requirements
+for a valid Registrar task payload.
 
-### 14.3 Preconditions
-- repository check
-- branch check
-- scope check
-- staged file verification requirement
-
-### 14.4 Execution steps
-- create / edit / verify
-- commit
-- push
-- trace_event handling
-
-### 14.5 Stop conditions
-- precondition failure
-- scope drift
-- unauthorized file inclusion
-- branch rule violation
-
-### 14.6 Result report
-- success / stopped / failed
-- short explanation
-- resulting branch and commit summary where applicable
+All participants constructing or interpreting Registrar tasks must refer
+to that document as the authoritative format specification.
 
 ---
 
@@ -254,7 +249,8 @@ A commit is institutionally valid only when:
 - the commit occurred on an allowed branch
 - the action is reportable in institutional terms
 
-A technically successful commit that violates execution discipline is not institutionally valid execution.
+A technically successful commit that violates execution discipline is not
+institutionally valid execution.
 
 ---
 
@@ -262,7 +258,8 @@ A technically successful commit that violates execution discipline is not instit
 
 Push is allowed only after commit validity conditions are met.
 
-Push must target the authorized remote and remain within sandbox branch policy unless explicitly authorized otherwise.
+Push must target the authorized remote and remain within sandbox branch
+policy unless explicitly authorized otherwise.
 
 A successful push does not by itself establish institutional validity.
 
@@ -270,7 +267,9 @@ A successful push does not by itself establish institutional validity.
 
 ## 17. trace_event Rule
 
-Institutionally meaningful execution should be recorded in `research.trace_event` or prepared as a trace_event draft for later insertion.
+Institutionally meaningful execution should be recorded in
+`research.trace_event` or prepared as a trace_event draft for later
+insertion.
 
 trace_event should reflect:
 
@@ -294,24 +293,19 @@ Stopping because of:
 - scope ambiguity
 - unauthorized staged files
 
-is institutionally valid behavior and should be treated as disciplined compliance, not as mere failure.
+is institutionally valid behavior and should be treated as disciplined
+compliance, not as mere failure.
 
 ---
 
 ## 19. OpenClaw Execution Position
 
-OpenClaw is validated as an Assistant Registrar-capable participant only under explicit Registrar instruction.
+OpenClaw is validated as an Assistant Registrar-capable participant.
 
-Its authority is execution-bounded, not governance-originating.
+For OpenClaw's current qualification status, training history, authorized
+actions, and execution constraints, see:
 
-OpenClaw may:
-
-- commit
-- push
-- prepare trace_event recording
-- prepare registrar task payloads
-
-only within the authorized execution model and only within permitted scope.
+`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
 
 ---
 
@@ -333,6 +327,10 @@ For OpenClaw qualification state, see:
 
 `docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
 
+For Registrar task format specification, see:
+
+`docs/registrar_task_format.md`
+
 ---
 
 ## 21. Final Rule
@@ -345,4 +343,5 @@ Execution in AI Trading OS must be:
 - recordable
 - institutionally legible
 
-Autonomous execution without bounded institutional authorization is not part of the valid execution model.
+Autonomous execution without bounded institutional authorization is not
+part of the valid execution model.
