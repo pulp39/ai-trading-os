@@ -1,6 +1,6 @@
 # AI Participant Onboarding Guide
 AI Trading OS
-Version: 1.0
+Version: 1.1
 Date: 2026-03-15
 Status: Active
 Layer: 0 — All AiiD (common)
@@ -41,13 +41,15 @@ proposalは助言であり、実行命令ではありません。
 
 ## 3. セッション開始時のBootstrap
 
-新しいセッションを始めるときは、まず以下を読んでください：
+新しいセッションを始めるときは、まず以下の順に読んでください。
 
 ```
-docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+1. docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+2. docs/ai_participant_onboarding.md（このファイル）
 ```
 
-そこに推奨読み順と、各ドキュメントの関係が書かれています。
+ATOS_BOOTSTRAP_ANCHOR.md に推奨読み順と、
+各ドキュメントの関係が書かれています。
 
 **Bootstrap read orderは変わりません。**
 このOnboarding Guideはドキュメント構造を整理するものであり、
@@ -55,29 +57,44 @@ Bootstrapの手順そのものを変更するものではありません。
 
 ---
 
-## 4. 役割別の追加資料
+## 4. 役割別の最小限読み順
 
-自分の役割に応じて、以下を参照してください。
+新しいセッションを始めるとき、役割に応じて以下を参照することを
+お勧めします。Section 3 の共通手順を前提として、ここでは役割ごとの
+追加資料のみを示します。
 
-### Librarian / Proposer
+---
 
-制度・ガバナンスの理解が必要です。
+### Librarian
 
-```
-docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
-CLAUDE.md（Proposer向け）
-docs/documentation_conventions.md
-```
+- `constitution.md`
+- `docs/amendments/FR-20260312-003.md`
+- `docs/amendments/FR-20260312-004.md`
+- `docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md`
+- `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
+- `docs/aiid_registry.md`
+- `docs/BOUNDARY.md`
+- `docs/documentation_conventions.md`
 
-### Collector / Executer
+---
 
-専門技術の継承が中心です。
+### Proposer
 
-```
-docs/anchors/technical/DB_STATUS_ANCHOR.md
-docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-docs/registrar_task_format.md
-```
+- `constitution.md`
+- `docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md`
+- `CLAUDE.md`
+- `docs/proposal_semantics.md`
+- `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
+
+---
+
+### Assistant Registrar（OpenClaw）
+
+- `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
+- `docs/registrar_task_format.md`
+- `docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+- `docs/anchors/technical/DB_STATUS_ANCHOR.md`
+- `docs/openclaw_training_status.md`
 
 ---
 
@@ -94,5 +111,7 @@ docs/registrar_task_format.md
 | Version | Date | Change | By |
 |---|---|---|---|
 | 1.0 | 2026-03-15 | Initial creation | Proposer (Claude) |
+| 1.1 | 2026-03-15 | Section 4: role-based minimal reading order added | Proposer (Claude) |
 
-*Introduced by P-20260315-001. Approved by Founder 2026-03-15.*
+*v1.0 introduced by P-20260315-001. Approved by Founder 2026-03-15.*
+*v1.1 Librarian approval granted 2026-03-15.*
