@@ -82,9 +82,9 @@ of the current project state:
 1. constitution.md
 2. CLAUDE.md
 3. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-4. docs/anchors/EXECUTION_MODEL_ANCHOR.md
-5. docs/anchors/DB_STATUS_ANCHOR.md
-6. docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+4. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
+5. docs/anchors/technical/DB_STATUS_ANCHOR.md
+6. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
 7. docs/aiid_registry.md
 8. docs/BOUNDARY.md
 9. docs/openclaw_training_status.md
@@ -105,9 +105,9 @@ foundational project intent:
    constitution.md on questions of foundational principle)
 3. docs/aiid_registry.md
 4. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-5. docs/anchors/EXECUTION_MODEL_ANCHOR.md
-6. docs/anchors/DB_STATUS_ANCHOR.md
-7. docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+5. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
+6. docs/anchors/technical/DB_STATUS_ANCHOR.md
+7. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
 8. README.md
 
 When apparent conflicts remain unclear, the interpretation most
@@ -170,7 +170,7 @@ instructed by the Registrar, as an Assistant Registrar. This includes:
 
 The execution model for this project is described in detail in:
 
-`docs/anchors/EXECUTION_MODEL_ANCHOR.md`
+`docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
 
 In summary, execution in AI Trading OS follows recognized role-based
 paths rather than autonomous action. The Assistant Registrar role acts
@@ -187,9 +187,9 @@ subsystem is described in the following documents:
 | Document | What it describes |
 |---|---|
 | docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md | Governance state and project structure |
-| docs/anchors/EXECUTION_MODEL_ANCHOR.md | Execution chain and discipline rules |
-| docs/anchors/DB_STATUS_ANCHOR.md | Database structure and confirmed state |
-| docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification and training state |
+| docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md | Execution chain and discipline rules |
+| docs/anchors/technical/DB_STATUS_ANCHOR.md | Database structure and confirmed state |
+| docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification and training state |
 | docs/aiid_registry.md | Active participant role registry |
 | docs/BOUNDARY.md | Librarian / OpenClaw role boundary |
 | docs/openclaw_training_status.md | OpenClaw training ledger |
@@ -268,9 +268,9 @@ consistent with the principles in this document:
 
 - CLAUDE.md
 - docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-- docs/anchors/EXECUTION_MODEL_ANCHOR.md
-- docs/anchors/DB_STATUS_ANCHOR.md
-- docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+- docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
+- docs/anchors/technical/DB_STATUS_ANCHOR.md
+- docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
 - docs/openclaw_training_status.md
 - docs/openclaw_registrar_apprentice_rubric.md
 

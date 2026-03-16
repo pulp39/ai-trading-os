@@ -278,7 +278,7 @@ instructed by the Registrar.
 For OpenClaw's qualification status, training history, and execution
 constraints, see:
 
-`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+`docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
 
 ---
 
@@ -288,8 +288,8 @@ constraints, see:
 |---|---|
 | docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md | Project startup and read order |
 | docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md | Current institutional state |
-| docs/anchors/DB_STATUS_ANCHOR.md | Database state and trace_event environment |
-| docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification |
+| docs/anchors/technical/DB_STATUS_ANCHOR.md | Database state and trace_event environment |
+| docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification |
 | docs/registrar_task_format.md | Registrar task payload format |
 
 ---

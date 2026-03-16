@@ -15,7 +15,7 @@ Unlike the training anchor, which records institutional validation status, this 
 
 This ledger must remain consistent with:
 
-`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+`docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
 
 ---
 
@@ -149,7 +149,7 @@ Assistant Registrar (bounded execution)
 
 This validation state is defined formally in:
 
-`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+`docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
 
 ---
 

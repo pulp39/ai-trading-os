@@ -106,7 +106,7 @@ Validated Assistant Registrar participant.
 
 Formal institutional recognition is recorded in:
 
-`docs/anchors/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+`docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
 
 ---
 

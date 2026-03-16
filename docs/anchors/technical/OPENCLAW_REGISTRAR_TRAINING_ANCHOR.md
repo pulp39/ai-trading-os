@@ -25,8 +25,8 @@ This document is intended to be read alongside:
 
 - `constitution.md`
 - `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
-- `docs/anchors/EXECUTION_MODEL_ANCHOR.md`
-- `docs/anchors/DB_STATUS_ANCHOR.md`
+- `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
+- `docs/anchors/technical/DB_STATUS_ANCHOR.md`
 
 ---
 
@@ -176,7 +176,7 @@ When acting under explicit Registrar instruction, OpenClaw may:
 
 OpenClaw follows the execution model described in:
 
-`docs/anchors/EXECUTION_MODEL_ANCHOR.md`
+`docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
 
 In practice this means:
 
@@ -230,8 +230,8 @@ this design, not limitations on what OpenClaw can eventually do.
 | Document | What it covers |
 |---|---|
 | docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md | Project startup reference |
-| docs/anchors/EXECUTION_MODEL_ANCHOR.md | Execution model detail |
-| docs/anchors/DB_STATUS_ANCHOR.md | Database state |
+| docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md | Execution model detail |
+| docs/anchors/technical/DB_STATUS_ANCHOR.md | Database state |
 | docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md | Institutional state |
 
 ---

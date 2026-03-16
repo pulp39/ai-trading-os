@@ -2,6 +2,9 @@
 AI Trading OS
 Role: Proposer
 
+*This document is for Proposer role participants (Claude-family).*
+*For general onboarding, see: `docs/ai_participant_onboarding.md`*
+
 ---
 
 ## Repository

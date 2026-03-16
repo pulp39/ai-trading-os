@@ -19,7 +19,7 @@ Registrar (or Founder direct path) to the executing participant
 
 This document must be interpreted consistently with:
 
-- `docs/anchors/EXECUTION_MODEL_ANCHOR.md`
+- `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
 - `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
 
 ---
@@ -102,7 +102,7 @@ The execution rules governing how tasks are carried out — including
 precondition checks, scope limits, retry rules, commit validity, and
 stop-on-failure behavior — are defined in:
 
-`docs/anchors/EXECUTION_MODEL_ANCHOR.md`
+`docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
 
 Task format and execution rules are related but separate concerns:
 
@@ -118,7 +118,7 @@ This format specification may be updated through institutional procedure.
 Changes to the task format that affect existing execution pipelines must
 be coordinated with updates to:
 
-- `docs/anchors/EXECUTION_MODEL_ANCHOR.md`
+- `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
 - `CLAUDE.md` (if Registrar execution protocol references this format)
 - any runner implementation depending on this format
 

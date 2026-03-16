@@ -20,7 +20,7 @@ This document is intended to be read alongside:
 - `constitution.md`
 - `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
 - `docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md`
-- `docs/anchors/EXECUTION_MODEL_ANCHOR.md`
+- `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
 
 ---
 
