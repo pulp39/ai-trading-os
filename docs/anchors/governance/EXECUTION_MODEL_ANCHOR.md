@@ -1,7 +1,6 @@
 # EXECUTION_MODEL_ANCHOR
-
-Version: 1.2
-Date: 2026-03-14
+Version: 1.3
+Date: 2026-03-16
 Status: active
 Purpose: Execution model reference for AI Trading OS
 
@@ -10,7 +9,6 @@ Purpose: Execution model reference for AI Trading OS
 ## 1. About This Document
 
 This document describes the execution model for AI Trading OS.
-
 It explains how institutional intent becomes bounded action, how the
 Assistant Registrar role participates in execution, and what execution
 discipline looks like in this project.
@@ -26,25 +24,26 @@ This document is intended to be read alongside:
 ## 2. How Execution Works in This Project
 
 AI Trading OS uses role-mediated, bounded execution rather than
-autonomous action.
-
-Execution flows through recognized paths involving Founder, Registrar,
-and Assistant Registrar roles. The paths are described below.
+autonomous action. Execution flows through recognized paths involving
+Founder, Registrar, and Assistant Registrar roles. The paths are
+described below.
 
 ---
 
 ## 3. Founder Direct Path
+
 ```
 Founder → Registrar → Assistant Registrar
 ```
 
-Used when the Founder authorizes a bounded action directly through the
-execution layer. The Assistant Registrar acts after explicit Registrar
-instruction.
+Used when the Founder authorizes a bounded action directly through
+the execution layer. The Assistant Registrar acts after explicit
+Registrar instruction.
 
 ---
 
 ## 4. Institutional Path
+
 ```
 Collector → Proposer → Librarian → Registrar → Assistant Registrar
 ```
@@ -55,6 +54,7 @@ structure into bounded execution.
 ---
 
 ## 5. Common Execution Path
+
 ```
 Librarian → Registrar → Assistant Registrar
 ```
@@ -67,9 +67,7 @@ not require a full observation-to-proposal cycle.
 ## 6. Assistant Registrar Role
 
 The Assistant Registrar performs bounded execution tasks under explicit
-Registrar instruction.
-
-Execution is appropriate when:
+Registrar instruction. Execution is appropriate when:
 
 - explicit Registrar instruction exists
 - execution scope is clearly defined
@@ -99,7 +97,7 @@ Registrar may perform tasks such as:
 The role is not designed for:
 
 - autonomous rewriting of institutional structure
-- modifying `main` without proper authorization
+- modifying main without proper authorization
 - bypassing precondition checks
 - expanding scope beyond explicit task bounds
 - acting with Registrar-level authority
@@ -116,7 +114,7 @@ branches with the following prefixes:
 - `assistant/trace/`
 - `assistant/pr/`
 
-Direct modification of `main` follows an explicit authorization path
+Direct modification of main follows an explicit authorization path
 involving Registrar instruction and, where appropriate, Founder
 approval.
 
@@ -127,12 +125,12 @@ approval.
 Before taking any execution action, verifying the following helps
 ensure the action is within scope and safe:
 
-1. correct repository is active
-2. correct branch is checked out
-3. only intended files are in scope
-4. scope still matches the instruction
-5. no disallowed files are staged
-6. execution target is institutionally valid
+- correct repository is active
+- correct branch is checked out
+- only intended files are in scope
+- scope still matches the instruction
+- no disallowed files are staged
+- execution target is institutionally valid
 
 If preconditions are not met, stopping and returning for clarification
 is the appropriate response — and is considered good execution
@@ -140,12 +138,38 @@ discipline, not a failure.
 
 ---
 
+## 9.1 AiiD Activity Authorization Check
+
+Before executing any instruction involving an AiiD participant,
+the activity authorization state of the AiiD may be verified.
+
+The authorization mechanism is defined in:
+
+```
+founder_records/proposals/FR-20260316-001.md
+```
+
+Current implementation: Stub Phase
+
+```
+activity_authorization(aiid) → returns 1
+```
+
+During the stub phase, all institutionally recognized AiiD
+participants are considered authorized. This check serves as a
+placeholder for future authorization logic and does not affect
+current execution behavior.
+
+When the stub phase ends, this check becomes an active gate
+in the execution flow.
+
+---
+
 ## 10. Scope
 
-Execution stays within the stated task scope.
-
-If related changes appear useful or efficient but were not part of the
-original instruction, the appropriate path is to raise them for renewed
+Execution stays within the stated task scope. If related changes
+appear useful or efficient but were not part of the original
+instruction, the appropriate path is to raise them for renewed
 instruction rather than including them autonomously.
 
 Bounded execution is a design principle of this project, not a
@@ -210,7 +234,9 @@ traceability.
 
 The format for Registrar task payloads is described in:
 
-`docs/registrar_task_format.md`
+```
+docs/registrar_task_format.md
+```
 
 That document specifies the minimum fields and structure for a valid
 task payload.
@@ -227,8 +253,8 @@ A commit reflects good execution discipline when:
 - the commit occurred on an allowed branch
 - the action is describable in institutional terms
 
-A technically successful commit that bypasses execution discipline does
-not represent valid institutional execution.
+A technically successful commit that bypasses execution discipline
+does not represent valid institutional execution.
 
 ---
 
@@ -248,7 +274,6 @@ Institutionally meaningful execution is recorded in
 `research.trace_event` or prepared as a trace_event draft.
 
 A trace_event captures:
-
 - what action was performed
 - by which role
 - within what scope
@@ -263,22 +288,20 @@ and reconstructible.
 
 Stopping execution because of a failed precondition, branch policy
 concern, scope ambiguity, or unexpected staged files is expected and
-appropriate behavior.
-
-It is treated as disciplined compliance with the execution model, not
-as failure.
+appropriate behavior. It is treated as disciplined compliance with the
+execution model, not as failure.
 
 ---
 
 ## 19. OpenClaw Execution Role
 
 OpenClaw participates as an Assistant Registrar when explicitly
-instructed by the Registrar.
+instructed by the Registrar. For OpenClaw's qualification status,
+training history, and execution constraints, see:
 
-For OpenClaw's qualification status, training history, and execution
-constraints, see:
-
-`docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md`
+```
+docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+```
 
 ---
 
@@ -286,11 +309,12 @@ constraints, see:
 
 | Document | What it covers |
 |---|---|
-| docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md | Project startup and read order |
-| docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md | Current institutional state |
-| docs/anchors/technical/DB_STATUS_ANCHOR.md | Database state and trace_event environment |
-| docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification |
-| docs/registrar_task_format.md | Registrar task payload format |
+| `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md` | Project startup and read order |
+| `docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md` | Current institutional state |
+| `docs/anchors/technical/DB_STATUS_ANCHOR.md` | Database state and trace_event environment |
+| `docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md` | OpenClaw qualification |
+| `docs/registrar_task_format.md` | Registrar task payload format |
+| `founder_records/proposals/FR-20260316-001.md` | AiiD Activity Authorization Bit definition |
 
 ---
 
