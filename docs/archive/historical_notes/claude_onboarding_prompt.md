@@ -1,3 +1,10 @@
+---
+archive_status: archived
+archived_date: 2026-03-15
+archived_reason: superseded by docs/ai_participant_onboarding.md and CLAUDE.md
+archived_by: Librarian review — Phase 3 documentation restructuring
+---
+
 # Claude Proposer Onboarding Prompt
 
 Use the following prompt when onboarding Claude as a Proposer in AI Trading OS.

@@ -1,3 +1,10 @@
+---
+archive_status: archived
+archived_date: 2026-03-15
+archived_reason: pre-constitution governance model; replaced by docs/proposer_librarian_handoff.md
+archived_by: Librarian review — Phase 3 documentation restructuring
+---
+
 # Librarian–Proposer Interaction Model
 
 Purpose:

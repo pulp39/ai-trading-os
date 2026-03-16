@@ -1,3 +1,10 @@
+---
+archive_status: archived
+archived_date: 2026-03-15
+archived_reason: conceptual content absorbed by constitution.md and AI_TRADING_OS_MASTER_ANCHOR.md
+archived_by: Librarian review — Phase 3 documentation restructuring
+---
+
 # AI Trading OS Institutional Model
 
 This document explains the institutional structure of AI Trading OS.

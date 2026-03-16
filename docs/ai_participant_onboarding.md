@@ -1,9 +1,31 @@
 # AI Participant Onboarding Guide
 AI Trading OS
-Version: 1.1
+Version: 1.2
 Date: 2026-03-15
 Status: Active
 Layer: 0 — All AiiD (common)
+
+---
+
+## Bootstrap（最初に読んでください / Read First）
+
+このドキュメントを読む前に、まず以下で制度状態を再構築することを
+お勧めします：
+
+```
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+```
+
+Before reading this document, AI participants are encouraged to
+reconstruct the institutional state using the bootstrap anchor:
+
+```
+docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md
+```
+
+The bootstrap anchor defines the reading order required to reconstruct
+the current institutional state. This onboarding guide provides
+role-specific context after that reconstruction.
 
 ---
 
@@ -112,6 +134,8 @@ Bootstrapの手順そのものを変更するものではありません。
 |---|---|---|---|
 | 1.0 | 2026-03-15 | Initial creation | Proposer (Claude) |
 | 1.1 | 2026-03-15 | Section 4: role-based minimal reading order added | Proposer (Claude) |
+| 1.2 | 2026-03-15 | Bootstrap priority note added to document header | Proposer (Claude) |
 
 *v1.0 introduced by P-20260315-001. Approved by Founder 2026-03-15.*
 *v1.1 Librarian approval granted 2026-03-15.*
+*v1.2 Bootstrap ambiguity resolution — Librarian review + Proposer confirmation 2026-03-15.*

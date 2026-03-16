@@ -1,3 +1,10 @@
+---
+archive_status: archived
+archived_date: 2026-03-15
+archived_reason: legacy institutional pipeline (pre-Registrar model); superseded by EXECUTION_MODEL_ANCHOR and registrar_task_format.md
+archived_by: Librarian review — Phase 3 documentation restructuring
+---
+
 # Proposal Execution Flow (Operational Memo)
 
 This document describes the minimal operational procedure for applying a proposal using the institutional scripts.
