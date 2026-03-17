@@ -1,0 +1,16 @@
+{
+  "task_id": "REG-20260317-MILESTONE-001",
+  "task_type": "bounded_db_test",
+  "db_scope": {
+    "schema": "research",
+    "table": "trace_event"
+  },
+  "allowed_actions": ["INSERT"],
+  "steps": [
+    {
+      "step": 1,
+      "action": "INSERT",
+      "sql": "INSERT INTO research.trace_event (session_id, agent_id, actor_type, event_type, content) VALUES ('atos-session-001', 'librarian', 'ai', 'system_milestone', 'ATOS completed its first end-to-end market observation pipeline via kabuStation → observation → registrar → DB') RETURNING id, ts"
+    }
+  ]
+}

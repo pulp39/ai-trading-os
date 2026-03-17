@@ -3,137 +3,137 @@
   "source": "kabusapi_board",
   "symbol": "7203",
   "exchange": 1,
-  "captured_at": "2026-03-16T15:30:00+09:00",
+  "captured_at": "2026-03-17T10:19:30+09:00",
   "summary": {
     "symbol_name": "トヨタ自動車",
-    "current_price": 3338.0,
-    "previous_close": 3370.0,
-    "trading_volume": 18079900.0,
-    "bid_price": 3346.0,
-    "ask_price": 3337.0,
-    "vwap": 3350.3578
+    "current_price": 3375.0,
+    "previous_close": 3338.0,
+    "trading_volume": 3186500.0,
+    "bid_price": 3375.0,
+    "ask_price": 3374.0,
+    "vwap": 3374.1165
   },
   "payload": {
-    "OverSellQty": 3886100.0,
-    "UnderBuyQty": 2760500.0,
-    "TotalMarketValue": 52723668141480.0,
+    "OverSellQty": 3850400.0,
+    "UnderBuyQty": 3051700.0,
+    "TotalMarketValue": 53308082677500.0,
     "MarketOrderSellQty": 0.0,
     "MarketOrderBuyQty": 0.0,
-    "BidTime": "2026-03-16T15:30:00+09:00",
-    "AskTime": "2026-03-16T15:30:00+09:00",
+    "BidTime": "2026-03-17T10:19:32+09:00",
+    "AskTime": "2026-03-17T10:19:32+09:00",
     "Exchange": 1,
     "ExchangeName": "東証プ",
-    "TradingVolume": 18079900.0,
-    "TradingVolumeTime": "2026-03-16T15:30:00+09:00",
-    "VWAP": 3350.3578,
-    "TradingValue": 60574134100.0,
-    "BidQty": 100.0,
-    "BidPrice": 3346.0,
+    "TradingVolume": 3186500.0,
+    "TradingVolumeTime": "2026-03-17T10:19:30+09:00",
+    "VWAP": 3374.1165,
+    "TradingValue": 10751622100.0,
+    "BidQty": 4500.0,
+    "BidPrice": 3375.0,
     "BidSign": "0101",
     "Sell1": {
-      "Price": 3346.0,
-      "Qty": 100.0,
+      "Price": 3375.0,
+      "Qty": 4500.0,
       "Sign": "0101",
-      "Time": "2026-03-16T15:30:00+09:00"
+      "Time": "2026-03-17T10:19:32+09:00"
     },
     "Sell2": {
-      "Price": 3350.0,
-      "Qty": 1200.0
+      "Price": 3376.0,
+      "Qty": 10200.0
     },
     "Sell3": {
-      "Price": 3355.0,
-      "Qty": 1400.0
+      "Price": 3377.0,
+      "Qty": 18000.0
     },
     "Sell4": {
-      "Price": 3357.0,
-      "Qty": 200.0
+      "Price": 3378.0,
+      "Qty": 14000.0
     },
     "Sell5": {
-      "Price": 3359.0,
-      "Qty": 800.0
+      "Price": 3379.0,
+      "Qty": 19100.0
     },
     "Sell6": {
-      "Price": 3360.0,
-      "Qty": 1800.0
+      "Price": 3380.0,
+      "Qty": 33100.0
     },
     "Sell7": {
-      "Price": 3361.0,
-      "Qty": 1700.0
+      "Price": 3381.0,
+      "Qty": 19000.0
     },
     "Sell8": {
-      "Price": 3362.0,
-      "Qty": 1400.0
+      "Price": 3382.0,
+      "Qty": 18200.0
     },
     "Sell9": {
-      "Price": 3363.0,
-      "Qty": 1300.0
+      "Price": 3383.0,
+      "Qty": 14800.0
     },
     "Sell10": {
-      "Price": 3364.0,
-      "Qty": 3300.0
+      "Price": 3384.0,
+      "Qty": 30900.0
     },
-    "AskQty": 47700.0,
-    "AskPrice": 3337.0,
+    "AskQty": 900.0,
+    "AskPrice": 3374.0,
     "AskSign": "0101",
     "Buy1": {
-      "Price": 3337.0,
-      "Qty": 47700.0,
+      "Price": 3374.0,
+      "Qty": 900.0,
       "Sign": "0101",
-      "Time": "2026-03-16T15:30:00+09:00"
+      "Time": "2026-03-17T10:19:32+09:00"
     },
     "Buy2": {
-      "Price": 3336.0,
-      "Qty": 4500.0
+      "Price": 3373.0,
+      "Qty": 5700.0
     },
     "Buy3": {
-      "Price": 3335.0,
-      "Qty": 15900.0
+      "Price": 3372.0,
+      "Qty": 7900.0
     },
     "Buy4": {
-      "Price": 3334.0,
-      "Qty": 2000.0
+      "Price": 3371.0,
+      "Qty": 12200.0
     },
     "Buy5": {
-      "Price": 3333.0,
-      "Qty": 68900.0
+      "Price": 3370.0,
+      "Qty": 12100.0
     },
     "Buy6": {
-      "Price": 3332.0,
-      "Qty": 4400.0
+      "Price": 3369.0,
+      "Qty": 10100.0
     },
     "Buy7": {
-      "Price": 3331.0,
-      "Qty": 13100.0
+      "Price": 3368.0,
+      "Qty": 10800.0
     },
     "Buy8": {
-      "Price": 3330.0,
-      "Qty": 51700.0
+      "Price": 3367.0,
+      "Qty": 15500.0
     },
     "Buy9": {
-      "Price": 3329.0,
-      "Qty": 14100.0
+      "Price": 3366.0,
+      "Qty": 17000.0
     },
     "Buy10": {
-      "Price": 3328.0,
-      "Qty": 63200.0
+      "Price": 3365.0,
+      "Qty": 12300.0
     },
     "Symbol": "7203",
     "SymbolName": "トヨタ自動車",
-    "CurrentPrice": 3338.0,
-    "CurrentPriceTime": "2026-03-16T15:30:00+09:00",
-    "CurrentPriceChangeStatus": "0061",
+    "CurrentPrice": 3375.0,
+    "CurrentPriceTime": "2026-03-17T10:19:30+09:00",
+    "CurrentPriceChangeStatus": "0056",
     "CurrentPriceStatus": 1,
-    "CalcPrice": 3338.0,
-    "PreviousClose": 3370.0,
-    "PreviousCloseTime": "2026-03-13T00:00:00+09:00",
-    "ChangePreviousClose": -32.0,
-    "ChangePreviousClosePer": -0.95,
-    "OpeningPrice": 3370.0,
-    "OpeningPriceTime": "2026-03-16T09:00:00+09:00",
-    "HighPrice": 3380.0,
-    "HighPriceTime": "2026-03-16T09:16:41+09:00",
-    "LowPrice": 3328.0,
-    "LowPriceTime": "2026-03-16T11:24:44+09:00",
+    "CalcPrice": 3375.0,
+    "PreviousClose": 3338.0,
+    "PreviousCloseTime": "2026-03-16T00:00:00+09:00",
+    "ChangePreviousClose": 37.0,
+    "ChangePreviousClosePer": 1.11,
+    "OpeningPrice": 3377.0,
+    "OpeningPriceTime": "2026-03-17T09:00:00+09:00",
+    "HighPrice": 3394.0,
+    "HighPriceTime": "2026-03-17T09:07:32+09:00",
+    "LowPrice": 3357.0,
+    "LowPriceTime": "2026-03-17T09:44:43+09:00",
     "SecurityType": 1
   }
 }
