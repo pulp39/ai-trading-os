@@ -4,3 +4,4 @@ __pycache__/
 .env
 runtime/
 .env.registrar
+scripts/registrar/.env.local.wsl
