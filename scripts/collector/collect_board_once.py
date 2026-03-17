@@ -16,6 +16,44 @@ REGISTER_SCRIPT = BASE_DIR / "scripts" / "registrar" / "register_observation_fil
 RUNNER_SCRIPT = BASE_DIR / "scripts" / "registrar" / "registrar_db_runner.py"
 
 
+def run_powershell(ps_script: str) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["powershell.exe", "-NoProfile", "-Command", ps_script],
+        capture_output=True,
+        text=True,
+        encoding="cp932",
+        errors="replace",
+    )
+
+
+def register_symbol_via_powershell(symbol: str) -> None:
+    password = os.environ["KABU_API_PASSWORD"]
+
+    ps_script = f"""
+$ErrorActionPreference = "Stop"
+$env:KABU_API_PASSWORD = {json.dumps(password)}
+
+$tokenBody = @{{ APIPassword = $env:KABU_API_PASSWORD }} | ConvertTo-Json
+$token = (Invoke-RestMethod -Method Post -Uri "http://localhost:{KABU_PORT}/kabusapi/token" -ContentType "application/json" -Body $tokenBody).Token
+
+$regBody = @{{
+    Symbols = @(
+        @{{ Symbol = "{symbol}"; Exchange = {EXCHANGE} }}
+    )
+}} | ConvertTo-Json -Depth 5
+
+Invoke-RestMethod -Method Put -Uri "http://localhost:{KABU_PORT}/kabusapi/register" -Headers @{{ "X-API-KEY" = $token }} -ContentType "application/json" -Body $regBody | Out-Null
+"""
+
+    result = run_powershell(ps_script)
+    if result.returncode != 0:
+        raise RuntimeError(
+            "PowerShell symbol registration failed\n"
+            f"stdout:\n{result.stdout}\n"
+            f"stderr:\n{result.stderr}"
+        )
+
+
 def save_board_via_powershell(symbol: str) -> Path:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     board_path = DATA_DIR / f"board_{symbol}_{KABU_PORT}.json"
@@ -38,14 +76,7 @@ Invoke-RestMethod -Method Get -Uri "http://localhost:{KABU_PORT}/kabusapi/board/
     Set-Content -Encoding UTF8 "{board_path_windows}"
 """
 
-    result = subprocess.run(
-        ["powershell.exe", "-NoProfile", "-Command", ps_script],
-        capture_output=True,
-        text=True,
-        encoding="cp932",
-        errors="replace",
-    )
-
+    result = run_powershell(ps_script)
     if result.returncode != 0:
         raise RuntimeError(
             "PowerShell board fetch failed\n"
@@ -92,6 +123,9 @@ def main() -> None:
         sys.exit(1)
 
     symbol = sys.argv[1]
+
+    print("Registering symbol via Windows PowerShell...")
+    register_symbol_via_powershell(symbol)
 
     print("Fetching board via Windows PowerShell...")
     board_path = save_board_via_powershell(symbol)
