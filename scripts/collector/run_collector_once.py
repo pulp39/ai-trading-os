@@ -6,6 +6,8 @@ from pathlib import Path
 from datetime import datetime, time
 import zoneinfo
 
+SKIP_MARKET_HOURS_CHECK = True
+
 JST = zoneinfo.ZoneInfo("Asia/Tokyo")
 
 def is_market_open() -> bool:
@@ -23,9 +25,9 @@ COLLECT_SCRIPT = BASE_DIR / "scripts" / "collector" / "collect_board_once.py"
 
 
 def main() -> int:
-    if not is_market_open():
+    if (not SKIP_MARKET_HOURS_CHECK) and (not is_market_open()):
         print("Market is closed. Skipping collection.")
-        return 0
+        return
 
     python_exe = sys.executable
     overall_ok = True

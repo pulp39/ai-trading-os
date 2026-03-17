@@ -5,6 +5,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.append(str(Path(__file__).resolve().parent))
+from snapshot_writer import insert_board_snapshot
+
 KABU_PORT = 18080
 EXCHANGE = 1
 
@@ -129,6 +132,11 @@ def main() -> None:
 
     print("Fetching board via Windows PowerShell...")
     board_path = save_board_via_powershell(symbol)
+
+    with open(board_path, "r", encoding="utf-8-sig") as f:
+        board = json.load(f)
+
+    insert_board_snapshot(board)
 
     print("Converting to observation...")
     obs_path = run_convert(board_path)
