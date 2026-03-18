@@ -18,6 +18,9 @@ COLLECT_SCRIPT = BASE_DIR / "scripts" / "collector" / "collect_board_once.py"
 HYPOTHESIS_TRIGGER_SCRIPT = (
     BASE_DIR / "scripts" / "proposer" / "hypothesis_trigger_once.py"
 )
+PROPOSAL_TRIGGER_SCRIPT = (
+    BASE_DIR / "scripts" / "proposer" / "proposal_trigger_once.py"
+)
 
 
 def is_market_open() -> bool:
@@ -79,9 +82,14 @@ def main() -> int:
     )
 
     print("Evaluating hypothesis triggers...")
-    trigger_result = subprocess.run([sys.executable, str(HYPOTHESIS_TRIGGER_SCRIPT)])
-    if trigger_result.returncode != 0:
+    hypothesis_result = subprocess.run([sys.executable, str(HYPOTHESIS_TRIGGER_SCRIPT)])
+    if hypothesis_result.returncode != 0:
         print("WARNING: hypothesis trigger evaluation failed")
+
+    print("Generating proposal drafts...")
+    proposal_result = subprocess.run([sys.executable, str(PROPOSAL_TRIGGER_SCRIPT)])
+    if proposal_result.returncode != 0:
+        print("WARNING: proposal trigger evaluation failed")
 
     return 0 if status == "success" else 1
 
