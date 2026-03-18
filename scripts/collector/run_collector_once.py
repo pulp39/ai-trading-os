@@ -13,6 +13,12 @@ SKIP_MARKET_HOURS_CHECK = True
 SYMBOLS = ["7203", "8306", "6758"]
 TOKYO = ZoneInfo("Asia/Tokyo")
 
+BASE_DIR = Path(__file__).resolve().parents[2]
+COLLECT_SCRIPT = BASE_DIR / "scripts" / "collector" / "collect_board_once.py"
+HYPOTHESIS_TRIGGER_SCRIPT = (
+    BASE_DIR / "scripts" / "proposer" / "hypothesis_trigger_once.py"
+)
+
 
 def is_market_open() -> bool:
     now = datetime.now(TOKYO)
@@ -44,9 +50,7 @@ def main() -> int:
 
     for symbol in SYMBOLS:
         print(f"=== collecting {symbol} ===")
-        result = subprocess.run(
-            [sys.executable, "scripts/collector/collect_board_once.py", symbol]
-        )
+        result = subprocess.run([sys.executable, str(COLLECT_SCRIPT), symbol])
         if result.returncode == 0:
             print(f"OK: {symbol}")
             success_symbols.append(symbol)
@@ -73,6 +77,11 @@ def main() -> int:
         failed_symbols=failed_symbols,
         aab_bundle_id=None,
     )
+
+    print("Evaluating hypothesis triggers...")
+    trigger_result = subprocess.run([sys.executable, str(HYPOTHESIS_TRIGGER_SCRIPT)])
+    if trigger_result.returncode != 0:
+        print("WARNING: hypothesis trigger evaluation failed")
 
     return 0 if status == "success" else 1
 
