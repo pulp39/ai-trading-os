@@ -3,9 +3,11 @@ import json
 import os
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).resolve().parent))
+from indicator_writer import write_indicator_observation
 from snapshot_writer import insert_board_snapshot
 
 KABU_PORT = 18080
@@ -120,6 +122,14 @@ def run_registrar(task_path: Path) -> None:
     )
 
 
+def _coerce_captured_at(value) -> datetime:
+    if isinstance(value, datetime):
+        return value
+    if isinstance(value, str):
+        return datetime.fromisoformat(value)
+    raise TypeError(f"Unsupported captured_at type: {type(value)}")
+
+
 def main() -> None:
     if len(sys.argv) != 2:
         print("usage: python collect_board_once.py <symbol>")
@@ -136,7 +146,26 @@ def main() -> None:
     with open(board_path, "r", encoding="utf-8-sig") as f:
         board = json.load(f)
 
-    insert_board_snapshot(board)
+    print("Writing board snapshot...")
+    snapshot_result = insert_board_snapshot(board)
+
+    snapshot_id = snapshot_result["snapshot_id"]
+    captured_at = _coerce_captured_at(snapshot_result["captured_at"])
+
+    print("Writing indicator observation...")
+    indicator_event_id = write_indicator_observation(
+        symbol=str(symbol),
+        captured_at=captured_at,
+        current_price=board.get("CurrentPrice"),
+        vwap=board.get("VWAP"),
+        source_snapshot_id=snapshot_id,
+        aab_bundle_id=None,
+    )
+
+    print(
+        f"indicator_observation written: "
+        f"symbol={symbol}, snapshot_id={snapshot_id}, event_id={indicator_event_id}"
+    )
 
     print("Converting to observation...")
     obs_path = run_convert(board_path)

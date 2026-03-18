@@ -1,10 +1,11 @@
-import json
 import os
+from datetime import datetime
+
 import psycopg
 from psycopg.types.json import Json
 
 
-def insert_board_snapshot(board: dict) -> None:
+def insert_board_snapshot(board: dict) -> dict:
     conn = psycopg.connect(
         host=os.environ["OPENCLAW_TRACE_DB_HOST"],
         port=os.environ["OPENCLAW_TRACE_DB_PORT"],
@@ -44,7 +45,18 @@ def insert_board_snapshot(board: dict) -> None:
         %(vwap)s,
         %(payload)s
     )
-    ON CONFLICT (symbol, captured_at) DO NOTHING
+    ON CONFLICT (symbol, captured_at) DO UPDATE
+    SET
+        exchange = EXCLUDED.exchange,
+        current_price = EXCLUDED.current_price,
+        bid_price = EXCLUDED.bid_price,
+        ask_price = EXCLUDED.ask_price,
+        bid_qty = EXCLUDED.bid_qty,
+        ask_qty = EXCLUDED.ask_qty,
+        trading_volume = EXCLUDED.trading_volume,
+        vwap = EXCLUDED.vwap,
+        payload = EXCLUDED.payload
+    RETURNING id, captured_at
     """
 
     params = {
@@ -64,5 +76,16 @@ def insert_board_snapshot(board: dict) -> None:
     with conn:
         with conn.cursor() as cur:
             cur.execute(sql, params)
+            row = cur.fetchone()
 
     conn.close()
+
+    snapshot_id, captured_at_value = row
+
+    if isinstance(captured_at_value, str):
+        captured_at_value = datetime.fromisoformat(captured_at_value)
+
+    return {
+        "snapshot_id": snapshot_id,
+        "captured_at": captured_at_value,
+    }
