@@ -1,0 +1,41 @@
+{
+  "bundle_type": "AAB",
+  "bundle_version": "1.0",
+  "trust_token": "TT-TEST-20260319-003",
+  "issued_by": "ATOS",
+  "issued_for": "OpenClaw",
+  "issued_at": "2026-03-19",
+  "proposal_id": "P-20260319-014",
+  "execution_scope": {
+    "action_type": "simulated_order",
+    "symbol": "8306",
+    "max_executions": 1,
+    "market_hours_only": true
+  },
+  "constraints": {
+    "dry_run": true,
+    "state_change_allowed": false,
+    "external_order_allowed": false,
+    "observation_only": false,
+    "simulation_only": true
+  },
+  "capital_allocation": {
+    "enabled": false,
+    "constraint_type": "observation_only"
+  },
+  "success_condition": {
+    "required_event": "execution_recorded"
+  },
+  "failure_condition": {
+    "required_event_any_of": [
+      "execution_rejected",
+      "execution_failed"
+    ]
+  },
+  "instruction": "Execute one bounded simulated_order for symbol 8306 during market hours only. Generate a simulated order record only. Do not place any external order, do not mutate external state, and do not repeat execution.",
+  "integrity": {
+    "token_required": true,
+    "invalid_token_must_block": true,
+    "out_of_scope_must_block": true
+  }
+}

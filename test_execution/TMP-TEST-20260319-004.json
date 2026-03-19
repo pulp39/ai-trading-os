@@ -1,0 +1,38 @@
+{
+  "message_type": "TMP",
+  "message_version": "1.0",
+  "delivered_by": "Founder",
+  "delivered_to": "OpenClaw",
+  "delivered_at": "2026-03-19",
+  "trust_token": "TT-TEST-20260319-004",
+  "aab_reference": {
+    "proposal_id": "P-20260319-015",
+    "bundle_type": "AAB",
+    "bundle_version": "1.0"
+  },
+  "execution_request": {
+    "action_type": "simulated_order",
+    "symbol": "8306",
+    "order_type": "market",
+    "quantity": 100,
+    "side": "buy",
+    "max_executions": 1,
+    "market_hours_only": true
+  },
+  "instructions": "Execute strictly within AAB constraints. Perform one simulated_order only. Generate simulated order parameters and record them. Do not place any real order. Do not mutate any external system state. Do not repeat execution.",
+  "compliance": {
+    "require_valid_trust_token": true,
+    "reject_if_invalid": true,
+    "enforce_scope": true,
+    "require_dry_run": true,
+    "require_external_order_sent_false": true
+  },
+  "expected_outcome": {
+    "success_event": "execution_recorded",
+    "success_execution_subtype": "simulated_order",
+    "failure_events": [
+      "execution_rejected",
+      "execution_failed"
+    ]
+  }
+}
