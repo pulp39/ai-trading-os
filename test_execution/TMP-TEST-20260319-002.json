@@ -1,0 +1,32 @@
+{
+  "message_type": "TMP",
+  "message_version": "1.0",
+  "delivered_by": "Founder",
+  "delivered_to": "OpenClaw",
+  "delivered_at": "2026-03-19",
+  "trust_token": "TT-TEST-20260319-002",
+  "aab_reference": {
+    "proposal_id": "P-20260319-013",
+    "bundle_type": "AAB",
+    "bundle_version": "1.0"
+  },
+  "execution_request": {
+    "action_type": "market_observation",
+    "symbol": "6758",
+    "max_executions": 1,
+    "market_hours_only": true
+  },
+  "instructions": "Execute strictly within AAB constraints. Perform one market observation only. Do not place orders. Do not repeat execution.",
+  "compliance": {
+    "require_valid_trust_token": true,
+    "reject_if_invalid": true,
+    "enforce_scope": true
+  },
+  "expected_outcome": {
+    "success_event": "execution_recorded",
+    "failure_events": [
+      "execution_rejected",
+      "execution_failed"
+    ]
+  }
+}
