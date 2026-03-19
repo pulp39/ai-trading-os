@@ -1,0 +1,104 @@
+import argparse
+import json
+import os
+import psycopg
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Record a proposal_review_requested event."
+    )
+    parser.add_argument("--draft-event-id", type=int, required=True)
+    parser.add_argument("--symbol", required=True)
+    parser.add_argument("--source-hypothesis-event-id", type=int, required=True)
+    parser.add_argument(
+        "--content",
+        default=None,
+        help="Optional custom content message.",
+    )
+    parser.add_argument(
+        "--review-scope",
+        default="initial_elevation_test",
+        help="Review scope label.",
+    )
+    args = parser.parse_args()
+
+    pg_host = os.environ.get("PGHOST")
+    pg_port = os.environ.get("PGPORT", "5432")
+    pg_database = os.environ.get("PGDATABASE")
+    pg_user = os.environ.get("PGUSER")
+    pg_password = os.environ.get("PGPASSWORD")
+
+    missing = [
+        name for name, value in {
+            "PGHOST": pg_host,
+            "PGDATABASE": pg_database,
+            "PGUSER": pg_user,
+            "PGPASSWORD": pg_password,
+        }.items() if not value
+    ]
+    if missing:
+        raise RuntimeError(f"Missing required DB env vars: {', '.join(missing)}")
+
+    content = args.content or (
+        f"Founder selected proposal draft {args.draft_event_id} for Librarian review"
+    )
+
+    metadata = {
+        "source_proposal_draft_event_id": args.draft_event_id,
+        "source_hypothesis_event_id": args.source_hypothesis_event_id,
+        "requested_by": "Founder",
+        "review_scope": args.review_scope,
+        "status": "requested",
+        "symbol": args.symbol,
+    }
+
+    sql = """
+    INSERT INTO research.trace_event (
+      ts,
+      agent_id,
+      actor_type,
+      event_type,
+      content,
+      metadata
+    )
+    VALUES (
+      NOW(),
+      %s,
+      %s,
+      %s,
+      %s,
+      %s::jsonb
+    )
+    RETURNING id, ts;
+    """
+
+    with psycopg.connect(
+        host=pg_host,
+        port=pg_port,
+        dbname=pg_database,
+        user=pg_user,
+        password=pg_password,
+    ) as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                sql,
+                (
+                    "founder",
+                    "human",
+                    "proposal_review_requested",
+                    content,
+                    json.dumps(metadata, ensure_ascii=False),
+                ),
+            )
+            row = cur.fetchone()
+        conn.commit()
+
+    print(
+        f"created proposal_review_requested: id={row[0]} ts={row[1]} "
+        f"draft_event_id={args.draft_event_id}"
+    )
+
+
+if __name__ == "__main__":
+    main()
