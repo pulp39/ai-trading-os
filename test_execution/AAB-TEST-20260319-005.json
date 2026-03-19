@@ -1,0 +1,58 @@
+{
+  "bundle_type": "AAB",
+  "bundle_version": "1.0",
+  "trust_token": "TT-TEST-20260319-005",
+  "issued_by": "ATOS",
+  "issued_for": "OpenClaw",
+  "issued_at": "2026-03-19",
+  "proposal_id": "P-20260319-016",
+  "execution_scope": {
+    "action_type": "simulated_order",
+    "symbol": "8306",
+    "order_type": "market",
+    "quantity": 100,
+    "side": "buy",
+    "max_executions": 1,
+    "market_hours_only": true
+  },
+  "constraints": {
+    "dry_run": true,
+    "state_change_allowed": false,
+    "external_order_allowed": false,
+    "observation_only": false,
+    "simulation_only": true
+  },
+  "capital_allocation": {
+    "enabled": true,
+    "currency": "JPY",
+    "max_amount": 100000,
+    "constraint_type": "simulated_only"
+  },
+  "task_artifact": {
+    "required": true,
+    "path": "registrar_queue/simulated_order_task.json",
+    "bounded_path": "scripts/openclaw/run_simulated_order.py"
+  },
+  "success_condition": {
+    "required_event": "execution_recorded",
+    "required_execution_subtype": "simulated_order",
+    "required_fields": [
+      "order_params",
+      "dry_run",
+      "external_order_sent"
+    ]
+  },
+  "failure_condition": {
+    "required_event_any_of": [
+      "execution_rejected",
+      "execution_failed"
+    ]
+  },
+  "instruction": "Execute one bounded simulated_order for symbol 8306 during market hours only. Generate simulated order parameters only. Do not send any external order, do not mutate any external system state, and do not repeat execution.",
+  "integrity": {
+    "token_required": true,
+    "invalid_token_must_block": true,
+    "out_of_scope_must_block": true,
+    "external_order_sent_must_be_false": true
+  }
+}
