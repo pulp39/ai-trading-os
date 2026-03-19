@@ -1,0 +1,15 @@
+{
+  "task_type": "simulated_order",
+  "task_version": "1.0",
+  "approved_by": "ATOS",
+  "approval_date": "2026-03-19",
+  "source_proposal": "P-20260319-016",
+  "bounded_path": "scripts/openclaw/run_simulated_order.py",
+  "allowed_symbols": ["7203", "8306", "6758"],
+  "allowed_order_types": ["market"],
+  "allowed_sides": ["buy", "sell"],
+  "max_quantity": 100,
+  "requires_aab": true,
+  "requires_dry_run": true,
+  "external_order_forbidden": true
+}
