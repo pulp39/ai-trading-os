@@ -22,6 +22,9 @@
     "observation_only": false,
     "simulation_only": true
   },
+  "test_controls": {
+  "allow_off_hours_test": true
+},
   "capital_allocation": {
     "enabled": true,
     "currency": "JPY",

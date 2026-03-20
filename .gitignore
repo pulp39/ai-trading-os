@@ -1,7 +1,10 @@
 .venv/
 __pycache__/
 *.pyc
-.env
 runtime/
 .env.registrar
 scripts/registrar/.env.local.wsl
+
+.env
+.env.local
+.env.local.wsl
