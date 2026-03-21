@@ -1,0 +1,18 @@
+{
+  "task_id": "REG-20260317-OBS-001",
+  "task_type": "bounded_db_test",
+  "db_scope": {
+    "schema": "research",
+    "table": "trace_event"
+  },
+  "allowed_actions": [
+    "INSERT"
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "action": "INSERT",
+      "sql": "INSERT INTO research.trace_event (session_id, agent_id, actor_type, event_type, symbol, exchange, content, metadata) VALUES ('kabu-observation-001', 'openclaw_aux', 'ai', 'market_observation', '6758', 1, '6758 ソニーグループ price=3271.0 prev=3286.0 vol=23963400.0 captured_at=2026-03-19T15:30:00+09:00', $json${\"observation_type\": \"price_board\", \"source\": \"kabusapi_board\", \"symbol\": \"6758\", \"exchange\": 1, \"captured_at\": \"2026-03-19T15:30:00+09:00\", \"summary\": {\"symbol_name\": \"ソニーグループ\", \"current_price\": 3271.0, \"previous_close\": 3286.0, \"trading_volume\": 23963400.0, \"bid_price\": 3271.0, \"ask_price\": 3270.0, \"vwap\": 3284.7435}, \"payload\": {\"OverSellQty\": 2085500.0, \"UnderBuyQty\": 2406100.0, \"TotalMarketValue\": 20116030619795.0, \"MarketOrderSellQty\": 0.0, \"MarketOrderBuyQty\": 0.0, \"BidTime\": \"2026-03-19T15:30:00+09:00\", \"AskTime\": \"2026-03-19T15:30:00+09:00\", \"Exchange\": 1, \"ExchangeName\": \"東証プ\", \"TradingVolume\": 23963400.0, \"TradingVolumeTime\": \"2026-03-19T15:30:00+09:00\", \"VWAP\": 3284.7435, \"TradingValue\": 78713623500.0, \"BidQty\": 4200.0, \"BidPrice\": 3271.0, \"BidSign\": \"0101\", \"Sell1\": {\"Price\": 3271.0, \"Qty\": 4200.0, \"Sign\": \"0101\", \"Time\": \"2026-03-19T15:30:00+09:00\"}, \"Sell2\": {\"Price\": 3272.0, \"Qty\": 2000.0}, \"Sell3\": {\"Price\": 3273.0, \"Qty\": 65300.0}, \"Sell4\": {\"Price\": 3274.0, \"Qty\": 2200.0}, \"Sell5\": {\"Price\": 3275.0, \"Qty\": 3500.0}, \"Sell6\": {\"Price\": 3276.0, \"Qty\": 117100.0}, \"Sell7\": {\"Price\": 3277.0, \"Qty\": 3800.0}, \"Sell8\": {\"Price\": 3278.0, \"Qty\": 95800.0}, \"Sell9\": {\"Price\": 3279.0, \"Qty\": 1700.0}, \"Sell10\": {\"Price\": 3280.0, \"Qty\": 112700.0}, \"AskQty\": 1900.0, \"AskPrice\": 3270.0, \"AskSign\": \"0101\", \"Buy1\": {\"Price\": 3270.0, \"Qty\": 1900.0, \"Sign\": \"0101\", \"Time\": \"2026-03-19T15:30:00+09:00\"}, \"Buy2\": {\"Price\": 3269.0, \"Qty\": 1700.0}, \"Buy3\": {\"Price\": 3268.0, \"Qty\": 1700.0}, \"Buy4\": {\"Price\": 3267.0, \"Qty\": 1800.0}, \"Buy5\": {\"Price\": 3266.0, \"Qty\": 1700.0}, \"Buy6\": {\"Price\": 3265.0, \"Qty\": 1700.0}, \"Buy7\": {\"Price\": 3263.0, \"Qty\": 100.0}, \"Buy8\": {\"Price\": 3262.0, \"Qty\": 200.0}, \"Buy9\": {\"Price\": 3261.0, \"Qty\": 4700.0}, \"Buy10\": {\"Price\": 3260.0, \"Qty\": 3800.0}, \"Symbol\": \"6758\", \"SymbolName\": \"ソニーグループ\", \"CurrentPrice\": 3271.0, \"CurrentPriceTime\": \"2026-03-19T15:30:00+09:00\", \"CurrentPriceChangeStatus\": \"0061\", \"CurrentPriceStatus\": 1, \"CalcPrice\": 3271.0, \"PreviousClose\": 3286.0, \"PreviousCloseTime\": \"2026-03-18T00:00:00+09:00\", \"ChangePreviousClose\": -15.0, \"ChangePreviousClosePer\": -0.46, \"OpeningPrice\": 3255.0, \"OpeningPriceTime\": \"2026-03-19T09:00:00+09:00\", \"HighPrice\": 3360.0, \"HighPriceTime\": \"2026-03-19T09:36:45+09:00\", \"LowPrice\": 3240.0, \"LowPriceTime\": \"2026-03-19T09:00:02+09:00\", \"SecurityType\": 1}}$json$::jsonb) RETURNING id, ts"
+    }
+  ]
+}
