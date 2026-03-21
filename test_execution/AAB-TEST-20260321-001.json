@@ -22,7 +22,8 @@
     "external_order_allowed": false,
     "observation_only": false,
     "simulation_only": true,
-    "preview_only": true
+    "preview_only": true,
+    "test_override_allowed": true
   },
   "capital_allocation": {
     "enabled": false,

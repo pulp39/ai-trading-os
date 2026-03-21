@@ -5,20 +5,20 @@
   "approval_date": "2026-03-21",
   "source_proposal": "P-20260320-017",
   "bounded_path": "scripts/openclaw/run_order_preview.py",
-  "allowed_symbols": [
-    "8306"
-  ],
-  "allowed_order_types": [
-    "market"
-  ],
-  "allowed_sides": [
-    "buy",
-    "sell"
-  ],
+  "allowed_symbols": ["8306"],
+  "allowed_order_types": ["market"],
+  "allowed_sides": ["buy", "sell"],
   "max_quantity": 100,
   "requires_aab": true,
   "requires_dry_run": true,
   "external_order_forbidden": true,
   "freshness_max_ms": 5000,
-  "preview_validity_seconds": 30
+  "preview_validity_seconds": 30,
+  "off_hours_test_override": true,
+  "override_conditions": {
+    "market_closed_allowed": true,
+    "stale_snapshot_allowed": true,
+    "requires_dry_run": true,
+    "requires_preview_only": true
+  }
 }

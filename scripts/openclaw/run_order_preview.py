@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 scripts/openclaw/run_order_preview.py
-Bounded order_preview path (P-20260320-017)
+Bounded order_preview path (P-20260320-017 / P-20260321-019)
 
 Behavior:
 - reads approved order_preview task artifact
@@ -9,6 +9,11 @@ Behavior:
 - binds preview to a single latest board_snapshots row
 - uses current_price as estimated_price (observation extension only)
 - records order_preview_recorded into research.trace_event
+
+P-019 override behavior:
+- off-hours test override is allowed only under strict bounded conditions
+- market_closed / snapshot_stale may be overridden for test-only readiness
+- override usage is always recorded explicitly
 
 Non-goals:
 - no external order execution
@@ -99,8 +104,8 @@ def validate_aab(aab: dict, task: dict) -> None:
     if constraints.get("external_order_allowed", True):
         raise ValueError("external_order_allowed must be false")
 
-    if not constraints.get("simulation_only", False):
-        raise ValueError("simulation_only must be true for order_preview")
+    if not constraints.get("preview_only", False):
+        raise ValueError("preview_only must be true for order_preview")
 
 
 def fetch_latest_snapshot(conn, symbol: str) -> dict:
@@ -130,34 +135,64 @@ def fetch_latest_snapshot(conn, symbol: str) -> dict:
     }
 
 
-def evaluate_readiness(snapshot: dict, task: dict) -> tuple[str, list[str], bool]:
+def is_override_allowed(aab: dict, task: dict) -> bool:
+    constraints = aab.get("constraints", {})
+
+    return (
+        constraints.get("dry_run") is True
+        and constraints.get("preview_only") is True
+        and constraints.get("external_order_allowed") is False
+        and constraints.get("state_change_allowed") is False
+        and constraints.get("test_override_allowed") is True
+        and task.get("off_hours_test_override") is True
+    )
+
+
+def evaluate_readiness(aab: dict, snapshot: dict, task: dict) -> tuple[str, list[str], list[str], bool, bool]:
     now_local = datetime.now().astimezone()
-    reasons: list[str] = []
+    failed_checks: list[str] = []
+    overridden_checks: list[str] = []
+
+    override_allowed = is_override_allowed(aab, task)
 
     if snapshot["current_price"] is None:
-        reasons.append("price_unavailable")
+        failed_checks.append("price_unavailable")
 
     freshness_limit_ms = int(task.get("freshness_max_ms", 5000))
     snapshot_age_ms = int((now_local - snapshot["captured_at"]).total_seconds() * 1000)
 
     market_open = is_regular_tse_market_hours(now_local)
-    if not market_open:
-        reasons.append("market_closed")
+    market_closed = not market_open
+    snapshot_stale = snapshot_age_ms > freshness_limit_ms
 
-    if snapshot_age_ms > freshness_limit_ms:
-        reasons.append("snapshot_stale")
+    if market_closed:
+        if override_allowed:
+            overridden_checks.append("market_closed")
+        else:
+            failed_checks.append("market_closed")
 
-    if "snapshot_stale" in reasons:
-        readiness = "stale"
-    elif reasons:
-        readiness = "not_ready"
-    else:
-        readiness = "ready"
+    if snapshot_stale:
+        if override_allowed:
+            overridden_checks.append("snapshot_stale")
+        else:
+            failed_checks.append("snapshot_stale")
 
-    return readiness, reasons, market_open
+    readiness = "ready" if len(failed_checks) == 0 else "stale"
+
+    return readiness, failed_checks, overridden_checks, market_open, override_allowed
 
 
-def record_order_preview(conn, aab: dict, snapshot: dict, readiness: str, failed_checks: list[str], market_open: bool, task: dict) -> dict:
+def record_order_preview(
+    conn,
+    aab: dict,
+    snapshot: dict,
+    readiness: str,
+    failed_checks: list[str],
+    overridden_checks: list[str],
+    market_open: bool,
+    override_allowed: bool,
+    task: dict,
+) -> dict:
     scope = aab.get("execution_scope", {})
     now_local = datetime.now().astimezone()
     valid_until = now_local + timedelta(seconds=int(task.get("preview_validity_seconds", 30)))
@@ -184,6 +219,10 @@ def record_order_preview(conn, aab: dict, snapshot: dict, readiness: str, failed
         "freshness_ms": freshness_ms,
         "reproducible": True,
         "failed_checks": failed_checks,
+        "overridden_checks": overridden_checks,
+        "test_mode": override_allowed,
+        "off_hours_test_applied": override_allowed,
+        "stale_snapshot_test_override": "snapshot_stale" in overridden_checks,
         "dry_run": True,
         "external_order_sent": False,
         "recorded_by": "OpenClaw/Recorder",
@@ -222,8 +261,20 @@ def main(aab_path: str) -> None:
     conn = get_trace_db_conn()
     with conn:
         snapshot = fetch_latest_snapshot(conn, aab["execution_scope"]["symbol"])
-        readiness, failed_checks, market_open = evaluate_readiness(snapshot, task)
-        preview = record_order_preview(conn, aab, snapshot, readiness, failed_checks, market_open, task)
+        readiness, failed_checks, overridden_checks, market_open, override_allowed = evaluate_readiness(
+            aab, snapshot, task
+        )
+        preview = record_order_preview(
+            conn,
+            aab,
+            snapshot,
+            readiness,
+            failed_checks,
+            overridden_checks,
+            market_open,
+            override_allowed,
+            task,
+        )
 
     conn.close()
 
