@@ -1,0 +1,30 @@
+{
+  "event_type": "authorization_granted",
+  "date": "2026-03-22",
+  "summary": "Registrar granted a bounded real_order authorization for P-028 Phase 1 under verified A-1–A-5 conditions; authorization established without executing real_order.",
+  "details": {
+    "linked_gate_event_id": 275,
+    "linked_preview_event_id": 269,
+    "target_execution_type": "real_order",
+    "real_order_authorized": true,
+    "authorization_scope": "single_execution",
+    "authorization_valid_from": "2026-03-22T00:00:00+09:00",
+    "authorization_expiry": "immediate_after_execution",
+    "authorized_by_role": "Registrar",
+    "authorization_status": "active",
+    "block_fallback_preserved": true,
+    "execution_not_performed": true,
+    "external_api_calls_performed": false,
+    "capital_deployment_performed": false,
+    "environment_bounded": true,
+    "risk_parameters_defined": true,
+    "conditions_verified": [
+      "A-1 execution_gate_passed exists",
+      "A-2 preview exists",
+      "A-3 risk parameters defined",
+      "A-4 environment bounded",
+      "A-5 Registrar authorization event created"
+    ],
+    "interpretation_note": "Authorization is established as an independent institutional state. Gate passage does not imply execution, and no real_order has been performed in this phase."
+  }
+}

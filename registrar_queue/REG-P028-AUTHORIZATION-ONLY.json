@@ -1,0 +1,42 @@
+{
+  "task_id": "REG-P028-AUTHORIZATION-ONLY",
+  "authorized_by": "Founder",
+  "role": "Registrar",
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "authorization_granted",
+      "content": "Registrar granted a bounded real_order authorization for P-028 Phase 1 under verified A-1–A-5 conditions; authorization established without executing real_order.",
+      "metadata_match": {
+        "task_id": "REG-P028-AUTHORIZATION-ONLY"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "authorized_by": "Founder",
+        "task_id": "REG-P028-AUTHORIZATION-ONLY",
+        "purpose": "P-028 Authorization Test Phase 1 — Authorization Only",
+        "linked_gate_event_id": 275,
+        "linked_preview_event_id": 269,
+        "target_execution_type": "real_order",
+        "real_order_authorized": true,
+        "authorization_scope": "single_execution",
+        "authorization_valid_from": "2026-03-22T00:00:00+09:00",
+        "authorization_expiry": "immediate_after_execution",
+        "authorization_status": "active",
+        "block_fallback_preserved": true,
+        "execution_not_performed": true,
+        "external_api_calls_performed": false,
+        "capital_deployment_performed": false,
+        "environment_bounded": true,
+        "risk_parameters_defined": true
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "registrar: apply task REG-P028-AUTHORIZATION-ONLY",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
