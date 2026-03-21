@@ -1,0 +1,20 @@
+{
+  "task_type": "execution_gate",
+  "date": "2026-03-21",
+  "authorized_by": "claude_registrar",
+  "linked_preview_event_id": 269,
+  "scope": "bounded",
+  "preconditions": {
+    "requires_preview": true,
+    "requires_determinism": true,
+    "requires_role_boundary_check": true,
+    "requires_scope_clarity": true,
+    "requires_unique_gate_per_preview": true
+  },
+  "metadata": {
+    "gate_purpose": "First controlled verification test of execution_gate passage (P-20260321-022)",
+    "real_order_authorized": false,
+    "gate_role": "registrar_authorization",
+    "test_context": "P-20260321-022 controlled verification"
+  }
+}
