@@ -1,0 +1,36 @@
+{
+  "bundle_type": "AAB",
+  "bundle_version": "1.0",
+  "trust_token": "TT-TEST-20260321-001",
+  "issued_by": "ATOS",
+  "issued_for": "OpenClaw",
+  "issued_at": "2026-03-21",
+  "proposal_id": "P-20260320-017",
+  "aab_id": "AAB-TEST-20260321-001",
+  "execution_scope": {
+    "action_type": "order_preview",
+    "symbol": "8306",
+    "order_type": "market",
+    "side": "buy",
+    "quantity": 100,
+    "max_executions": 1,
+    "market_hours_only": true
+  },
+  "constraints": {
+    "dry_run": true,
+    "state_change_allowed": false,
+    "external_order_allowed": false,
+    "observation_only": false,
+    "simulation_only": true,
+    "preview_only": true
+  },
+  "capital_allocation": {
+    "enabled": false,
+    "constraint_type": "observation_only"
+  },
+  "integrity": {
+    "token_required": true,
+    "invalid_token_must_block": true,
+    "out_of_scope_must_block": true
+  }
+}
