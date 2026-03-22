@@ -1,0 +1,32 @@
+{
+  "aab_id": "AAB-P028-PHASE5-001",
+  "authorized_by": "Founder",
+  "phase": "P-028 Phase 5",
+  "execution_type": "live_order_test",
+  "constraints": {
+    "single_execution": true,
+    "no_retry": true,
+    "external_order_allowed": true,
+    "requires_explicit_execution": true,
+    "authorization_consumed": false
+  },
+  "order_definition": {
+    "symbol": "8306",
+    "side": "buy",
+    "order_type": "limit",
+    "quantity": 100,
+    "price_rule": "current_price - 5 ticks"
+  },
+  "execution_control": {
+    "execution_window_seconds": 60,
+    "transmission_timeout_seconds": 10,
+    "cancel_timeout_seconds": 30
+  },
+  "safety": {
+    "no_capital_escalation": true,
+    "cancel_required": true,
+    "post_submit_safety_lock_required": true,
+    "block_after_execution": true,
+    "authorization_single_use": true
+  }
+}
