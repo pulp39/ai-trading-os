@@ -80,3 +80,102 @@ precedent.
 Created: 2026-03-13
 Authority: Founder (operational authority)
 Notes: Registered in docs/aiid_registry.md as openclaw_aux (Layer C).
+
+## Execution Boundary (Extended)
+
+The execution model of AI Trading OS introduces a critical distinction
+between execution capability and execution authority.
+
+### Execution Capability vs Authority
+
+- Execution capability refers to the ability to prepare, validate, and
+  reach a READY_FOR_EXECUTION state within the system.
+
+- Execution authority refers to the ability to initiate external
+  transmission (e.g., sending orders to external APIs or markets).
+
+These two are intentionally separated.
+
+### OpenClaw Execution Position
+
+OpenClaw, when acting as Assistant Registrar:
+
+- can:
+  - perform validation and precondition checks
+  - execute dry-run procedures
+  - prepare registrar execution tasks
+  - reach READY_FOR_EXECUTION state
+
+- cannot:
+  - initiate external transmission
+  - execute live external orders
+  - consume execution authorization
+  - deploy capital or trigger irreversible external actions
+
+This defines OpenClaw as an **execution preparation participant**, not
+an execution authority.
+
+### Human-in-the-loop Execution Layer
+
+External execution occurs through a dedicated human-controlled layer:
+
+```text
+Observation → Proposal → Gate → Authorization
+→ Assistant Registrar (OpenClaw: execution preparation)
+        ↓
+Human Execution Layer (Founder: execution authority)
+        ↓
+External Systems (APIs / Markets)
+
+Only the Human Execution Layer holds execution authority.
+
+External Transmission and Authorization
+
+Execution is defined as:
+
+The moment an external transmission is initiated.
+
+At that moment:
+
+execution authorization is considered consumed
+the action becomes irreversible in institutional terms
+
+This event is referred to as:
+
+authorization_consumed
+
+This definition applies regardless of:
+
+success
+failure
+unknown outcome
+Safety Lock (Conceptual)
+
+After external transmission:
+
+the system enters a post-submission safety state
+repeated execution attempts are prevented
+
+This is referred to as:
+
+post_submit_safety_lock
+
+Detailed behavior is defined in:
+
+docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
+
+Registrar Support Scope Clarification
+
+In the OpenClaw permitted functions, "Registrar support" is limited to:
+
+preparation of execution
+validation and readiness
+bounded execution within system scope
+
+It does not include:
+
+initiating external execution
+bypassing execution authority boundaries
+
+This clarification ensures that "Registrar support" remains within
+execution preparation scope only.
