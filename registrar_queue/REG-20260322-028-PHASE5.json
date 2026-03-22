@@ -1,0 +1,38 @@
+{
+  "task_id": "REG-20260322-028-PHASE5",
+  "role": "Registrar",
+  "objective": "Prepare minimal live real order execution framework (Phase 5)",
+  "constraints": {
+    "single_use_authorization": true,
+    "max_orders": 1,
+    "retry_allowed": false,
+    "live_execution": false,
+    "requires_founder_confirmation": true
+  },
+  "execution_design": {
+    "authorization_consumed_trigger": "on_external_api_call",
+    "transmission_timeout_seconds": 10,
+    "allow_transmission_unknown": true,
+    "post_submit_lock": true
+  },
+  "live_order_constraints": {
+    "symbol": "TO_BE_DEFINED",
+    "quantity": "MINIMUM",
+    "order_type": "SIMPLE_ONLY",
+    "time_window_seconds": 60
+  },
+  "rollback_policy": {
+    "cancel_required": true,
+    "cancel_on_partial_fill": true,
+    "cancel_on_unknown": true
+  },
+  "safety": {
+    "force_execution_block_after_submit": true,
+    "prohibit_new_orders_after_submit": true
+  },
+  "expected_outputs": [
+    "authorization_consumed",
+    "external_order_submitted",
+    "post_submit_safety_lock"
+  ]
+}
