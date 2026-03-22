@@ -311,20 +311,3 @@ repository, starting with:
 
 This ensures OpenClaw operates with the same project understanding as
 other participants.
-```
-
----
-
-## 改訂サマリー（全anchor）
-```
-ATOS_BOOTSTRAP_ANCHOR.md    v1.0 → v1.2
-EXECUTION_MODEL_ANCHOR.md   v1.1 → v1.2
-DB_STATUS_ANCHOR.md         v1.1 → v1.2
-OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md v1.2 → v1.3
-
-共通の変更:
-  命令文 → 説明・推奨文
-  "must/may not" → "is/does not/is not designed for"
-  役割割り当て → 役割説明
-  Final Rule → "Getting Started" / "Summary"
-  強制的なルール名 → 理由・目的の説明に変換
