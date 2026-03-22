@@ -1,0 +1,45 @@
+{
+  "task_id": "REG-P028-EXTERNAL-ORDER-ALLOWED",
+  "authorized_by": "Founder",
+  "role": "Registrar",
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "external_order_allowed",
+      "content": "A bounded minimal live real_order test was explicitly permitted under Phase 4 conditions. External order transmission is allowed for a single live test only, under minimum lot size, maximum loss bound, and explicit abort conditions.",
+      "metadata_match": {
+        "task_id": "REG-P028-EXTERNAL-ORDER-ALLOWED"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "authorized_by": "Founder",
+        "task_id": "REG-P028-EXTERNAL-ORDER-ALLOWED",
+        "phase": "P-028 Phase 4",
+        "linked_trace_event_phase1": 285,
+        "linked_trace_event_execution_simulation": 286,
+        "linked_trace_event_phase2_completion": 287,
+        "linked_trace_event_real_order_dry_run": 288,
+        "linked_trace_event_phase3_completion": 289,
+        "authorization_active": true,
+        "authorization_consumed": false,
+        "external_order_allowed": true,
+        "authorization_scope": "single_execution",
+        "live_test_scope": "single_minimal_order",
+        "minimum_lot_defined": true,
+        "maximum_loss_bound_defined": true,
+        "abort_condition_defined": true,
+        "bounded_environment_confirmed": true,
+        "autonomous_retry_allowed": false,
+        "capital_escalation_allowed": false,
+        "external_order_repetition_allowed": false
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "registrar: record P-028 Phase 4 external order allowed",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
