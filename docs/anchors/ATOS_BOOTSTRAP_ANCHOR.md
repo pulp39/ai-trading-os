@@ -85,11 +85,12 @@ of the current project state:
 4. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
 5. docs/anchors/technical/DB_STATUS_ANCHOR.md
 6. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-7. docs/aiid_registry.md
-8. docs/BOUNDARY.md
-9. docs/openclaw_training_status.md
-10. docs/openclaw_registrar_apprentice_rubric.md
-11. README.md
+7. docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md  ← 追加（条件付き）
+8. docs/aiid_registry.md
+9. docs/BOUNDARY.md
+10. docs/openclaw_training_status.md
+11. docs/openclaw_registrar_apprentice_rubric.md
+12. README.md
 
 ---
 
@@ -194,6 +195,7 @@ subsystem is described in the following documents:
 | docs/BOUNDARY.md | Librarian / OpenClaw role boundary |
 | docs/openclaw_training_status.md | OpenClaw training ledger |
 | docs/openclaw_registrar_apprentice_rubric.md | OpenClaw evaluation rubric |
+| docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md | WSL/Windows runtime environment（実行系タスク前に参照） |
 
 ---
 
