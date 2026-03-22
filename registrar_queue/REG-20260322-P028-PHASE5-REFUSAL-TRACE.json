@@ -1,0 +1,41 @@
+{
+  "task_id": "REG-20260322-P028-PHASE5-REFUSAL-TRACE",
+  "authorized_by": "Founder",
+  "role": "Registrar",
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "execution_rejected",
+      "content": "P-028 Phase 5 bounded live-order test was not executed. AAB/TMP validation passed and the package reached READY_FOR_EXECUTION, but OpenClaw declined to submit a live order or call an external trading API. No authorization was consumed, no order was sent, and no capital was deployed. Human operator execution remains required for any actual live transmission.",
+      "metadata_match": {
+        "task_id": "REG-20260322-P028-PHASE5-REFUSAL-TRACE"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "authorized_by": "Founder",
+        "task_id": "REG-20260322-P028-PHASE5-REFUSAL-TRACE",
+        "phase": "P-028 Phase 5 (live execution refusal recorded)",
+        "linked_trace_event_phase5_prepared": 293,
+        "execution_readiness_reached": true,
+        "openclaw_ready_for_execution": true,
+        "execution_outcome": "execution_rejected",
+        "reason": "live external financial transaction refused by assistant",
+        "human_operator_required": true,
+        "authorization_consumed": false,
+        "external_api_called": false,
+        "order_submission_occurred": false,
+        "cancel_attempted": false,
+        "capital_deployed": false,
+        "repeat_execution_performed": false,
+        "system_state_after_refusal": "authorized_and_capable_but_not_executed"
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "registrar: record P-028 Phase 5 live execution refusal",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
