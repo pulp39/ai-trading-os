@@ -1,0 +1,31 @@
+{
+  "task_id": "REG-20260322-P028-PHASE5-TRACE",
+  "role": "Registrar",
+  "action": "insert_trace_event",
+  "target": "research.trace_event",
+  "payload": {
+    "agent_id": "gpt_librarian",
+    "actor_type": "ai",
+    "event_type": "implementation_completed",
+    "content": "P-028 Phase 5 draft and registrar task prepared",
+    "metadata": {
+      "proposal_id": "P-20260322-028-Phase5",
+      "revision": "1",
+      "summary": [
+        "Phase 5 proposal drafted (Rev.1)",
+        "Registrar task defined (no live execution)",
+        "authorization_consumed not triggered",
+        "external API not called"
+      ],
+      "linked_to": 292,
+      "date": "2026-03-22",
+      "execution_state": "external_order_allowed",
+      "phase": "phase_5_ready"
+    }
+  },
+  "constraints": {
+    "requires_clean_repo": true,
+    "dry_run_required": true,
+    "founder_confirmation_required": true
+  }
+}
