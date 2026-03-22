@@ -185,6 +185,63 @@ precondition checking, and traceable recording.
 
 ---
 
+## Execution Governance
+
+AI Trading OS defines execution as:
+
+- the initiation of external transmission to external systems
+
+Execution is not defined by script completion or internal state,
+but by crossing the institutional boundary to the outside world.
+
+### Capability vs Authority
+
+Execution capability and execution authority are separated:
+
+- AI systems (including OpenClaw) possess execution capability
+- Only the Human Execution Layer possesses execution authority
+
+### Human-in-the-loop Execution
+
+Execution flow:
+
+Observation → Proposal → Gate → Authorization
+→ Assistant Registrar (execution preparation)
+→ Human Execution Layer (Founder: execution authority)
+→ External Systems
+
+### OpenClaw Position
+
+OpenClaw is defined as:
+
+- an execution preparation participant
+
+It can:
+
+- prepare execution
+- validate conditions
+- reach READY_FOR_EXECUTION
+
+It cannot:
+
+- initiate external execution
+- consume authorization
+- deploy capital
+
+### Technical Preconditions
+
+Execution readiness depends on environment stability:
+
+- environment variables (.env)
+- Python virtual environment (.venv)
+- Git state consistency
+
+See:
+
+`docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md`
+
+---
+
 ## 10. Database Layer Summary
 
 The database layer is described in detail in:
@@ -226,11 +283,10 @@ Live database integration is planned but not yet active.
 
 The project is currently focused on:
 
-- implementing P-20260315-001 documentation simplification
-- enabling OpenClaw as a practical Assistant Registrar execution node
-- verifying claude_registrar database privileges before runner
-  implementation
-- maintaining clear role boundaries as the project grows
+- advancing execution governance (P-020 through P-029)
+- establishing human-in-the-loop execution protocol (P-029)
+- WSL/runtime environment stabilization for OpenClaw
+- anchor system alignment (Phase A–D)
 
 ---
 
@@ -272,6 +328,7 @@ principles. Where they differ, `constitution.md` and
 | OpenClaw training ledger | `docs/openclaw_training_status.md` |
 | Evaluation rubric | `docs/openclaw_registrar_apprentice_rubric.md` |
 | Enacted amendments | `docs/amendments/` |
+| Runtime environment reference | docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md |
 
 ---
 
@@ -282,3 +339,4 @@ principles. Where they differ, `constitution.md` and
 | 2.0 | 2026-03-12 | Initial anchor structure |
 | 2.1 | 2026-03-14 | Tone revision (imperative → explanatory) |
 | 2.2 | 2026-03-15 | P-20260315-001: new path structure, Layer 0 added, reference map updated |
+| 2.3 | 2026-03-22 | Execution Governance section added; Section 12 updated; WSL reference added|
