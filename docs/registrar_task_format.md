@@ -132,22 +132,3 @@ is initiated.
 The canonical Registrar task format reference is:
 
 `docs/registrar_task_format.md`
-```
-
----
-
-## 変更サマリー
-```
-EXECUTION_MODEL_ANCHOR.md:
-  Section 14  : 内容削除 → docs/registrar_task_format.md への参照に置き換え
-  Section 19  : OpenClaw詳細削除 → OPENCLAW anchor への参照に簡略化
-  Section 20  : docs/registrar_task_format.md への参照を追加
-  Version     : 1.0 → 1.1
-
-docs/registrar_task_format.md (新規):
-  Section 1   : Purpose
-  Section 2   : Minimum Required Fields (旧 Section 14 の内容)
-  Section 3   : Task Validity Rule
-  Section 4   : Relation to Execution Model (境界の明示)
-  Section 5   : Versioning
-  Section 6   : Final Rule

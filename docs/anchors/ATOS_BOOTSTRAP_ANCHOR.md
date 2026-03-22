@@ -284,32 +284,3 @@ This document is the recommended starting point for reconstructing
 AI Trading OS project state.
 
 `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
-```
-
----
-
-## 改訂のポイント（Librarian審査用サマリー）
-```
-Section 1  : "single canonical startup source for all AI participants"
-             → "describes how participants can reconstruct..."
-             目的の説明に変更
-
-Section 3  : "Applies To" (役割への割り当て)
-             → "Who This Document Serves" (説明・紹介)
-
-Section 4  : "Bootstrap Determinism Rule" (強制ルール)
-             → "Why Read Order Matters" (理由説明)
-
-Section 5  : "Read and obey" / "canonical startup instruction"
-             → "Getting Started" (自然な案内)
-
-Section 9  : "must: / must not:" のリスト
-             → 各役割の説明・機能の紹介に変換
-
-Section 13 : "Anti-Drift Rule" (禁止リスト)
-             → "Consistency Across Sessions" (理由と推奨)
-
-Section 14 : (新設) "What to Avoid" — 禁止ではなくリスク説明
-
-Section 17 : "All participants must start here. Read and obey:"
-             → "This document is the recommended starting point"
