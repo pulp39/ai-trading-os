@@ -1,0 +1,47 @@
+{
+  "tmp_id": "TMP-P028-PHASE5-001",
+  "linked_aab_id": "AAB-P028-PHASE5-001",
+  "role": "Assistant Registrar",
+  "authorized_by": "Founder",
+  "objective": "Execute one bounded Phase 5 live-order transmission test under explicit authorization",
+  "scope": {
+    "max_executions": 1,
+    "symbol": "8306",
+    "side": "buy",
+    "order_type": "limit",
+    "quantity": 100,
+    "price_rule": "current_price - 5 ticks"
+  },
+  "execution_control": {
+    "execution_window_seconds": 60,
+    "transmission_timeout_seconds": 10,
+    "cancel_timeout_seconds": 30
+  },
+  "required_state": {
+    "external_order_allowed": true,
+    "authorization_consumed": false,
+    "block_fallback_available": true
+  },
+  "required_behavior": {
+    "single_use_authorization": true,
+    "no_retry": true,
+    "cancel_required_if_submitted": true,
+    "post_submit_safety_lock_required": true
+  },
+  "allowed_outcomes": [
+    "execution_recorded",
+    "execution_rejected",
+    "execution_failed"
+  ],
+  "prohibited_actions": [
+    "repeat_execution",
+    "multi_order_submission",
+    "autonomous_scope_expansion",
+    "external_api_call_outside_scope"
+  ],
+  "safety_assertions": {
+    "capital_escalation_prohibited": true,
+    "unbounded_execution_prohibited": true,
+    "new_order_after_unknown_prohibited": true
+  }
+}
