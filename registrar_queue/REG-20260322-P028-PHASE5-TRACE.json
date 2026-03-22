@@ -1,31 +1,40 @@
 {
   "task_id": "REG-20260322-P028-PHASE5-TRACE",
+  "authorized_by": "Founder",
   "role": "Registrar",
-  "action": "insert_trace_event",
-  "target": "research.trace_event",
-  "payload": {
-    "agent_id": "gpt_librarian",
-    "actor_type": "ai",
-    "event_type": "implementation_completed",
-    "content": "P-028 Phase 5 draft and registrar task prepared",
-    "metadata": {
-      "proposal_id": "P-20260322-028-Phase5",
-      "revision": "1",
-      "summary": [
-        "Phase 5 proposal drafted (Rev.1)",
-        "Registrar task defined (no live execution)",
-        "authorization_consumed not triggered",
-        "external API not called"
-      ],
-      "linked_to": 292,
-      "date": "2026-03-22",
-      "execution_state": "external_order_allowed",
-      "phase": "phase_5_ready"
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "implementation_completed",
+      "content": "P-028 Phase 5 draft and registrar task were prepared. The Minimal Live Real Order Test Framework was drafted in Rev.1, the Phase 5 registrar task was defined, and the system remains in an authorized but not executed state with no live order sent, no external API call executed, and no authorization consumption triggered.",
+      "metadata_match": {
+        "task_id": "REG-20260322-P028-PHASE5-TRACE"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "authorized_by": "Founder",
+        "task_id": "REG-20260322-P028-PHASE5-TRACE",
+        "proposal_id": "P-20260322-028-Phase5",
+        "revision": 1,
+        "context": "P-028 Phase 5 draft and registrar task prepared",
+        "phase": "P-028 Phase 5 (draft prepared)",
+        "linked_trace_event_phase4_final": 292,
+        "phase5_proposal_drafted": true,
+        "phase5_registrar_task_defined": true,
+        "live_execution_started": false,
+        "real_order_sent": false,
+        "external_api_called": false,
+        "authorization_consumed": false,
+        "execution_state": "external_order_allowed",
+        "block_fallback_preserved": true
+      }
     }
-  },
-  "constraints": {
-    "requires_clean_repo": true,
-    "dry_run_required": true,
-    "founder_confirmation_required": true
+  ],
+  "git": {
+    "commit_message": "registrar: record P-028 Phase 5 draft and task preparation completion",
+    "remote": "origin",
+    "branch": "main"
   }
 }
