@@ -1,0 +1,41 @@
+{
+  "task_id": "REG-P028-PHASE4-TRACE",
+  "authorized_by": "Founder",
+  "role": "Registrar",
+  "actions": [
+    {
+      "type": "insert_trace_event",
+      "agent_id": "claude_registrar",
+      "actor_type": "ai",
+      "event_type": "implementation_completed",
+      "content": "P-028 Phase 4 completed. authorization consumption rules were defined, external_order_allowed was established as an explicit institutional event, and the system became ready for a bounded minimal live real_order test.",
+      "metadata_match": {
+        "task_id": "REG-P028-PHASE4-TRACE"
+      },
+      "metadata": {
+        "role": "Registrar",
+        "authorized_by": "Founder",
+        "task_id": "REG-P028-PHASE4-TRACE",
+        "context": "P-028 Phase 4 completed",
+        "phase": "P-028 Phase 4",
+        "linked_trace_event_phase1": 285,
+        "linked_trace_event_execution_simulation": 286,
+        "linked_trace_event_phase2_completion": 287,
+        "linked_trace_event_real_order_dry_run": 288,
+        "linked_trace_event_phase3_completion": 289,
+        "linked_trace_event_external_order_allowed": 290,
+        "authorization_consumption_defined": true,
+        "external_order_allowed_established": true,
+        "minimal_live_test_ready": true,
+        "real_order_sent": false,
+        "authorization_consumed": false,
+        "block_fallback_preserved": true
+      }
+    }
+  ],
+  "git": {
+    "commit_message": "registrar: record P-028 Phase 4 completion",
+    "remote": "origin",
+    "branch": "main"
+  }
+}
