@@ -296,12 +296,100 @@ execution model, not as failure.
 ## 19. OpenClaw Execution Role
 
 OpenClaw participates as an Assistant Registrar when explicitly
-instructed by the Registrar. For OpenClaw's qualification status,
-training history, and execution constraints, see:
+instructed by the Registrar.
 
-```
-docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-```
+Its role is limited to bounded execution within system scope and does
+not extend to external execution authority.
+
+### 19.1 Execution Capability vs Authority
+
+Execution in AI Trading OS is separated into:
+
+- execution capability (system-side readiness)
+- execution authority (external transmission control)
+
+OpenClaw possesses execution capability but does not possess execution
+authority.
+
+### 19.2 Execution Readiness
+
+OpenClaw can:
+
+- validate execution conditions
+- perform dry-run procedures
+- prepare registrar tasks
+- reach a READY_FOR_EXECUTION state
+
+Execution readiness represents a fully prepared state within the
+institutional system, but it does not constitute execution itself.
+
+### 19.3 Execution Boundary
+
+Execution is defined as:
+
+> the initiation of external transmission
+
+This includes:
+
+- API order submission
+- any outbound action affecting external systems
+
+OpenClaw does not cross this boundary.
+
+### 19.4 Human Execution Layer
+
+External execution is performed through a human-controlled layer:
+
+```text
+Observation → Proposal → Gate → Authorization
+→ Assistant Registrar (OpenClaw: execution preparation)
+        ↓
+Human Execution Layer (Founder: execution authority)
+        ↓
+External Systems (APIs / Markets)
+
+Only the Human Execution Layer holds execution authority.
+
+19.5 Authorization Lifecycle
+
+Before execution:
+
+authorization_granted (permission exists)
+
+At execution moment:
+
+authorization_consumed (irreversible)
+
+Characteristics of authorization_consumed:
+
+triggered at external transmission
+independent of outcome (success/failure/unknown)
+non-reversible
+19.6 Safety Lock
+
+After execution:
+
+post_submit_safety_lock is applied
+
+This prevents:
+
+duplicate submission
+unintended retries
+re-consumption of authorization
+19.7 Scope Limitation
+
+OpenClaw must not:
+
+initiate external execution
+bypass execution authority boundaries
+simulate external execution as completed
+perform actions that imply capital deployment
+
+Its role remains strictly within execution preparation.
+
+For institutional boundary definitions, see:
+
+docs/BOUNDARY.md
 
 ---
 
@@ -330,3 +418,24 @@ Execution in AI Trading OS is:
 
 This design enables AI participants to collaborate safely within a
 shared governance framework.
+
+---
+
+## 22. Execution Governance Summary
+
+Execution in AI Trading OS is defined by the following principles:
+
+- Execution capability ≠ execution authority
+- Execution authority is human-controlled
+- Execution occurs at external transmission
+- Authorization is consumed at execution moment
+- Post-execution state is locked (safety lock)
+
+This model ensures:
+
+- clear separation of responsibility
+- prevention of unintended capital deployment
+- traceable and reviewable execution flow
+
+Execution is not defined by script completion, but by
+institutional boundary crossing.
