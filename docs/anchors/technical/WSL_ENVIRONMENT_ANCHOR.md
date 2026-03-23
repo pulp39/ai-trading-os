@@ -130,3 +130,116 @@ AI作業の再現性確保
 を目的とする補助アンカーです。
 
 制度的文書ではなく、実行補助文書として扱います。
+
+9. 現値取得パイプライン（Collector Execution Chain）
+
+### 目的
+
+本セクションは、execution前の価格確定および観測状態の整合を取るための
+公式パイプラインを定義する。
+
+このパイプラインは execution を行うものではなく、
+**execution preparation の一部としての観測確定プロセス**である。
+
+---
+
+### 実行スクリプト
+
+`scripts/collector/run_collector_once.py`
+
+このスクリプトは以下の処理を順に実行する：
+
+1. `scripts/collector/collect_board_once.py`
+   - kabuStation API を通じた board / current_price 取得
+
+2. `scripts/collector/collector_run_writer.py`
+   - `collector_run` を trace_event に記録
+
+3. `scripts/proposer/hypothesis_trigger_once.py`
+   - indicator → hypothesis 生成
+
+4. `scripts/proposer/proposal_trigger_once.py`
+   - hypothesis → proposal draft 生成
+
+---
+
+### 用途
+
+- current_price の確定
+- board snapshot の取得
+- observation → hypothesis → proposal の連動確認
+- execution前の制度状態の整合確認
+
+---
+
+### 実行位置づけ（重要）
+
+このパイプラインは以下の段階に属する：
+
+
+Observation → Proposal → Gate（前段）
+
+
+つまり：
+
+- executionではない
+- authorizationを消費しない
+- external transmissionは発生しない
+
+---
+
+### 市場時間に関する扱い
+
+- スクリプトは市場時間外でも実行可能（collection自体は成立）
+- ただし：
+
+
+execution readiness の評価は市場時間条件に依存する
+
+
+したがって：
+
+- 価格確定（Phase 1）は時間外でも可
+- execution（Phase 5）は市場時間内で実施する
+
+---
+
+### Phase対応（重要）
+
+このパイプラインは、以下のテストフェーズと対応する：
+
+- Phase 1：現値取得（current_price 確定）
+- Phase 2：指値生成（limit_price 計算）
+- Phase 3：AAB / task 生成準備
+- Phase 4：READY_FOR_EXECUTION 到達準備
+
+---
+
+### Phase 5との境界
+
+
+Phase 5（Human Execution）は本パイプラインの外で実施される
+
+
+- Founderが external transmission を行うことで execution が成立
+- 本パイプラインはそこに到達する前段までを担う
+
+---
+
+### 注意事項
+
+- 既定では複数銘柄（例：7203 / 8306 / 6758）を処理する
+- 特定銘柄のみの観測が必要な場合は別スクリプトを検討
+- `.env / venv / Git clean` が満たされていること
+- WSL_ENVIRONMENT のチェックリストに従うこと
+
+---
+
+### 原則
+
+
+観測は制度の一部であり、executionの前提条件である
+
+
+このパイプラインは、ATOSにおける「価格の正本」を確定するための
+唯一の公式経路として扱う。
