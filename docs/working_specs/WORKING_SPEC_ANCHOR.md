@@ -338,3 +338,64 @@ execution_ready =
 12. Human submits order
 13. execution_submitted recorded
 14. safety_lock applied
+
+---
+
+## 15. Legacy but Still Present Components
+
+### Verified Existing DB Execution Paths
+
+The following components perform direct DB operations:
+
+- scripts/registrar/registrar_db_runner.py
+- scripts/collector/collector_run_writer.py
+- scripts/collector/indicator_writer.py
+- scripts/collector/snapshot_writer.py
+- scripts/openclaw/run_simulated_order.py
+
+These scripts use psycopg and OPENCLAW_TRACE_DB_* environment variables.
+
+---
+
+### Verified Existing Collector / Proposal Pipeline
+
+The following pipeline is implemented:
+
+1. kabuStation API (symbol registration + board fetch)
+2. board snapshot insertion (public.board_snapshots)
+3. indicator_observation (research.trace_event)
+4. hypothesis_trigger_once.py
+5. proposal_trigger_once.py
+
+This indicates a previously established full observation → interpretation pipeline.
+
+---
+
+### Current Interpretation
+
+The system contains a broader operational pipeline than currently reflected in some anchor documents.
+
+Some components are:
+- implemented
+- partially verified
+- not actively used in current Phase 5 workflow
+
+---
+
+### Open Questions
+
+- Does the "openclaw" DB role still exist?
+- What are its privileges?
+- Which scripts are currently executable without modification?
+- Should legacy pipelines be reintegrated into Phase 5+ execution flow?
+
+---
+
+### Institutional Note
+
+This section exists to reconcile:
+- historical implementation state
+- current anchor definitions
+- future integration decisions
+
+This is not a rollback, but a visibility restoration.

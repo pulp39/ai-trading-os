@@ -213,6 +213,22 @@ by a sequence.
 | trading_user | yes | no | |
 | research | yes | no | |
 | claude_registrar | yes | no | Privilege scope not yet verified |
+| openclaw | unknown | no | Referenced via OPENCLAW_TRACE_DB_USER (verification required) |
+
+### Additional Observations
+
+Multiple scripts use environment-based DB connection:
+
+- OPENCLAW_TRACE_DB_HOST
+- OPENCLAW_TRACE_DB_PORT
+- OPENCLAW_TRACE_DB_NAME
+- OPENCLAW_TRACE_DB_USER
+- OPENCLAW_TRACE_DB_PASSWORD
+
+This suggests that OpenClaw DB access is implemented at the application layer,
+even if role-level verification is incomplete.
+
+Verification of the actual DB role "openclaw" is required.
 
 `claude_registrar` is a real login role and a candidate integration
 target for Assistant Registrar execution. Privilege verification
@@ -283,4 +299,5 @@ Until updated through institutional procedure:
 - `research.trace_event` is the event log
 - `research.proposal` is the proposal store
 - `claude_registrar` is the target role for Assistant Registrar DB
-  integration, pending privilege verification
+- integration, pending privilege verification
+

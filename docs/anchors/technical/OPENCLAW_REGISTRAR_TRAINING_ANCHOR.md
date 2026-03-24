@@ -257,12 +257,26 @@ structure.
 - Institutional qualification as Assistant Registrar
 - Sandbox branch compliance confirmed
 
-### Not yet active
+- DB-connected execution paths implemented:
+  - research.trace_event insertion via psycopg
+  - public.board_snapshots insertion via psycopg
+  - indicator_observation generation
+  - collector_run logging
+  - simulated_order execution_recorded
 
-- PostgreSQL direct access
-- trace_event insertion via live database connection
-- Runner-based execution pipeline
-- Main branch promotion workflow
+### Partially Verified
+
+- Live PostgreSQL access via environment variables:
+  - OPENCLAW_TRACE_DB_*
+- Bounded DB execution via registrar_db_runner.py
+- Collector → DB → Indicator → Hypothesis → Proposal pipeline
+
+### Not Yet Fully Verified
+
+- DB role "openclaw" existence and privilege scope
+- Consistency between claude_registrar and openclaw roles
+- End-to-end stability of all legacy scripts
+- Runner-based full automation pipeline
 
 ---
 
