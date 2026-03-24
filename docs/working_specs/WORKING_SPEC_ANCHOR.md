@@ -257,3 +257,84 @@ Not yet completed:
 
 - Task artifacts:
   - registrar_queue/simulated_order_task.json
+
+  ---
+
+## 12. Execution Readiness v1.1 (Operational Definition)
+
+Execution readiness is defined as:
+
+execution_ready =
+  environment_ready
+  AND runtime_ready
+  AND authorization_granted
+  AND market_ready
+  AND order_defined
+
+### environment_ready
+- .env loaded
+- .venv active
+- DB reachable
+- runtime path valid
+
+### runtime_ready
+- gateway running
+- node connected
+- valid token
+- UI reachable
+
+### authorization_granted
+- approved execution path exists
+- approved task artifact exists
+- execution scope fixed
+
+### market_ready
+- market open
+- symbol tradable
+
+### order_defined
+- symbol fixed
+- side fixed
+- quantity fixed
+- order type fixed
+
+---
+
+## 13. Phase 5 Human Execution Protocol (Draft)
+
+### Pre-submit
+- Verify execution_ready = true
+- Record execution_prepared trace_event
+
+### Execution
+- Human submits order via external system
+
+### Post-submit
+- Record execution_submitted trace_event
+- Mark authorization as consumed
+- Apply post_submit_safety_lock
+
+### Safety Lock Definition
+- No duplicate submission allowed
+- Authorization cannot be reused
+- Retry requires new authorization
+
+---
+
+## 14. Phase 5 Execution Checklist
+
+1. Market is open
+2. Symbol 7203 is tradable
+3. Gateway running
+4. Node connected
+5. Valid token
+6. UI reachable
+7. .env loaded
+8. .venv active
+9. DB reachable
+10. Order parameters fixed:
+    7203 / buy / 100 / market
+11. execution_prepared recorded
+12. Human submits order
+13. execution_submitted recorded
+14. safety_lock applied
