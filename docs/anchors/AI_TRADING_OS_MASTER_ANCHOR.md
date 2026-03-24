@@ -329,6 +329,7 @@ principles. Where they differ, `constitution.md` and
 | Evaluation rubric | `docs/openclaw_registrar_apprentice_rubric.md` |
 | Enacted amendments | `docs/amendments/` |
 | Runtime environment reference | docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md |
+| docs/working_specs/WORKING_SPEC_ANCHOR.md | AVC development state（形成中の設計仕様） |
 
 ---
 
