@@ -243,3 +243,104 @@ Phase 5（Human Execution）は本パイプラインの外で実施される
 
 このパイプラインは、ATOSにおける「価格の正本」を確定するための
 唯一の公式経路として扱う。
+
+---
+
+## 10. OpenClaw 起動・接続手順（安定運用版）
+
+### 概要
+OpenClaw は以下の3要素で構成される：
+
+- Gateway（常時起動）
+- Node（実行主体）
+- Control UI（ブラウザ）
+
+いずれかが欠けると正常動作しない。
+
+### 起動手順（推奨）
+
+#### 1. Gateway 起動（WSL）
+```bash
+cd /mnt/c/ai-trading-os-private
+source .env.local
+source .venv/bin/activate
+openclaw gateway --allow-unconfigured --bind lan
+※ このターミナルは閉じない
+
+2. トークン取得（別ターミナル）
+openclaw dashboard --no-open
+
+→ #token= の後ろの値を使用
+
+3. ブラウザ接続（Windows）
+http://localhost:18789/
+
+→ token を貼って Connect
+
+4. Node 起動（別ターミナル）
+openclaw node run
+5. pairing 承認（必要時）
+openclaw devices approve --latest
+6. 接続確認（UI）
+
+Nodes → Refresh
+
+状態：
+
+paired / connected → 正常
+offline → node再起動必要
+よくある問題と対処
+UIに接続できない
+gateway が起動していない
+--bind lan が不足
+WSL IP と portproxy 不一致
+
+確認：
+
+wsl hostname -I
+netsh interface portproxy show all
+token mismatch
+
+原因：
+
+gateway 再起動後に古い token 使用
+
+対処：
+
+openclaw dashboard --no-open
+
+→ 新しい token を使用
+
+No nodes found
+
+原因：
+
+node 未起動
+
+対処：
+
+openclaw node run
+pairing required
+
+原因：
+
+node 未承認
+
+対処：
+
+openclaw devices approve --latest
+paired だが offline
+
+原因：
+
+node ターミナル終了
+
+対処：
+
+openclaw node run
+重要な原則
+gateway と node は常時起動プロセス
+token は gateway 起動ごとに更新される可能性あり
+UI はあくまで操作インターフェースであり本体ではない
+
+---
