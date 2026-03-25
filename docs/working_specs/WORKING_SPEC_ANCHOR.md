@@ -452,3 +452,46 @@ This condition is:
 - operationally verified
 - not yet fully integrated into execution readiness definition
 - required for Phase 5+ stable operation
+
+---
+
+## 17. Integrated ATOS Operational Loop (Pre-Phase5)
+
+The system now forms a continuous pipeline:
+
+kabuStation
+→ board_snapshot (DB)
+→ indicator_observation (DB)
+→ hypothesis_proposed (conditional)
+→ proposal_drafted (conditional)
+→ execution_prepared
+→ human execution
+
+---
+
+### Status
+
+- Observation pipeline: active
+- Interpretation pipeline: active (conditional triggers)
+- Execution pipeline: ready
+- Market data readiness: defined
+
+---
+
+### Interpretation
+
+ATOS is no longer a set of independent components.
+
+It now operates as an integrated loop, where:
+
+- observation feeds interpretation
+- interpretation feeds proposal
+- proposal feeds execution
+- execution can feed future observation
+
+---
+
+### Note
+
+This loop is not yet fully automated.
+Human-in-the-loop execution remains enforced.
