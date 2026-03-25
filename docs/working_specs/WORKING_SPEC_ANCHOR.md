@@ -495,3 +495,99 @@ It now operates as an integrated loop, where:
 
 This loop is not yet fully automated.
 Human-in-the-loop execution remains enforced.
+
+---
+
+## 18. OpenClaw Runtime Requirements (Discovered in Phase 4.5)
+
+### Summary
+
+During Phase 4.5 test execution, several critical runtime requirements were identified.
+These are not optional optimizations but mandatory conditions for successful execution.
+
+---
+
+### 1. Repository Root Alignment
+
+OpenClaw must explicitly operate within:
+
+/mnt/c/ai-trading-os-private
+
+Without this:
+- scripts may appear missing
+- AAB files may not be found
+- execution paths fail
+
+---
+
+### 2. Virtual Environment Activation
+
+OpenClaw must activate:
+
+source scripts/registrar/.venv/bin/activate
+
+Without this:
+- psycopg import fails
+- DB connection is not possible
+
+---
+
+### 3. Environment Variable Loading
+
+OpenClaw must load:
+
+source .env.local
+
+Without this:
+- KABU_API_HOST is missing
+- API execution fails
+
+---
+
+### 4. Market Data Dependency
+
+market_data_ready is not theoretical.
+
+It is operationally required:
+
+- kabuStation symbol registration is session-scoped
+- symbol must be re-registered each session if missing
+- collector pipeline must be run when NOT READY
+
+---
+
+### 5. Operator vs Registrar Mode Separation
+
+OpenClaw operates in two distinct modes:
+
+Registrar Mode:
+- task-bound execution
+- no scope expansion
+- strict constraint enforcement
+
+Operator Mode:
+- state inspection
+- conditional branching
+- pipeline execution
+
+Mixing these modes leads to execution ambiguity.
+
+---
+
+### Status
+
+All above conditions were validated in Phase 4.5 test execution.
+
+System behavior:
+
+- READY state correctly detected
+- simulated_order successfully executed
+- execution_recorded produced
+- dry_run constraints preserved
+
+---
+
+### Conclusion
+
+OpenClaw is capable of operating as a session operator,
+provided that runtime environment is explicitly prepared.
