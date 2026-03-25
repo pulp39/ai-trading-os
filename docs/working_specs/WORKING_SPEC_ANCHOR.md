@@ -324,20 +324,22 @@ execution_ready =
 ## 14. Phase 5 Execution Checklist
 
 1. Market is open
-2. Symbol 7203 is tradable
-3. Gateway running
-4. Node connected
-5. Valid token
-6. UI reachable
-7. .env loaded
-8. .venv active
-9. DB reachable
-10. Order parameters fixed:
+2. KabuStation running
+3. Symbol registration confirmed (re-register if empty)
+4. Symbol 7203 is tradable
+5. Gateway running
+6. Node connected
+7. Valid token
+8. UI reachable
+9. .env loaded
+10. .venv active
+11. DB reachable
+12. Order parameters fixed:
     7203 / buy / 100 / market
-11. execution_prepared recorded
-12. Human submits order
-13. execution_submitted recorded
-14. safety_lock applied
+13. execution_prepared recorded
+14. Human submits order
+15. execution_submitted recorded
+16. safety_lock applied
 
 ---
 
@@ -399,3 +401,54 @@ This section exists to reconcile:
 - future integration decisions
 
 This is not a rollback, but a visibility restoration.
+
+---
+
+---
+
+## 16. Market Data Readiness (KabuStation Constraint)
+
+### Definition
+
+market_data_ready =
+  kabuStation running
+  AND API token valid
+  AND symbol registered
+
+---
+
+### Operational Rule
+
+KabuStation requires symbol registration for each session.
+
+Therefore:
+
+- At the beginning of each session:
+  - symbol registration must be verified
+- If no symbols are registered:
+  - re-registration must be performed before data collection
+
+---
+
+### Institutional Implication
+
+This condition affects:
+
+- Collector pipeline execution
+- Indicator generation
+- Downstream hypothesis / proposal triggers
+
+Without symbol registration:
+
+- board data cannot be fetched
+- entire observation pipeline becomes inactive
+
+---
+
+### Status
+
+This condition is:
+
+- operationally verified
+- not yet fully integrated into execution readiness definition
+- required for Phase 5+ stable operation
