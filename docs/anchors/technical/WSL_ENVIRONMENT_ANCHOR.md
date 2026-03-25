@@ -133,6 +133,31 @@ AI作業の再現性確保
 
 9. 現値取得パイプライン（Collector Execution Chain）
 
+### Current Preferred Session-Start Path
+
+For current Phase 5 preparation, the preferred session-start path is:
+
+1. inspect API symbol registration state
+2. if registration is empty:
+   - treat as session-start-equivalent
+   - execute `scripts/collector/register_symbol_once.py`
+3. then execute:
+   - `scripts/collector/collect_board_once.py <symbol>`
+
+This path reflects the currently validated operational sequence for restoring
+`symbol_registered` and then confirming board / current price fetchability.
+
+---
+
+### Role of `run_collector_once.py`
+
+`run_collector_once.py` remains available as an orchestration script.
+
+However, it should not be treated as the default first step when symbol
+registration state is unknown or empty.
+
+The registration-state branch must be resolved first.
+
 ### 目的
 
 本セクションは、execution前の価格確定および観測状態の整合を取るための
@@ -241,8 +266,10 @@ Phase 5（Human Execution）は本パイプラインの外で実施される
 観測は制度の一部であり、executionの前提条件である
 
 
-このパイプラインは、ATOSにおける「価格の正本」を確定するための
-唯一の公式経路として扱う。
+This pipeline remains an important operational path for observation consistency.
+
+However, current session-start operation must first resolve symbol registration state,
+because board / current price fetch is downstream of registration.
 
 ---
 

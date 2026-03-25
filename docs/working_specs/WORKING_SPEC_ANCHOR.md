@@ -455,6 +455,65 @@ This condition is:
 
 ---
 
+## 16.1 Session-Start Registration Branch
+
+### First Branching Step
+
+At the beginning of each kabuStation session, the first required step is:
+
+- inspect current API symbol registration state
+
+This check must occur before any board / current price fetch attempt.
+
+---
+
+### Branch A — registration exists
+
+Condition:
+- symbol 7203 is already registered in the current kabuStation session
+
+Interpretation:
+- `symbol_registered = true`
+- `market_data_ready` is not yet automatically true
+- token validity and board fetchability must still be confirmed
+
+Minimum next action:
+- verify API token validity
+- fetch board / current price
+- if fetch succeeds, observation path may proceed
+
+---
+
+### Branch B — registration empty
+
+Condition:
+- no symbols are registered
+- or symbol 7203 is not registered
+
+Interpretation:
+- treat this state as `session-start-equivalent`
+- `symbol_registered = false`
+- `market_data_ready = false`
+
+Mandatory rule:
+- symbol registration must be performed before any board / current price fetch
+
+Minimum next action:
+- Founder executes `scripts/collector/register_symbol_once.py`
+- re-check registration state
+- then proceed to `scripts/collector/collect_board_once.py`
+
+---
+
+### Institutional Note
+
+This branch now defines the preferred session-start path for current operation.
+
+It formalizes the rule that symbol registration is a prerequisite state,
+not an implicit assumption carried across sessions.
+
+---
+
 ## 17. Integrated ATOS Operational Loop (Pre-Phase5)
 
 The system now forms a continuous pipeline:
@@ -591,3 +650,29 @@ System behavior:
 
 OpenClaw is capable of operating as a session operator,
 provided that runtime environment is explicitly prepared.
+
+---
+
+## 18.1 Current Preferred Pre-Execution Path
+
+The current preferred pre-execution path is:
+
+1. API symbol registration state check
+2. If registration is empty:
+   - Founder runs `scripts/collector/register_symbol_once.py`
+3. Founder or operator runs `scripts/collector/collect_board_once.py <symbol>`
+4. board snapshot / indicator_observation / observation pipeline proceeds
+5. readiness is re-evaluated
+
+---
+
+### Note on `run_collector_once.py`
+
+`run_collector_once.py` remains present as a legacy orchestration path.
+
+However, it is no longer the preferred session-start entrypoint for current Phase 5 preparation.
+
+Current operation should begin with:
+- registration state inspection
+- explicit session-start registration recovery when needed
+- then `collect_board_once.py`
