@@ -1,0 +1,15 @@
+{
+  "task_id": "TEST-DB-001",
+  "task_type": "bounded_db_test",
+  "db_scope": {
+    "schema": "research",
+    "table": "trace_event"
+  },
+  "allowed_actions": ["SELECT"],
+  "steps": [
+    {
+      "action": "SELECT",
+      "sql": "SELECT id, event_type FROM research.trace_event ORDER BY id DESC LIMIT 3;"
+    }
+  ]
+}
