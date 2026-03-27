@@ -676,3 +676,104 @@ Current operation should begin with:
 - registration state inspection
 - explicit session-start registration recovery when needed
 - then `collect_board_once.py`
+
+---
+
+## 19. Collector Execution Constraint
+
+## 19. Collector Execution Constraint
+
+### 19.1 Constraint Overview
+
+In the current operational environment, canonical collector execution depends on
+Windows PowerShell and external API connectivity (e.g. kabuStation).
+
+If the runtime environment (e.g. OpenClaw) does not have access to the required
+PowerShell execution path, the collector MUST NOT be executed.
+
+This is considered a valid and correct operational stop.
+
+---
+
+### 19.2 Required Behavior on Collector Unavailability
+
+If canonical collector execution is unavailable:
+
+- The executor MUST stop without attempting alternative collection methods
+- Non-canonical data acquisition is strictly prohibited
+- No inference of market data is allowed
+- The system MUST explicitly report the reason for stopping
+
+---
+
+### 19.3 Institutionally Supplied Observation
+
+If canonical collector execution is unavailable in the executor runtime,
+the system MAY accept observations supplied by the Founder-side canonical environment.
+
+Conditions for acceptance:
+
+- Same session
+- Same symbol
+- Market-time fresh observation
+- Obtained via canonical collector path
+- Explicitly declared by Founder
+
+Such observations are treated as:
+
+"institutionally supplied observation"
+
+Usage constraints:
+
+- MAY be used as evidence for `market_data_ready`
+- MUST NOT be treated as self-collected data
+- MUST NOT be extrapolated or inferred
+- MUST NOT bypass canonical collection requirements
+
+---
+
+### 19.4 Execution Readiness Clarification (Operational)
+
+`execution_ready` is a state confirmation derived strictly from supplied or observed facts.
+
+It MUST NOT:
+
+- imply authorization
+- trigger execution
+- substitute for `authorization_granted`
+
+In bounded execution contexts, `execution_ready` MAY be confirmed using:
+
+- canonical observation
+- institutionally supplied observation
+- confirmed system states
+
+No inference beyond supplied facts is permitted.
+
+---
+
+### 19.5 Runtime Separation Principle
+
+The system distinguishes between:
+
+- Observation Runtime (Founder-side canonical execution)
+- Execution Validation Runtime (OpenClaw / Assistant Registrar)
+
+Observation is NOT required to be performed within the same runtime
+as execution validation.
+
+Instead:
+
+- Observation MAY be supplied across runtimes
+- Execution validation MUST respect supplied facts without inference
+- Runtime limitations MUST NOT lead to non-canonical behavior
+
+---
+
+### 19.6 Operational Rule (Current Phase)
+
+- Observation: Founder canonical path
+- Validation: OpenClaw bounded execution
+- Execution: Not permitted without authorization
+
+This rule is temporary but authoritative for Phase 5 operations.
