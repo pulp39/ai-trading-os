@@ -1,441 +1,150 @@
-# EXECUTION_MODEL_ANCHOR
-Version: 1.3
-Date: 2026-03-16
-Status: active
-Purpose: Execution model reference for AI Trading OS
+---
+title: EXECUTION MODEL ANCHOR
+layer: B (Institutional State Snapshot)
+version: 2.0
+date: 2026-03-28
+supersedes: EXECUTION_MODEL_ANCHOR v1.3 (2026-03-16)
+status: draft
+related_proposals:
+  - proposals/accepted/P-20260326-030.md
+  - proposals/accepted/P-20260327-031.md
+  - proposals/accepted/P-20260327-032.md
+---
+
+# Execution Model Anchor
+## AI Trading OS — Institutional Execution Framework
 
 ---
 
-## 1. About This Document
+## 1. Three-Layer Execution Model
 
-This document describes the execution model for AI Trading OS.
-It explains how institutional intent becomes bounded action, how the
-Assistant Registrar role participates in execution, and what execution
-discipline looks like in this project.
+P-20260327-032 により、ATOSの実行モデルは以下の三層として制度的に定義された。
 
-This document is intended to be read alongside:
-
-- `constitution.md`
-- `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
-- `docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md`
-
----
-
-## 2. How Execution Works in This Project
-
-AI Trading OS uses role-mediated, bounded execution rather than
-autonomous action. Execution flows through recognized paths involving
-Founder, Registrar, and Assistant Registrar roles. The paths are
-described below.
-
----
-
-## 3. Founder Direct Path
+### Layer 1: Observation Layer（観測層）
 
 ```
-Founder → Registrar → Assistant Registrar
+操作種別 : READ
+担い手   : Librarian / Proposer / Founder
+対象     : Git（local / private / public）、DB（research.trace_event 等）
 ```
 
-Used when the Founder authorizes a bounded action directly through
-the execution layer. The Assistant Registrar acts after explicit
-Registrar instruction.
+状態を読み取る層。システムの状態を変更しない。観測権は実行権を含意しない。
 
----
-
-## 4. Institutional Path
+### Layer 2: Approval Layer（承認層）
 
 ```
-Collector → Proposer → Librarian → Registrar → Assistant Registrar
+操作種別 : TRIGGER（承認ハッシュ / トークンの発行）
+担い手   : Founder（最終承認権者）/ Librarian（審議参加）
+対象     : 特定の実行行為の制度的承認
 ```
 
-Used when observations or proposals move through the full governance
-structure into bounded execution.
+承認を制度的に記録・伝達する層。Approval LayerはGit / DBへの直接書き込みを行わない。承認ハッシュは `authorization_granted` 相当のtrace_eventとして記録される（状態変更ではなく記録）。Approval Layer における trace_event 記録は、Execution Layer の WRITE とは区別される制度記録であり、Git / DB の operational state mutation を意味しない。
 
----
-
-## 5. Common Execution Path
+### Layer 3: Execution Layer（実行層）
 
 ```
-Librarian → Registrar → Assistant Registrar
+操作種別 : WRITE（状態変更）
+担い手   : Execution Agent（OpenClaw / Cowork / その他承認済みAiiD）
+対象     : Git（commit / push / merge）、DB（INSERT / UPDATE / DELETE）
 ```
 
-The most common practical path for bounded operational tasks that do
-not require a full observation-to-proposal cycle.
+実際の状態変更を行う層。すべてのWRITE操作はtrace_eventを必ず生成し、Execution Agentに帰属する。
 
 ---
 
-## 6. Assistant Registrar Role
-
-The Assistant Registrar performs bounded execution tasks under explicit
-Registrar instruction. Execution is appropriate when:
-
-- explicit Registrar instruction exists
-- execution scope is clearly defined
-- preconditions have been verified
-- branch policy is respected
-- the result can be recorded institutionally
-
-The Assistant Registrar role is execution-focused rather than
-governance-originating. It does not autonomously form policy or
-interpret governance documents.
-
----
-
-## 7. What the Assistant Registrar Can Do
-
-When acting under explicit Registrar instruction, the Assistant
-Registrar may perform tasks such as:
-
-- file creation or modification within approved scope
-- branch-based repository work
-- commit and push within allowed branch policy
-- trace_event payload drafting
-- registrar task payload drafting
-- bounded documentation updates
-- execution reporting
-
-The role is not designed for:
-
-- autonomous rewriting of institutional structure
-- modifying main without proper authorization
-- bypassing precondition checks
-- expanding scope beyond explicit task bounds
-- acting with Registrar-level authority
-
----
-
-## 8. Sandbox Branch Policy
-
-By default, Assistant Registrar activity takes place on sandbox
-branches with the following prefixes:
-
-- `assistant/test/`
-- `assistant/docs/`
-- `assistant/trace/`
-- `assistant/pr/`
-
-Direct modification of main follows an explicit authorization path
-involving Registrar instruction and, where appropriate, Founder
-approval.
-
----
-
-## 9. Precondition Checks
-
-Before taking any execution action, verifying the following helps
-ensure the action is within scope and safe:
-
-- correct repository is active
-- correct branch is checked out
-- only intended files are in scope
-- scope still matches the instruction
-- no disallowed files are staged
-- execution target is institutionally valid
-
-If preconditions are not met, stopping and returning for clarification
-is the appropriate response — and is considered good execution
-discipline, not a failure.
-
----
-
-## 9.1 AiiD Activity Authorization Check
-
-Before executing any instruction involving an AiiD participant,
-the activity authorization state of the AiiD may be verified.
-
-The authorization mechanism is defined in:
+## 2. 明示的原則
 
 ```
-founder_records/proposals/FR-20260316-001.md
+- Observation does not imply execution
+- Approval does not imply execution
+- Approval does not modify system state
+- All WRITE operations are execution
+- All WRITE operations MUST be attributed to an execution agent
+- All WRITE operations MUST produce a corresponding trace_event
 ```
 
-Current implementation: Stub Phase
+---
+
+## 3. Execution Attribution Principle
+
+すべてのWRITE操作は制度的にExecution Agentに帰属する。立法府（Librarian / Proposer / Founder）の指示・承認によって起動された操作であっても、制度上の実行主体はExecution Agentである。
 
 ```
-activity_authorization(aiid) → returns 1
+All write operations MUST be attributed to an execution agent,
+even if initiated through higher-layer systems.
+
+Institutional actors do not perform execution,
+but may trigger or approve execution.
 ```
 
-During the stub phase, all institutionally recognized AiiD
-participants are considered authorized. This check serves as a
-placeholder for future authorization logic and does not affect
-current execution behavior.
+### trace_event フィールド（WRITE操作）
 
-When the stub phase ends, this check becomes an active gate
-in the execution flow.
-
----
-
-## 10. Scope
-
-Execution stays within the stated task scope. If related changes
-appear useful or efficient but were not part of the original
-instruction, the appropriate path is to raise them for renewed
-instruction rather than including them autonomously.
-
-Bounded execution is a design principle of this project, not a
-limitation.
-
----
-
-## 11. Staged File Verification
-
-Before committing, checking staged files explicitly helps avoid
-unintended changes:
-
-- only intended files are staged
-- no unrelated files are included
-- no environment artifacts are staged
-- no protected files are included without authorization
-
-If staged files exceed scope, correcting before commit is the right
-approach.
-
----
-
-## 12. Retry
-
-Retry is appropriate when the retry stays within the originally
-authorized scope.
-
-Appropriate retry cases:
-- command syntax correction
-- file path correction
-- branch naming correction
-- formatting correction
-- push retry after transient failure
-
-Retry is not appropriate for:
-- expanding the file set
-- changing institutional meaning
-- modifying protected targets without renewed instruction
-- converting a bounded task into an unbounded refactor
-
----
-
-## 13. Execution Result Format
-
-A useful execution result report includes:
-
-- task identifier or summary
-- execution scope
-- precondition result
-- files changed
-- commit result
-- push result
-- trace_event result or draft status
-- stop reason if execution halted
-
-Clear reporting makes execution reviewable and supports institutional
-traceability.
-
----
-
-## 14. Registrar Task Format
-
-The format for Registrar task payloads is described in:
-
-```
-docs/registrar_task_format.md
+```yaml
+execution_actor   : <agent_id>
+approved_by       : Founder
+approval_hash     : <hash>
+proposal_origin   : <proposal_id>
+operation_type    : WRITE
+target            : <git|db>
 ```
 
-That document specifies the minimum fields and structure for a valid
-task payload.
+---
+
+## 4. Authorization Lifecycle（P-20260327-031 参照）
+
+authorizationは以下の三状態を持つ。
+
+| 状態 | 意味 |
+|------|------|
+| `granted` | Founderが発行し、有効な状態 |
+| `invalidated` | 明示的に無効化された終端状態 |
+| `consumed` | 外部送信完了後の終端状態 |
+
+`invalidated` と `consumed` はいずれも終端状態であり再利用不可。新たな実行サイクルには新たな `authorization_granted` が必要となる。
 
 ---
 
-## 15. Commit Validity
+## 5. Authorization Pathways（v1.3 継承・更新）
 
-A commit reflects good execution discipline when:
+三つの承認経路は引き続き有効であり、Three-Layer Modelの文脈で再定義される。
 
-- scope stayed bounded
-- preconditions were respected
-- staged files matched the intended task
-- the commit occurred on an allowed branch
-- the action is describable in institutional terms
+| 経路 | フロー | 説明 |
+|------|--------|------|
+| **Founder Direct** | Founder → Registrar → Assistant Registrar | Founder承認済みの直接指示 |
+| **Institutional** | Collector → Proposer → Librarian → Registrar → Assistant Registrar | 制度的審議を経た完全フロー |
+| **Common** | Librarian → Registrar → Assistant Registrar | 通常運用タスク |
 
-A technically successful commit that bypasses execution discipline
-does not represent valid institutional execution.
-
----
-
-## 16. Push
-
-Push follows commit validity. It targets the authorized remote and
-respects sandbox branch policy unless explicitly authorized otherwise.
-
-A successful push is part of execution, not the sole measure of
-institutional validity.
+いずれの経路においても、Approval LayerはFounderが担い、Execution LayerはRegistrar / OpenClaw等が担う。
 
 ---
 
-## 17. trace_event Recording
+## 6. 各主体のアクセス権
 
-Institutionally meaningful execution is recorded in
-`research.trace_event` or prepared as a trace_event draft.
-
-A trace_event captures:
-- what action was performed
-- by which role
-- within what scope
-- with what outcome
-
-Recording supports the project's goal of making execution reviewable
-and reconstructible.
+| 主体 | Observation（READ） | Approval（TRIGGER） | Execution（WRITE） |
+|------|---------------------|---------------------|---------------------|
+| **Founder** | ✅ | ✅（最終承認権者） | ❌（原則として実行主体ではない。必要時は別途明示的に定義された経路による） |
+| **Librarian** | ✅ | ✅（審議参加） | ❌ |
+| **Proposer** | ✅ | ❌（起草・提案のみ） | ❌ |
+| **Registrar** | ✅ | ❌ | ✅（承認下） |
+| **OpenClaw / Cowork** | ✅ | ❌ | ✅（承認下） |
 
 ---
 
-## 18. Stopping as Good Practice
+## 7. Safety Mechanisms（v1.3 継承）
 
-Stopping execution because of a failed precondition, branch policy
-concern, scope ambiguity, or unexpected staged files is expected and
-appropriate behavior. It is treated as disciplined compliance with the
-execution model, not as failure.
-
----
-
-## 19. OpenClaw Execution Role
-
-OpenClaw participates as an Assistant Registrar when explicitly
-instructed by the Registrar.
-
-Its role is limited to bounded execution within system scope and does
-not extend to external execution authority.
-
-### 19.1 Execution Capability vs Authority
-
-Execution in AI Trading OS is separated into:
-
-- execution capability (system-side readiness)
-- execution authority (external transmission control)
-
-OpenClaw possesses execution capability but does not possess execution
-authority.
-
-### 19.2 Execution Readiness
-
-OpenClaw can:
-
-- validate execution conditions
-- perform dry-run procedures
-- prepare registrar tasks
-- reach a READY_FOR_EXECUTION state
-
-Execution readiness represents a fully prepared state within the
-institutional system, but it does not constitute execution itself.
-
-### 19.3 Execution Boundary
-
-Execution is defined as:
-
-> the initiation of external transmission
-
-This includes:
-
-- API order submission
-- any outbound action affecting external systems
-
-OpenClaw does not cross this boundary.
-
-### 19.4 Human Execution Layer
-
-External execution is performed through a human-controlled layer:
-
-```text
-Observation → Proposal → Gate → Authorization
-→ Assistant Registrar (OpenClaw: execution preparation)
-        ↓
-Human Execution Layer (Founder: execution authority)
-        ↓
-External Systems (APIs / Markets)
-
-Only the Human Execution Layer holds execution authority.
-
-19.5 Authorization Lifecycle
-
-Before execution:
-
-authorization_granted (permission exists)
-
-At execution moment:
-
-authorization_consumed (irreversible)
-
-Characteristics of authorization_consumed:
-
-triggered at external transmission
-independent of outcome (success/failure/unknown)
-non-reversible
-19.6 Safety Lock
-
-After execution:
-
-post_submit_safety_lock is applied
-
-This prevents:
-
-duplicate submission
-unintended retries
-re-consumption of authorization
-19.7 Scope Limitation
-
-OpenClaw must not:
-
-initiate external execution
-bypass execution authority boundaries
-simulate external execution as completed
-perform actions that imply capital deployment
-
-Its role remains strictly within execution preparation.
-
-For institutional boundary definitions, see:
-
-docs/BOUNDARY.md
+- サンドボックスブランチポリシーはAssistant Registrarの作業を規定する
+- 事前条件の検証が必須（未達成時は即停止）
+- ステージング内容の明示的確認（スコープ外ファイルの混入防止）
+- post-execution safety lockにより重複送信を防止
+- 停止は「失敗」ではなく「規律ある準拠」として扱われる
 
 ---
 
-## 20. Related Documents
+## 8. 変更履歴
 
-| Document | What it covers |
-|---|---|
-| `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md` | Project startup and read order |
-| `docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md` | Current institutional state |
-| `docs/anchors/technical/DB_STATUS_ANCHOR.md` | Database state and trace_event environment |
-| `docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md` | OpenClaw qualification |
-| `docs/registrar_task_format.md` | Registrar task payload format |
-| `founder_records/proposals/FR-20260316-001.md` | AiiD Activity Authorization Bit definition |
+| Version | Date | 変更内容 |
+|---------|------|----------|
+| v1.0–v1.3 | 〜2026-03-16 | 初期定義・段階的更新 |
+| **v2.0** | **2026-03-28** | **Three-Layer Model / Execution Attribution / Authorization Lifecycle を統合** |
 
----
-
-## 21. Summary
-
-Execution in AI Trading OS is:
-
-- bounded by explicit instruction
-- role-mediated through recognized paths
-- reviewable through execution reporting
-- recordable via trace_event
-- institutionally legible
-
-This design enables AI participants to collaborate safely within a
-shared governance framework.
-
----
-
-## 22. Execution Governance Summary
-
-Execution in AI Trading OS is defined by the following principles:
-
-- Execution capability ≠ execution authority
-- Execution authority is human-controlled
-- Execution occurs at external transmission
-- Authorization is consumed at execution moment
-- Post-execution state is locked (safety lock)
-
-This model ensures:
-
-- clear separation of responsibility
-- prevention of unintended capital deployment
-- traceable and reviewable execution flow
-
-Execution is not defined by script completion, but by
-institutional boundary crossing.
+本アンカーはP-020–P-032の制度定義を運用レベルに統合したものである。
