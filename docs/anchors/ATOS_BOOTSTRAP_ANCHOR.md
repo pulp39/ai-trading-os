@@ -7,6 +7,25 @@ Purpose: Project startup reference for AI Trading OS institutional
 state reconstruction
 
 ---
+## Current Institutional State（最優先 — 2026-03-28更新）
+
+このセクションが制度の現在状態として最優先で解釈される。
+
+### 現在の制度フロー（六段構成）
+Observation → Dialogue → Proposal → Preview → Approval → Execution
+
+### 最新有効Proposal
+- P-20260328-033: Dialogue Layer Formalization
+- P-20260328-017: Order Preview and Price Binding Layer
+
+### 現在のPhase
+Phase 7 — Controlled Execution Entry（確立済み / 2026-03-28）
+
+### 読み順（必須）
+1. Bootstrap → 2. EXECUTION_MODEL_ANCHOR → 3. P-033 → 4. P-017 → 5. DB_STATUS_ANCHOR
+
+---
+
 
 ## 1. About This Document
 
