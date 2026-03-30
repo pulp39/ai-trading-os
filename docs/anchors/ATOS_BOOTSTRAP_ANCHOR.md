@@ -21,6 +21,15 @@ Observation → Dialogue → Proposal → Preview → Approval → Execution
 ### 現在のPhase
 Phase 7 — Controlled Execution Entry（確立済み / 2026-03-28）
 
+### 2026-03-30 Update — Observation Auto-Recovery (C Phase PoC)
+- OpenClaw / WSL 環境からの Observation 自動復旧に成功（PoC）
+- scripts/collector/collect_board_once.py を用いた Windows PowerShell bridge 経由での board取得が成立
+- token取得 → symbol登録 → board取得 → snapshot → trace_event（market_observation）までの一連のパイプラインが自動実行で確認された
+- Founder手動Observationは不要となり、既存collector経路が制度内の標準Observation手段として再確立された
+
+Current interpretation:
+Observation Layer is considered operational via Windows PowerShell bridge (WSL → PowerShell → localhost → KabuStation API).
+
 ### 読み順（必須）
 1. Bootstrap → 2. EXECUTION_MODEL_ANCHOR → 3. P-033 → 4. P-017 → 5. DB_STATUS_ANCHOR
 
