@@ -371,3 +371,53 @@ token は gateway 起動ごとに更新される可能性あり
 UI はあくまで操作インターフェースであり本体ではない
 
 ---
+
+## 11. KabuStation API Access Constraints（2026-03-30）
+
+本セクションは、WSL / OpenClaw 環境から KabuStation API に接続する際に確認された制約と、実運用上の対処方法を記録する。
+
+### 11.1 OpenClaw (Linux VM) → KabuStation API 接続制約
+
+以下の制約が確認された：
+
+- Windows 側で `netsh interface portproxy` によって `0.0.0.0:18080 → 127.0.0.1:18080` を設定しても、Windows HTTP.SYS / URL ACL が外部IP（172.18.x.x）からの接続を 403 Forbidden で拒否する
+- OpenClaw の内蔵HTTP機能はSSRF防止フィルタによりプライベートIPへのアクセスをブロックする可能性がある
+- KabuStation API は localhost 由来以外の接続を受け付けない
+
+### 11.2 Observation 代替手段（制度内で許容）
+
+上記制約により直接接続が困難な場合、以下の手段が有効である：
+
+- Founder が Windows PowerShell 上で API を直接実行する（token取得・symbol登録・board取得）
+- 取得結果を Proposer / Librarian に受け渡す
+
+この方法は以下の理由により制度的に許容される：
+
+- WRITE を伴わない（Observationのみ）
+- Execution を発生させない
+- Observation実装手段の変更に過ぎない
+
+したがって、本手段は「Observation Layer 内の実装切替」として扱う。
+
+### 11.3 PowerShell における `curl` エイリアスの注意
+
+PowerShell の `curl` は `Invoke-WebRequest` のエイリアスであり、curlコマンドオプション（-H 等）が使用できない。
+KabuStation API への接続には以下を使用すること：
+
+- `curl.exe`（Windows版curlバイナリ）を明示する
+- または `Invoke-RestMethod` を使用する
+
+例：
+
+```powershell
+$body = '{"APIPassword":"your_password"}'
+Invoke-RestMethod -Method POST -Uri "http://localhost:18080/kabusapi/token" -ContentType "application/json" -Body $body
+```
+
+### 11.4 実務上の推奨
+
+- 接続トラブル時はまず localhost 経由で API 応答を確認する
+- 外部IP経由（WSL → Windows）に固執しない
+- Observation 成立を優先し、最短経路を選択する
+
+---
