@@ -30,6 +30,27 @@ Phase 7 — Controlled Execution Entry（確立済み / 2026-03-28）
 Current interpretation:
 Observation Layer is considered operational via Windows PowerShell bridge (WSL → PowerShell → localhost → KabuStation API).
 
+### 2026-03-31 Operational Validation Update
+### 2026-03-31 Operational Validation Update
+
+The Observation → Preview cycle has now been validated during market hours for symbol 7203.
+
+Confirmed:
+- fresh observation acquisition succeeded
+- hard limits check succeeded
+- soft-limit test evaluation produced READY
+- `execution_readiness_checked` was recorded in `research.trace_event`
+
+Operational note:
+For OpenClaw / WSL runtime recovery, use the technical runtime guidance in:
+`docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md`
+
+In practice, successful recovery required:
+- runtime base `/mnt/c/ai-trading-os-private`
+- sourcing `.env.local` in the same shell context
+- activating `.venv` in the same shell context
+- adding `/mnt/c/Windows/System32/WindowsPowerShell/v1.0` to PATH
+
 ### 読み順（必須）
 1. Bootstrap → 2. EXECUTION_MODEL_ANCHOR → 3. P-033 → 4. P-017 → 5. DB_STATUS_ANCHOR
 
@@ -105,20 +126,76 @@ to differ, constitution.md reflects the foundational project principles.
 ## 6. Recommended Read Order
 
 Reading the following files in this order provides a complete picture
-of the current project state:
+of the current project state.
 
-1. constitution.md
-2. CLAUDE.md
-3. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-4. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
-5. docs/anchors/technical/DB_STATUS_ANCHOR.md
-6. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-7. docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md  ← 追加（条件付き）
-8. docs/aiid_registry.md
-9. docs/BOUNDARY.md
-10. docs/openclaw_training_status.md
-11. docs/openclaw_registrar_apprentice_rubric.md
-12. README.md
+This order reflects the layered anchor architecture:
+Constitution → Operational → Runtime → Data → Capability
+
+---
+
+### 1. Core Constitution & Identity
+
+1. constitution.md  
+2. CLAUDE.md  
+3. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md  
+
+---
+
+### 2. Execution Model (Constitution Layer)
+
+4. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md  
+
+---
+
+### 3. Operational Layer（中核）
+
+5. docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md  
+
+---
+
+### 4. Runtime Layer（実行環境）
+
+6. docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md  
+
+---
+
+### 5. Data Layer
+
+7. docs/anchors/technical/DB_STATUS_ANCHOR.md  
+
+---
+
+### 6. Capability Layer
+
+8. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md  
+
+---
+
+### 7. Registry & Governance Context
+
+9. docs/aiid_registry.md  
+10. docs/BOUNDARY.md  
+
+---
+
+### 8. Operational Status
+
+11. docs/openclaw_training_status.md  
+12. docs/openclaw_registrar_apprentice_rubric.md  
+
+---
+
+### 9. Entry Documentation
+
+13. README.md  
+
+---
+
+## Notes
+
+- OPERATIONAL_PROTOCOL_ANCHOR is the primary reference for "how to operate ATOS"
+- RUNTIME_ENVIRONMENT_ANCHOR defines reproducible execution conditions
+- Legacy environment / troubleshooting anchors are deprecated and consolidated
 
 ---
 
