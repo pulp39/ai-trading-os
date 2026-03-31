@@ -75,17 +75,34 @@ beginning a new session or joining an ongoing workflow.
 
 ## 2. Canonical Repository
 
-The project's canonical repository is:
+The canonical repository for AI Trading OS is:
 
-`ai-trading-os-private`
+`https://github.com/pulp39/ai-trading-os-private`
 
-Local working copy:
+This repository is the institutional source of truth.
 
-`/home/vmamako/ai-trading-os-private`
+The canonical local working repository for execution and editing is:
 
-The repository is the authoritative source for institutional state.
+`C:\ai-trading-os-private`
+
+This local repository is the primary working copy used for
+implementation, execution, and document editing.
+
+The public repository is:
+
+`https://github.com/pulp39/ai-trading-os-public`
+
+This repository exists for visibility and browsing access.
+It is not the canonical source of institutional truth.
+
+Summary:
+
+- GitHub private repository = canonical source of truth
+- `C:\ai-trading-os-private` = canonical local working repository
+- GitHub public repository = browsing / reading repository
+
 Chat history and session memory are useful context but do not substitute
-for the repository when establishing the current project state.
+for the canonical repository when establishing the current project state.
 
 ---
 
@@ -223,12 +240,17 @@ foundational project intent:
 2. CLAUDE.md
    (CLAUDE.md describes operational conventions; it does not supersede
    constitution.md on questions of foundational principle)
-3. docs/aiid_registry.md
-4. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
-5. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
-6. docs/anchors/technical/DB_STATUS_ANCHOR.md
-7. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-8. README.md
+3. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
+4. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
+5. docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md
+6. docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md
+7. docs/anchors/technical/DB_STATUS_ANCHOR.md
+8. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+9. docs/aiid_registry.md
+10. docs/BOUNDARY.md
+11. docs/openclaw_training_status.md
+12. docs/openclaw_registrar_apprentice_rubric.md
+13. README.md
 
 When apparent conflicts remain unclear, the interpretation most
 consistent with constitution.md and with minimal disruption to project
@@ -244,10 +266,14 @@ reflects the more authoritative project position.
 - constitution.md reflects foundational project principles
 - CLAUDE.md describes Claude-family operating conventions within those
   principles
-- Anchor documents describe current system state within the governance
-  framework
-- Ledger documents and README reflect operational details at the
-  lowest priority level
+- EXECUTION_MODEL_ANCHOR defines institutional execution structure
+- OPERATIONAL_PROTOCOL_ANCHOR defines how ATOS is operated in practice
+- RUNTIME_ENVIRONMENT_ANCHOR defines reproducible execution conditions
+- DB and training anchors describe subsystem state
+- Ledger documents and README reflect lower-priority operational detail
+
+Legacy environment / troubleshooting anchors that have been consolidated
+into RUNTIME_ENVIRONMENT_ANCHOR should be treated as deprecated.
 
 ---
 

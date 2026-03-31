@@ -6,6 +6,12 @@ Purpose: Runtime environment reference for WSL / Windows execution context
 
 ---
 
+> ⚠️ Status: deprecated  
+> This content has been consolidated into `docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md`.  
+> Refer to that anchor for current runtime, recovery, and troubleshooting guidance.
+
+---
+
 ## 0. この文書をいつ読むか
 
 以下の場合に参照してください：

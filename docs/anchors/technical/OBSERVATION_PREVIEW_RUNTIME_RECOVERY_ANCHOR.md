@@ -7,6 +7,12 @@ Purpose: Recovery and pre-market readiness reference for Observation → Preview
 
 ---
 
+> ⚠️ Status: deprecated  
+> This content has been consolidated into `docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md`.  
+> Refer to that anchor for current runtime, recovery, and troubleshooting guidance.
+
+---
+
 ## 0. About This Document
 
 This document provides a focused recovery guide for restoring the

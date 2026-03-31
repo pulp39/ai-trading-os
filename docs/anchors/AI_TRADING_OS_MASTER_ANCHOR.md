@@ -30,12 +30,27 @@ This document is intended to be read alongside:
 
 ## 2. Canonical Repository
 
-The canonical repository for this project is: `ai-trading-os-private`
-Local working copy: `/home/vmamako/ai-trading-os-private`
+The canonical repository for this project is:
 
-The repository is the authoritative source for institutional state.
+`https://github.com/pulp39/ai-trading-os-private`
+
+This repository is the authoritative institutional source of truth.
+
+The canonical local working repository is:
+
+`C:\ai-trading-os-private`
+
+This local working copy is used for execution, editing, and repository maintenance.
+
+The public repository is:
+
+`https://github.com/pulp39/ai-trading-os-public`
+
+This repository is maintained for browsing and reference access.
+It is not the canonical institutional source of truth.
+
 Chat history and session memory provide useful context but do not
-substitute for the repository when establishing current project state.
+substitute for the canonical repository when establishing current project state.
 
 ---
 

@@ -66,6 +66,12 @@ openclaw devices approve --latest
 
 ---
 
+> ⚠️ Status: deprecated  
+> This content has been consolidated into `docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md`.  
+> Refer to that anchor for current runtime, recovery, and troubleshooting guidance.
+
+---
+
 ## Environment Rules
 
 - Always activate correct venv
