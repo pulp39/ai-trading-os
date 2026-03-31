@@ -30,6 +30,8 @@ from pathlib import Path
 
 import psycopg
 
+from scripts.collector.readiness_writer import write_execution_readiness_evaluated
+
 BASE_DIR = Path(__file__).resolve().parents[2]
 TASK_ARTIFACT = BASE_DIR / "registrar_queue" / "order_preview_task.json"
 
@@ -182,6 +184,42 @@ def evaluate_readiness(aab: dict, snapshot: dict, task: dict) -> tuple[str, list
     return readiness, failed_checks, overridden_checks, market_open, override_allowed
 
 
+def derive_readiness_reason(readiness: str, failed_checks: list[str], overridden_checks: list[str]) -> str:
+    if failed_checks:
+        return ",".join(failed_checks)
+    if overridden_checks:
+        return "overridden:" + ",".join(overridden_checks)
+    return readiness
+
+
+def record_execution_readiness_evaluated(
+    snapshot: dict,
+    readiness: str,
+    failed_checks: list[str],
+    overridden_checks: list[str],
+    task: dict,
+) -> int:
+    now_local = datetime.now().astimezone()
+    freshness_seconds = round((now_local - snapshot["captured_at"]).total_seconds(), 3)
+    return write_execution_readiness_evaluated(
+        symbol=snapshot["symbol"],
+        exchange=snapshot["exchange"],
+        readiness_state=readiness,
+        reason=derive_readiness_reason(readiness, failed_checks, overridden_checks),
+        freshness_seconds=freshness_seconds,
+        metadata={
+            "hard_limit_result": "PASS" if not failed_checks else "FAIL",
+            "soft_limit_result": "NOT_EVALUATED",
+            "failed_checks": failed_checks,
+            "overridden_checks": overridden_checks,
+            "freshness_limit_ms": int(task.get("freshness_max_ms", 5000)),
+            "source_snapshot_id": snapshot["snapshot_id"],
+            "captured_at": snapshot["captured_at"].isoformat(),
+            "evaluated_at": now_local.isoformat(),
+        },
+    )
+
+
 def record_order_preview(
     conn,
     aab: dict,
@@ -264,6 +302,13 @@ def main(aab_path: str) -> None:
         readiness, failed_checks, overridden_checks, market_open, override_allowed = evaluate_readiness(
             aab, snapshot, task
         )
+        readiness_trace_event_id = record_execution_readiness_evaluated(
+            snapshot,
+            readiness,
+            failed_checks,
+            overridden_checks,
+            task,
+        )
         preview = record_order_preview(
             conn,
             aab,
@@ -277,6 +322,7 @@ def main(aab_path: str) -> None:
         )
 
     conn.close()
+    preview["execution_readiness_evaluated_trace_event_id"] = readiness_trace_event_id
 
     print(
         "[order_preview] preview_recorded: "
