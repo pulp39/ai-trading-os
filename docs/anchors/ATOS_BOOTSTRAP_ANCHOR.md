@@ -39,11 +39,15 @@ Confirmed:
 - fresh observation acquisition succeeded
 - hard limits check succeeded
 - soft-limit test evaluation produced READY
-- `execution_readiness_checked` was recorded in `research.trace_event`
+- readiness evaluation was recorded in `research.trace_event`
+
+Note:
+Current implementation uses `execution_readiness_evaluated` as the trace_event name.
+Earlier references to `execution_readiness_checked` reflect the proposal-stage naming.
 
 Operational note:
 For OpenClaw / WSL runtime recovery, use the technical runtime guidance in:
-`docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md`
+`docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md`
 
 In practice, successful recovery required:
 - runtime base `/mnt/c/ai-trading-os-private`
@@ -52,7 +56,7 @@ In practice, successful recovery required:
 - adding `/mnt/c/Windows/System32/WindowsPowerShell/v1.0` to PATH
 
 ### 読み順（必須）
-1. Bootstrap → 2. EXECUTION_MODEL_ANCHOR → 3. P-033 → 4. P-017 → 5. DB_STATUS_ANCHOR
+Bootstrap → EXECUTION_MODEL_ANCHOR → OPERATIONAL_PROTOCOL_ANCHOR → RUNTIME_ENVIRONMENT_ANCHOR → DB_STATUS_ANCHOR
 
 ---
 
@@ -120,6 +124,16 @@ by reading this file and then following the read order in Section 6.
 For Claude-family participants, CLAUDE.md describes operational
 conventions that work alongside constitution.md. Where the two appear
 to differ, constitution.md reflects the foundational project principles.
+
+## Bootstrap Position
+
+ATOS_BOOTSTRAP_ANCHOR is not part of the five operational layers.
+It serves as the Entry Point for anchor reconstruction.
+
+Its role is:
+- to define read order
+- to provide a stable starting point
+- to guide state reconstruction across sessions and AiiD participants
 
 ---
 
@@ -294,13 +308,14 @@ subsystem is described in the following documents:
 |---|---|
 | docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md | Governance state and project structure |
 | docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md | Execution chain and discipline rules |
+| docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md | Operational protocol and execution sequence |
+| docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md | Runtime environment, recovery, and troubleshooting |
 | docs/anchors/technical/DB_STATUS_ANCHOR.md | Database structure and confirmed state |
 | docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification and training state |
 | docs/aiid_registry.md | Active participant role registry |
 | docs/BOUNDARY.md | Librarian / OpenClaw role boundary |
 | docs/openclaw_training_status.md | OpenClaw training ledger |
 | docs/openclaw_registrar_apprentice_rubric.md | OpenClaw evaluation rubric |
-| docs/anchors/technical/WSL_ENVIRONMENT_ANCHOR.md | WSL/Windows runtime environment（実行系タスク前に参照） |
 
 ---
 
@@ -380,6 +395,8 @@ consistent with the principles in this document:
 - docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
 - docs/openclaw_training_status.md
 - docs/openclaw_registrar_apprentice_rubric.md
+- docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md
+- docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md
 
 ---
 
