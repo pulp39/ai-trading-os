@@ -18,6 +18,16 @@ Purpose: Runtime environment reference for WSL / Windows execution context
 この文書は **毎回のセッションで読む必要はありません**。  
 実行系・環境依存系タスクの前に参照する技術補助文書です。
 
+### 関連する回復用アンカー
+
+Observation → Preview の市場開始前復旧や、OpenClaw / WSL 実行系の
+繰り返し発生する復旧手順については、以下も参照してください：
+
+`docs/anchors/technical/OBSERVATION_PREVIEW_RUNTIME_RECOVERY_ANCHOR.md`
+
+本書が広い実行環境の基準を扱うのに対し、上記文書は
+Observation / Preview 系の復旧と再発防止に特化しています。
+
 ---
 
 ## 1. 環境構成の基本
@@ -419,5 +429,57 @@ Invoke-RestMethod -Method POST -Uri "http://localhost:18080/kabusapi/token" -Con
 - 接続トラブル時はまず localhost 経由で API 応答を確認する
 - 外部IP経由（WSL → Windows）に固執しない
 - Observation 成立を優先し、最短経路を選択する
+
+### 11.5 詳細な復旧手順
+
+OpenClaw / WSL 環境で Observation → Preview 系の復旧を行う場合、
+とくに以下の再発ポイントに注意する：
+
+- runtime base の誤認（`.openclaw/workspace` へのドリフト）
+- `.env.local` が同一シェルで読み込まれていない
+- `.venv` が同一シェルで有効化されていない
+- `powershell.exe` が WSL 側 `PATH` で解決できない
+- ad hoc な token POST が collector script 経路より不安定
+
+これらの詳細な復旧順序と成功済みシェルパターンは、以下を参照：
+
+`docs/anchors/technical/OBSERVATION_PREVIEW_RUNTIME_RECOVERY_ANCHOR.md`
+
+---
+
+## 12. Observation / Preview Runtime Recovery Checklist（2026-03-31）
+
+### 12.1 典型的な詰まりポイント
+OpenClaw が /home/vmamako/.openclaw/workspace を runtime base と誤認しやすい
+正しい runtime base は /mnt/c/ai-trading-os-private
+.env.local は同じシェルコンテキストで source しないと Python スクリプトに引き継がれない
+.venv も同じシェルコンテキストで activate しないと psycopg が見つからない
+collect_board_once.py 内部は powershell.exe を bare name で呼ぶため、WSL 側 PATH に
+/mnt/c/Windows/System32/WindowsPowerShell/v1.0
+がないと FileNotFoundError になる
+OpenClaw の独自 token POST より、既存 collector script 経路を優先すべき
+
+### 12.2 今回の成功した最小実行パターン
+
+cd /mnt/c/ai-trading-os-private && \
+export PATH="/mnt/c/Windows/System32/WindowsPowerShell/v1.0:$PATH" && \
+set -a && source ./.env.local && set +a && \
+source ./.venv/bin/activate && \
+python3 scripts/collector/collect_board_once.py 7203
+
+### 12.3 開場前チェック順
+runtime base 確認
+PATH に Windows PowerShell ディレクトリ追加
+.env.local source
+.venv activate
+register_symbol_once.py
+collect_board_once.py 7203
+
+### 12.4 判定
+TokenAcquired: true が見えれば token 経路は成功
+ModuleNotFoundError: psycopg なら .venv 問題
+No such file or directory: powershell.exe なら PATH 問題
+KABU_API_PASSWORD is missing or empty なら .env.local 未注入
+OpenClaw が .openclaw/workspace を見始めたら即修正
 
 ---

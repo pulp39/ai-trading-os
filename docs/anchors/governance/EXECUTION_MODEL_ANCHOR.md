@@ -138,6 +138,23 @@ authorizationは以下の三状態を持つ。
 - post-execution safety lockにより重複送信を防止
 - 停止は「失敗」ではなく「規律ある準拠」として扱われる
 
+### 7.2 Bounded trace_event recording instruction discipline
+
+Recording a `trace_event` to the database is a WRITE operation.
+
+Therefore, instructions such as:
+- "record a trace_event"
+and
+- "do not execute anything"
+
+must not be combined without clarification.
+
+If only a single trace-event write is intended, the instruction should explicitly authorize:
+- exactly one bounded WRITE
+- no other execution action
+
+This reduces avoidable execution ambiguity for OpenClaw and other execution agents.
+
 ---
 
 ## 8. 変更履歴
