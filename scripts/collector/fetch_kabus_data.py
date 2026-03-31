@@ -23,6 +23,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import requests
 
@@ -42,8 +43,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--api-password-env",
-        default="KABU_API_PASSWORD",
-        help="Environment variable name holding the kabu API password.",
+        default=None,
+        help=(
+            "Environment variable name holding the kabu API password. "
+            "If omitted, it is selected strictly by base-url port: "
+            "18080 -> KABU_API_PASSWORD, 18081 -> KABU_API_TEST_PASSWORD."
+        ),
     )
     parser.add_argument(
         "--base-url",
@@ -51,6 +56,25 @@ def parse_args() -> argparse.Namespace:
         help='Base URL for kabu API, e.g. "http://localhost:18081/kabusapi"',
     )
     return parser.parse_args()
+
+
+def resolve_api_password_env(base_url: str, explicit_env_name: str | None) -> str:
+    if explicit_env_name:
+        return explicit_env_name
+
+    parsed = urlparse(base_url)
+    port = parsed.port
+
+    if port == 18080:
+        return "KABU_API_PASSWORD"
+    if port == 18081:
+        return "KABU_API_TEST_PASSWORD"
+
+    raise SystemExit(
+        "Unable to resolve kabu API password env from base-url port. "
+        "Pass --api-password-env explicitly for non-standard ports."
+    )
+
 
 
 def get_api_password(env_name: str) -> str:
@@ -103,7 +127,8 @@ def sanitize_filename(symbol_with_exchange: str) -> str:
 
 def main() -> int:
     args = parse_args()
-    api_password = get_api_password(args.api_password_env)
+    password_env_name = resolve_api_password_env(args.base_url, args.api_password_env)
+    api_password = get_api_password(password_env_name)
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 

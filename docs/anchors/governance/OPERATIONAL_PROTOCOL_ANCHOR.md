@@ -83,6 +83,74 @@ execution_readiness_evaluated
 
 ---
 
+---
+
+## Operational Notes（Non-Normative）
+
+### First Live Market Execution Note（Phase 7.x）
+
+This note provides guidance for the first live-market execution cycle.
+It does not modify the Operational Protocol itself.
+
+#### Context
+- Preflight, Runtime, and Bridge diagnostics completed successfully
+- Closed-market bounded WRITE test succeeded
+- Collector path confirmed to produce downstream writes
+
+#### Important Clarification
+
+The collector command:
+python scripts/collector/collect_board_once.py <symbol>
+
+must be treated as:
+
+- command type: bounded WRITE
+- not observation-only
+- not pair-bounded
+- may trigger downstream writes (indicator_observation, registrar-related steps)
+
+#### First Live Execution Plan
+
+At market open:
+
+1. classify next command before execution
+2. confirm explicit GO for bounded WRITE
+3. execute collector for a single symbol (e.g. 7203)
+4. verify freshness of observation
+5. proceed to preview/readiness only if freshness passes
+6. do not introduce additional WRITE beyond the collector path unless reclassified
+
+#### Stop Conditions
+
+Immediately stop if:
+
+- command classification is ambiguous
+- WRITE scope expands beyond expected collector behavior
+- freshness cannot be confirmed
+- execution path deviates from expected collector path
+
+### Phase 9B Execution Constraint
+
+During Phase 9B testing:
+
+- API recovery (token/register/board) must be completed before any execution-like step
+- simulated_order must remain:
+  - dry-run only
+  - test port (18081) only
+  - bounded WRITE only
+
+No real order is allowed in Phase 9B.
+
+---
+
+### Known Execution Boundary
+
+collector-based observation paths may trigger downstream writes.
+
+simulated_order path is preferred for bounded execution validation.
+
+---
+
 ## Notes
 
 このアンカーは「どう動くか」の唯一の参照点である

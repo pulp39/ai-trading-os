@@ -24,6 +24,10 @@ source ./.env.local
 source scripts/registrar/.venv/bin/activate
 ```
 
+Note:
+.env.local は WSL/bash runtime にのみ適用される。
+PowerShell 実行時には自動的に使用されるとは限らない。
+
 ---
 
 ## Validation Checklist
@@ -38,7 +42,7 @@ source scripts/registrar/.venv/bin/activate
 ## PowerShell Bridge
 
 * powershell.exe が PATH で解決されること
-* env が継承されること
+* env 継承に依存しないこと（明示代入を前提とする）
 
 ---
 
@@ -80,6 +84,122 @@ python が system を向いていないか確認
 - `python` が `scripts/registrar/.venv` 配下を指す
 - `powershell.exe` が PATH で解決される
 - `.env.local` 由来の必要環境変数が可視である
+
+---
+
+---
+
+## WSL ↔ PowerShell Boundary Rules（Critical）
+
+This section defines mandatory rules when invoking KabuStation API via PowerShell from WSL/Python context.
+
+### Core Principle
+
+Environment variables being visible in WSL/bash **does NOT guarantee** they are used in PowerShell request construction.
+
+> env exists ≠ env is used
+
+---
+
+### Mandatory Rule — Explicit Assignment
+
+When calling PowerShell (`powershell.exe`) for API access:
+
+- DO NOT rely on environment variable inheritance
+- ALWAYS assign required values explicitly inside PowerShell context
+
+Example (conceptual):
+
+$env:KABU_API_PASSWORD = "..."
+$env:KABU_API_PORT = "18081"
+Invoke-RestMethod ...
+
+
+---
+
+### Port ↔ Password Mapping (Strict)
+
+The following mapping must be enforced:
+
+- port 18081 → `KABU_API_TEST_PASSWORD`
+- port 18080 → `KABU_API_PASSWORD`
+
+Rules:
+
+- No fallback from test → production
+- No shared variable for both ports
+- Variable name must match port context explicitly
+
+---
+
+### Known Failure Pattern (Critical)
+
+If the following is observed:
+
+
+{"APIPassword": null}
+
+
+Then:
+
+- The password value exists in WSL
+- BUT is not reaching PowerShell request construction
+
+Root cause is almost always:
+
+- variable name mismatch, or
+- missing explicit assignment in PowerShell context
+
+DO NOT re-validate password value first.
+
+---
+
+### Diagnostic Priority Order
+
+When token acquisition fails:
+
+1. Verify variable presence inside PowerShell (not WSL)
+2. Verify correct port (18080 vs 18081)
+3. Verify request construction (content-type / body)
+4. Only then consider password value mismatch
+
+---
+
+### Architectural Constraint
+
+The execution path is:
+
+
+WSL → Python → subprocess → powershell.exe → Invoke-RestMethod
+
+
+Each boundary must be treated as isolated.
+
+No implicit variable propagation should be assumed.
+
+---
+
+### Anti-Pattern (Prohibited)
+
+The following approaches are prohibited:
+
+- assuming `.env` presence implies correct runtime behavior
+- relying on inherited env across subprocess boundaries
+- mixing 18080 and 18081 contexts
+- using a single password variable for both environments
+- debugging via repeated retries without fixing mapping
+
+---
+
+### Institutional Insight
+
+The primary failure mode in Phase 9B-1 was:
+
+- not incorrect password
+- not network failure
+- but missing explicit PowerShell assignment
+
+This rule is considered **critical for stable API interaction**.
 
 ---
 
