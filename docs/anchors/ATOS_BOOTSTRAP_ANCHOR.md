@@ -31,8 +31,6 @@ Current interpretation:
 Observation Layer is considered operational via Windows PowerShell bridge (WSL → PowerShell → localhost → KabuStation API).
 
 ### 2026-03-31 Operational Validation Update
-### 2026-03-31 Operational Validation Update
-
 The Observation → Preview cycle has now been validated during market hours for symbol 7203.
 
 Confirmed:
@@ -55,11 +53,27 @@ In practice, successful recovery required:
 - activating `.venv` in the same shell context
 - adding `/mnt/c/Windows/System32/WindowsPowerShell/v1.0` to PATH
 
+### 2026-04-01 Execution Safety Update
+
+- P-20260401-001: Execution Consumption and Duplicate Prevention Model
+- Duplicate Execution Prevention 実装完了
+- Phase 9B 完了
+
+Current interpretation:
+
+Execution Safety Layer is now active.
+A READY context is consumable and cannot be reused.
+
 ### 読み順（必須）
-Bootstrap → EXECUTION_MODEL_ANCHOR → OPERATIONAL_PROTOCOL_ANCHOR → RUNTIME_ENVIRONMENT_ANCHOR → DB_STATUS_ANCHOR
+Bootstrap
+EXECUTION_MODEL_ANCHOR
+EXECUTION_SAFETY_ANCHOR
+OPERATIONAL_PROTOCOL_ANCHOR
+RUNTIME_ENVIRONMENT_ANCHOR
+DB_STATUS_ANCHOR
+HANDOFF_INDEX
 
 ---
-
 
 ## 1. About This Document
 
@@ -160,7 +174,7 @@ Reading the following files in this order provides a complete picture
 of the current project state.
 
 This order reflects the layered anchor architecture:
-Constitution → Operational → Runtime → Data → Capability
+Constitution → Execution Safety → Operational → Runtime → Data → Capability → Handoff
 
 ---
 
@@ -178,83 +192,101 @@ Constitution → Operational → Runtime → Data → Capability
 
 ---
 
-### 3. Operational Layer（中核）
+### 3. Execution Safety Layer（重要）
 
-5. docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md  
+5. docs/anchors/governance/EXECUTION_SAFETY_ANCHOR.md  
 
----
-
-### 4. Runtime Layer（実行環境）
-
-6. docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md  
-
----
-
-### 5. Data Layer
-
-7. docs/anchors/technical/DB_STATUS_ANCHOR.md  
+This anchor defines:
+- 1 READY context = 1 execution
+- execution consumption model
+- duplicate execution prevention
 
 ---
 
-### 6. Capability Layer
+### 4. Operational Layer（中核）
 
-8. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md  
-
----
-
-### 7. Registry & Governance Context
-
-9. docs/aiid_registry.md  
-10. docs/BOUNDARY.md  
+6. docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md  
 
 ---
 
-### 8. Operational Status
+### 5. Runtime Layer（実行環境）
 
-11. docs/openclaw_training_status.md  
-12. docs/openclaw_registrar_apprentice_rubric.md  
+7. docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md  
 
 ---
 
-### 9. Entry Documentation
+### 6. Data Layer
 
-13. README.md  
+8. docs/anchors/technical/DB_STATUS_ANCHOR.md  
+
+---
+
+### 7. Capability Layer
+
+9. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md  
+
+---
+
+### 8. Handoff Layer（最新の実運用知見）
+
+10. docs/anchors/handoffs/HANDOFF_INDEX.md  
+11. docs/anchors/handoffs/PHASE_9B_HANDOFF.md  
+12. docs/anchors/handoffs/PHASE_9B_COMPLETION_HANDOFF.md  
+
+This layer captures:
+- Phase-based validation results
+- latest operational discoveries
+- knowledge not yet promoted to permanent anchors
+
+---
+
+### 9. Registry & Governance Context
+
+13. docs/aiid_registry.md  
+14. docs/BOUNDARY.md  
+
+---
+
+### 10. Operational Status
+
+15. docs/openclaw_training_status.md  
+16. docs/openclaw_registrar_apprentice_rubric.md  
+
+---
+
+### 11. Entry Documentation
+
+17. README.md  
 
 ---
 
 ## Notes
 
+- EXECUTION_SAFETY_ANCHOR defines execution constraints and must be read before any execution discussion
 - OPERATIONAL_PROTOCOL_ANCHOR is the primary reference for "how to operate ATOS"
 - RUNTIME_ENVIRONMENT_ANCHOR defines reproducible execution conditions
-- Legacy environment / troubleshooting anchors are deprecated and consolidated
+- Handoff layer captures the most recent validated behavior and should be referenced when working on active phases
+- Legacy troubleshooting content is consolidated into runtime and incident pattern anchors
 
 ---
 
 ## 7. Interpretation Priority
 
-When documents appear to cover the same topic differently, the following
-priority order helps determine which description reflects the more
-foundational project intent:
-
 1. constitution.md
 2. CLAUDE.md
-   (CLAUDE.md describes operational conventions; it does not supersede
-   constitution.md on questions of foundational principle)
 3. docs/anchors/AI_TRADING_OS_MASTER_ANCHOR.md
 4. docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
-5. docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md
-6. docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md
-7. docs/anchors/technical/DB_STATUS_ANCHOR.md
-8. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
-9. docs/aiid_registry.md
-10. docs/BOUNDARY.md
-11. docs/openclaw_training_status.md
-12. docs/openclaw_registrar_apprentice_rubric.md
-13. README.md
-
-When apparent conflicts remain unclear, the interpretation most
-consistent with constitution.md and with minimal disruption to project
-safety is generally appropriate.
+5. docs/anchors/governance/EXECUTION_SAFETY_ANCHOR.md
+6. docs/anchors/governance/OPERATIONAL_PROTOCOL_ANCHOR.md
+7. docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md
+8. docs/anchors/technical/DB_STATUS_ANCHOR.md
+9. docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md
+10. docs/anchors/handoffs/HANDOFF_INDEX.md
+11. docs/aiid_registry.md
+12. docs/BOUNDARY.md
+13. docs/openclaw_training_status.md
+14. docs/openclaw_registrar_apprentice_rubric.md
+15. README.md
 
 ---
 

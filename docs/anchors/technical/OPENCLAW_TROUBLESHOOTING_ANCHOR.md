@@ -1,98 +1,70 @@
-anchor_id: OPENCLAW_TROUBLESHOOTING_ANCHOR
-title: OpenClaw Troubleshooting and Recovery Procedures
+anchor_id: OPENCLAW_INCIDENT_PATTERNS
+title: OpenClaw Incident Patterns
 type: technical
 status: active
-created: 2026-03-25
-author: Librarian
+date: 2026-04-01
 ---
 
-# OPENCLAW TROUBLESHOOTING ANCHOR
+# OPENCLAW INCIDENT PATTERNS
 
 ## Purpose
 
-Provide deterministic recovery procedures for common OpenClaw runtime failures.
-
-This anchor is intended to:
-
-- minimize recovery time
-- ensure reproducible fixes
-- prevent repeated investigation of known issues
+Capture recurring failure patterns and their correct resolution approach.
 
 ---
 
-## Core Recovery Patterns
+## Pattern 1: Environment Misinterpretation
 
-### AUTH Failure (OAuth)
+env exists ≠ env is used
 
-Symptom:
-- OAuth token refresh failed
-- All models failed
-
-Resolution:
-
-openclaw configure --section model
-
+WSL environment visibility does not guarantee PowerShell usage.
 
 ---
 
-### Gateway Failure
+## Pattern 2: Boundary Separation
 
-Symptom:
-- Gateway not reachable
+WSL → Python → subprocess → PowerShell → API
 
-Resolution:
-
-systemctl --user restart openclaw-gateway.service
-
+Each layer must be treated independently.
 
 ---
 
-### Node Offline
+## Pattern 3: Port / Password Mapping
 
-Resolution:
+- 18081 → test
+- 18080 → production
 
-openclaw node run
-openclaw devices approve --latest
-
-
----
-
-## KabuStation Integration Rules
-
-- KABU_API_HOST must be `localhost`
-- KABU_API_PORT must be explicitly set (18080 production)
-- Do not use `127.0.0.1`
-- API interaction should occur on Windows side, not WSL
+No fallback allowed.
 
 ---
 
-> ⚠️ Status: deprecated  
-> This content has been consolidated into `docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md`.  
-> Refer to that anchor for current runtime, recovery, and troubleshooting guidance.
+## Pattern 4: Infinite Diagnosis Loop
+
+Do not return to env investigation.
+
+Reuse known working path.
 
 ---
 
-## Environment Rules
+## Pattern 5: Trace Event Failure
 
-- Always activate correct venv
-- Validate python path before execution
-
----
-
-## Minimal Recovery Sequence
-
-openclaw node run
-systemctl --user restart openclaw-gateway.service
-openclaw configure --section model
+- use nextval()
+- avoid setval()
+- ensure minimal privilege compatibility
 
 ---
 
-## Notes
+## Pattern 6: Metadata vs Content Mismatch
 
-- OAuth issues cannot be resolved by restart alone
-- Gateway should be managed via systemd service
-- Node should be manually controlled
+Gate reads metadata.
+
+State must exist in metadata, not only content.
 
 ---
 
-End of Anchor
+## Reference
+
+For execution rules, see:
+EXECUTION_SAFETY_ANCHOR.md
+
+---

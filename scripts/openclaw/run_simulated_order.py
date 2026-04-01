@@ -135,6 +135,79 @@ def get_trace_db_conn():
     )
 
 
+def fetch_ready_context_state(conn: psycopg.Connection, symbol: str) -> tuple[str, str]:
+    with conn.cursor() as cur:
+        cur.execute(
+            """
+            SELECT metadata->>'ready_context_id'
+            FROM research.trace_event
+            WHERE event_type = 'execution_readiness_evaluated'
+              AND symbol = %s
+              AND metadata->>'readiness_state' = 'READY'
+              AND metadata ? 'ready_context_id'
+            ORDER BY id DESC
+            LIMIT 1
+            """,
+            (symbol,),
+        )
+        row = cur.fetchone()
+
+        if not row or not row[0]:
+            raise ValueError(f"No READY context found for symbol {symbol}")
+
+        ready_context_id = row[0]
+
+        cur.execute(
+            """
+            SELECT metadata->>'context_state'
+            FROM research.trace_event
+            WHERE event_type = 'ready_context_state'
+              AND metadata->>'ready_context_id' = %s
+            ORDER BY id DESC
+            LIMIT 1
+            """,
+            (ready_context_id,),
+        )
+        state_row = cur.fetchone()
+
+    context_state = state_row[0] if state_row and state_row[0] else "missing"
+    return ready_context_id, context_state
+
+
+def record_execution_blocked(
+    conn: psycopg.Connection,
+    *,
+    symbol: str,
+    ready_context_id: str,
+    context_state: str,
+) -> None:
+    metadata = {
+        "event_type": "execution_blocked",
+        "execution_subtype": "simulated_order",
+        "symbol": symbol,
+        "ready_context_id": ready_context_id,
+        "context_state": context_state,
+        "reason": f"duplicate:{context_state}",
+        "recorded_by": "OpenClaw/Recorder",
+        "recorded_at": datetime.now().isoformat(),
+    }
+
+    with conn.cursor() as cur:
+        cur.execute(
+            """
+            INSERT INTO research.trace_event
+              (ts, agent_id, actor_type, event_type, symbol, content, metadata)
+            VALUES (NOW(), 'openclaw', 'ai', %s, %s, %s, %s::jsonb)
+            """,
+            (
+                "execution_blocked",
+                symbol,
+                json.dumps(metadata, ensure_ascii=False),
+                json.dumps(metadata, ensure_ascii=False),
+            ),
+        )
+
+
 def record_execution(aab: dict, order_params: dict, kabu_mode: str, kabu_port: int) -> None:
     metadata = {
         "event_type": "execution_recorded",
@@ -163,6 +236,55 @@ def record_execution(aab: dict, order_params: dict, kabu_mode: str, kabu_port: i
                 (
                     "execution_recorded",
                     json.dumps(metadata, ensure_ascii=False),
+                ),
+            )
+    conn.close()
+
+
+
+def mark_context_consumed(symbol: str, ready_context_id: str) -> None:
+    recorded_at = datetime.now().isoformat()
+    conn = get_trace_db_conn()
+    with conn:
+        with conn.cursor() as cur:
+            consumed_state_metadata = {
+                "event_type": "ready_context_state",
+                "ready_context_id": ready_context_id,
+                "symbol": symbol,
+                "context_state": "consumed",
+                "recorded_at": recorded_at,
+            }
+            cur.execute(
+                """
+                INSERT INTO research.trace_event
+                  (ts, agent_id, actor_type, event_type, symbol, content, metadata)
+                VALUES (NOW(), 'openclaw', 'ai', %s, %s, %s, %s::jsonb)
+                """,
+                (
+                    "ready_context_state",
+                    symbol,
+                    json.dumps(consumed_state_metadata, ensure_ascii=False),
+                    json.dumps(consumed_state_metadata, ensure_ascii=False),
+                ),
+            )
+            execution_consumed_metadata = {
+                "event_type": "execution_consumed",
+                "ready_context_id": ready_context_id,
+                "symbol": symbol,
+                "context_state": "consumed",
+                "recorded_at": recorded_at,
+            }
+            cur.execute(
+                """
+                INSERT INTO research.trace_event
+                  (ts, agent_id, actor_type, event_type, symbol, content, metadata)
+                VALUES (NOW(), 'openclaw', 'ai', %s, %s, %s, %s::jsonb)
+                """,
+                (
+                    "execution_consumed",
+                    symbol,
+                    json.dumps(execution_consumed_metadata, ensure_ascii=False),
+                    json.dumps(execution_consumed_metadata, ensure_ascii=False),
                 ),
             )
     conn.close()
@@ -198,8 +320,37 @@ def main(aab_path: str) -> None:
         f"{json.dumps(order_params, indent=2, ensure_ascii=False)}"
     )
 
+    conn = get_trace_db_conn()
+    try:
+        ready_context_id, context_state = fetch_ready_context_state(
+            conn, str(scope.get("symbol"))
+        )
+
+        if context_state != "active":
+            if context_state in {"consumed", "invalidated", "expired"}:
+                with conn:
+                    record_execution_blocked(
+                        conn,
+                        symbol=str(scope.get("symbol")),
+                        ready_context_id=ready_context_id,
+                        context_state=context_state,
+                    )
+                print(
+                    f"[simulated_order] NO_GO blocked ready_context_id={ready_context_id} "
+                    f"reason=duplicate:{context_state}"
+                )
+                sys.exit(1)
+
+            raise ValueError(
+                f"READY context {ready_context_id} has unsupported non-active state: {context_state}"
+            )
+    finally:
+        conn.close()
+
     record_execution(aab, order_params, kabu_cfg["mode"], kabu_cfg["port"])
+    mark_context_consumed(str(scope.get("symbol")), ready_context_id)
     print("[simulated_order] execution_recorded (subtype=simulated_order)")
+    print(f"[simulated_order] execution_consumed ready_context_id={ready_context_id}")
 
 
 if __name__ == "__main__":
