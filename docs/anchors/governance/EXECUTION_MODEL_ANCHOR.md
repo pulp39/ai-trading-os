@@ -155,6 +155,19 @@ If only a single trace-event write is intended, the instruction should explicitl
 
 This reduces avoidable execution ambiguity for OpenClaw and other execution agents.
 
+### 7.3 Irreversibility Clarification
+
+The irreversibility boundary is strictly defined as:
+
+- external order transmission (sendorder)
+
+Not included:
+- token acquisition
+- broker connectivity checks
+- dry-run validation
+
+These remain reversible phases.
+
 ---
 
 ## 8. 変更履歴
@@ -163,5 +176,6 @@ This reduces avoidable execution ambiguity for OpenClaw and other execution agen
 |---------|------|----------|
 | v1.0–v1.3 | 〜2026-03-16 | 初期定義・段階的更新 |
 | **v2.0** | **2026-03-28** | **Three-Layer Model / Execution Attribution / Authorization Lifecycle を統合** |
+| v2.1 | 2026-04-02 | Added irreversibility clarification (token acquisition vs sendorder boundary) |
 
 本アンカーはP-020–P-032の制度定義を運用レベルに統合したものである。

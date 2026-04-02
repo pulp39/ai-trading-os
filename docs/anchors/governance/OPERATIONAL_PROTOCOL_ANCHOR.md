@@ -205,6 +205,21 @@ simulated_order path is preferred for bounded execution validation.
 
 ---
 
+### Real Order Activation Ladder (Phase 9B-3)
+
+Execution path must be opened strictly in the following order:
+
+1. internal_simulation (no broker)
+2. dry_run (env validation only)
+3. token_acquisition (broker connectivity only)
+4. submission boundary (sendorder)
+
+Skipping steps is prohibited.
+
+Each step must be validated independently before proceeding.
+
+---
+
 ## Notes
 
 このアンカーは「どう動くか」の唯一の参照点である

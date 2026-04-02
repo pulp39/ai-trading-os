@@ -236,6 +236,23 @@ This rule is considered **critical for stable API interaction**.
 
 ---
 
+### PowerShell Bridge Requirement (Critical)
+
+KabuStation integration requires Windows PowerShell from WSL.
+
+Required:
+- powershell.exe must be available in PATH
+
+Typical fix:
+export PATH=$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0
+
+Without this:
+- symbol registration fails
+- board fetch fails
+- token acquisition fails
+
+---
+
 ## Notes
 
 本アンカーは以下を統合：
