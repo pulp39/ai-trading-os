@@ -132,6 +132,39 @@ Rules:
 
 ---
 
+### Execution Mode Resolution
+
+ATOS における broker mode は、runtime 上で以下のように解決される：
+
+- production
+  - port: 18080
+  - password source: `KABU_API_PASSWORD`
+
+- test
+  - port: 18081
+  - password source: `KABU_API_TEST_PASSWORD`
+
+- internal_simulation
+  - port: none
+  - password source: none
+  - broker access: none
+
+### Rule
+
+`internal_simulation` は broker に接続しない。
+したがって、KabuStation API token / register / board / sendorder への依存を持ってはならない。
+
+### Safety Meaning
+
+問題は「env が存在するか」ではなく、
+「現在の command がどの mode として実行されるか」が
+明示されているかどうかである。
+
+port / password は単なる環境変数ではなく、
+現在の execution mode の制度的表現として扱う。
+
+---
+
 ### Known Failure Pattern (Critical)
 
 If the following is observed:

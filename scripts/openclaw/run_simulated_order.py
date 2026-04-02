@@ -3,10 +3,12 @@
 scripts/openclaw/run_simulated_order.py
 Bounded simulated_order execution path (P-20260319-016)
 
-Existing-file-only revision:
-- allows off-hours dry-run tests when explicitly permitted by AAB
-- uses test Kabu credentials for simulation
-- keeps external order forbidden
+Revised for internal simulation mode:
+- no KabuStation dependency
+- no test port / password dependency
+- broker-touch disabled
+- external order forbidden
+- execution declaration emitted before run
 """
 
 import json
@@ -19,6 +21,12 @@ import psycopg
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 TASK_ARTIFACT = BASE_DIR / "registrar_queue" / "simulated_order_task.json"
+
+EXECUTION_MODE = "internal_simulation"
+BROKER_TOUCH = False
+EXTERNAL_ORDER_ALLOWED = False
+KABU_PORT = "none"
+PASSWORD_SOURCE = "none"
 
 
 def load_task_artifact() -> dict:
@@ -33,15 +41,6 @@ def get_required_env(name: str) -> str:
     if not value:
         raise RuntimeError(f"Required environment variable is missing: {name}")
     return value
-
-
-def get_test_kabu_config() -> dict:
-    return {
-        "host": get_required_env("KABU_API_HOST"),
-        "port": int(get_required_env("KABU_API_TEST_PORT")),
-        "password": get_required_env("KABU_API_TEST_PASSWORD"),
-        "mode": "test",
-    }
 
 
 def is_regular_tse_market_hours(now_local: datetime) -> bool:
@@ -190,6 +189,9 @@ def record_execution_blocked(
         "reason": f"duplicate:{context_state}",
         "recorded_by": "OpenClaw/Recorder",
         "recorded_at": datetime.now().isoformat(),
+        "broker_mode": EXECUTION_MODE,
+        "broker_touch": BROKER_TOUCH,
+        "external_order_allowed": EXTERNAL_ORDER_ALLOWED,
     }
 
     with conn.cursor() as cur:
@@ -208,7 +210,7 @@ def record_execution_blocked(
         )
 
 
-def record_execution(aab: dict, order_params: dict, kabu_mode: str, kabu_port: int) -> None:
+def record_execution(aab: dict, order_params: dict) -> None:
     metadata = {
         "event_type": "execution_recorded",
         "execution_subtype": "simulated_order",
@@ -218,8 +220,11 @@ def record_execution(aab: dict, order_params: dict, kabu_mode: str, kabu_port: i
         "order_params": order_params,
         "dry_run": True,
         "external_order_sent": False,
-        "kabu_api_mode": kabu_mode,
-        "kabu_api_port": kabu_port,
+        "broker_mode": EXECUTION_MODE,
+        "broker_touch": BROKER_TOUCH,
+        "external_order_allowed": EXTERNAL_ORDER_ALLOWED,
+        "kabu_api_port": KABU_PORT,
+        "password_source": PASSWORD_SOURCE,
         "recorded_by": "OpenClaw/Recorder",
         "recorded_at": datetime.now().isoformat(),
     }
@@ -241,7 +246,6 @@ def record_execution(aab: dict, order_params: dict, kabu_mode: str, kabu_port: i
     conn.close()
 
 
-
 def mark_context_consumed(symbol: str, ready_context_id: str) -> None:
     recorded_at = datetime.now().isoformat()
     conn = get_trace_db_conn()
@@ -253,6 +257,7 @@ def mark_context_consumed(symbol: str, ready_context_id: str) -> None:
                 "symbol": symbol,
                 "context_state": "consumed",
                 "recorded_at": recorded_at,
+                "broker_mode": EXECUTION_MODE,
             }
             cur.execute(
                 """
@@ -273,6 +278,7 @@ def mark_context_consumed(symbol: str, ready_context_id: str) -> None:
                 "symbol": symbol,
                 "context_state": "consumed",
                 "recorded_at": recorded_at,
+                "broker_mode": EXECUTION_MODE,
             }
             cur.execute(
                 """
@@ -290,16 +296,25 @@ def mark_context_consumed(symbol: str, ready_context_id: str) -> None:
     conn.close()
 
 
+def print_execution_declaration() -> None:
+    print("[Execution Declaration]")
+    print("command_class = bounded WRITE")
+    print(f"broker_mode = {EXECUTION_MODE}")
+    print(f"broker_touch = {BROKER_TOUCH}")
+    print(f"external_order_allowed = {EXTERNAL_ORDER_ALLOWED}")
+    print(f"kabu_port = {KABU_PORT}")
+    print(f"password_source = {PASSWORD_SOURCE}")
+    print("dry_run = True")
+
+
 def main(aab_path: str) -> None:
     task = load_task_artifact()
 
     with open(aab_path, "r", encoding="utf-8") as f:
         aab = json.load(f)
 
+    print_execution_declaration()
     validate_aab(aab, task)
-
-    # simulation must use test credentials/port only
-    kabu_cfg = get_test_kabu_config()
 
     scope = aab.get("execution_scope", {})
     order_params = {
@@ -311,8 +326,11 @@ def main(aab_path: str) -> None:
         "simulated_at": datetime.now().isoformat(),
         "dry_run": True,
         "external_order_sent": False,
-        "kabu_api_mode": kabu_cfg["mode"],
-        "kabu_api_port": kabu_cfg["port"],
+        "broker_mode": EXECUTION_MODE,
+        "broker_touch": BROKER_TOUCH,
+        "external_order_allowed": EXTERNAL_ORDER_ALLOWED,
+        "kabu_api_port": KABU_PORT,
+        "password_source": PASSWORD_SOURCE,
     }
 
     print(
@@ -347,7 +365,7 @@ def main(aab_path: str) -> None:
     finally:
         conn.close()
 
-    record_execution(aab, order_params, kabu_cfg["mode"], kabu_cfg["port"])
+    record_execution(aab, order_params)
     mark_context_consumed(str(scope.get("symbol")), ready_context_id)
     print("[simulated_order] execution_recorded (subtype=simulated_order)")
     print(f"[simulated_order] execution_consumed ready_context_id={ready_context_id}")

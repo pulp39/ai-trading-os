@@ -64,6 +64,60 @@ Execution Gate または上位判断により即時停止可能
 
 ---
 
+## Execution Mode Declaration
+
+本番系の誤接続を防ぐため、broker に関与する可能性のあるコマンドは、
+実行前に必ず mode を明示しなければならない。
+
+### Required Pre-Execution Declaration
+
+以下を実行前に明示する：
+
+- command_class
+- broker_mode
+- broker_touch
+- external_order_allowed
+- kabu_port
+- password_source
+- dry_run
+
+例：
+
+- command_class = observation-only / bounded WRITE
+- broker_mode = production / test / internal_simulation
+- broker_touch = true / false
+- external_order_allowed = true / false
+- kabu_port = 18080 / 18081 / none
+- password_source = KABU_API_PASSWORD / KABU_API_TEST_PASSWORD / none
+- dry_run = true / false
+
+### Interpretation Rules
+
+- `production` は本番 broker 接続を意味する
+- `test` は検証用 broker 接続を意味する
+- `internal_simulation` は broker 非接続の内部シミュレーションを意味する
+
+### Operational Rule
+
+特に以下の条件を満たすコマンドは、宣言なしに実行してはならない：
+
+- PowerShell bridge を経由する
+- KabuStation API に到達する
+- port / password の選択を伴う
+- execution 相当の bounded WRITE を含む可能性がある
+
+### Founder Visibility Principle
+
+Founder は各コマンドについて、少なくとも以下を実行前に把握できる状態であるべきである：
+
+- そのコマンドが broker に触るか
+- test / production のどちらに向いているか
+- 外部注文送信が許可されているか
+
+mode ambiguity は NO_GO とする。
+
+---
+
 ## Preview Layer Alignment
 
 ### Readiness States
