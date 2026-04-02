@@ -253,6 +253,148 @@ Without this:
 
 ---
 
+---
+
+## 7. Incident Pattern — kabuStation 18080 Port Conflict（2026-04-03）
+
+### Summary
+
+A production API failure on port 18080 was caused not by kabuStation,
+but by a Windows portproxy conflict.
+
+The port appeared open, but requests never reached kabuStation.
+
+---
+
+### Symptom Pattern
+
+- `Invoke-RestMethod`:
+  - connection closed unexpectedly
+- Python `requests`:
+  - connection refused
+- OpenClaw collector:
+  - token / register path failure
+- APILog:
+  - no record of request attempts
+
+---
+
+### Key Diagnostic Findings
+
+#### 1. Port appears open
+
+Test-NetConnection localhost 18080
+→ True
+
+#### 2. Port owner is not kabuStation
+
+Get-NetTCPConnection -LocalPort 18080 -State Listen
+
+→ Owning process:
+- `svchost.exe` (iphlpsvc)
+
+#### 3. portproxy rule exists
+
+netsh interface portproxy show all
+
+Example:
+
+0.0.0.0:18080 -> 127.0.0.1:18080
+
+This is a self-referential proxy loop.
+
+---
+
+### Root Cause
+
+Windows `iphlpsvc` (IP Helper Service) was holding port 18080
+via a portproxy rule.
+
+As a result:
+
+- kabuStation could not bind to port 18080
+- API requests never reached kabuStation
+- APILog remained empty
+
+---
+
+### Resolution
+
+Run in elevated PowerShell or cmd:
+
+netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=18080
+
+Then:
+
+1. confirm removal
+
+netsh interface portproxy show all
+
+2. restart kabuStation
+
+3. verify token:
+
+ResultCode 0
+
+---
+
+### Preflight Check (MANDATORY for production API)
+
+Before any 18080 usage, ALWAYS verify:
+
+netsh interface portproxy show all
+
+Get-NetTCPConnection -LocalPort 18080 -State Listen |
+Select-Object LocalAddress,LocalPort,OwningProcess
+
+Get-Process -Id <PID> |
+Select-Object Id,ProcessName,Path
+
+---
+
+### Expected Healthy State
+
+- port 18080 is owned by kabuStation
+- no portproxy rule exists for 18080
+- APILog records token request
+- token returns `ResultCode 0`
+
+---
+
+### Invalid State Indicators
+
+- portproxy entry exists for 18080
+- port owner is `svchost.exe` / `iphlpsvc`
+- API request not recorded in APILog
+- token request fails without reaching API layer
+
+---
+
+### Institutional Interpretation
+
+This is classified as:
+
+- Layer: Runtime Layer
+- Type: Transport Path Corruption
+- Category: Silent Routing Failure
+
+This failure occurs below the application layer and must be
+excluded before diagnosing:
+
+- API configuration
+- authentication
+- OpenClaw behavior
+
+---
+
+### Critical Lessons
+
+port open ≠ service reachable
+
+This pattern must be checked before any API-level debugging.
+
+---
+
 ## Notes
 
 本アンカーは以下を統合：
