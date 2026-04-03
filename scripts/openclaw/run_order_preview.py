@@ -35,6 +35,13 @@ from scripts.collector.readiness_writer import write_execution_readiness_evaluat
 BASE_DIR = Path(__file__).resolve().parents[2]
 TASK_ARTIFACT = BASE_DIR / "registrar_queue" / "order_preview_task.json"
 
+ALLOWED_READINESS_STATES = {
+    "READY",
+    "REPRICE_REQUIRED",
+    "NOT_READY",
+    "DATA_INVALID",
+}
+
 
 def load_task_artifact() -> dict:
     if not TASK_ARTIFACT.exists():
@@ -150,7 +157,11 @@ def is_override_allowed(aab: dict, task: dict) -> bool:
     )
 
 
-def evaluate_readiness(aab: dict, snapshot: dict, task: dict) -> tuple[str, list[str], list[str], bool, bool]:
+def evaluate_readiness(
+    aab: dict,
+    snapshot: dict,
+    task: dict,
+) -> tuple[str, list[str], list[str], bool, bool]:
     now_local = datetime.now().astimezone()
     failed_checks: list[str] = []
     overridden_checks: list[str] = []
@@ -179,12 +190,25 @@ def evaluate_readiness(aab: dict, snapshot: dict, task: dict) -> tuple[str, list
         else:
             failed_checks.append("snapshot_stale")
 
-    readiness = "ready" if len(failed_checks) == 0 else "stale"
+    # Normalize to readiness_writer allowed enum values.
+    if "price_unavailable" in failed_checks:
+        readiness = "DATA_INVALID"
+    elif failed_checks:
+        readiness = "NOT_READY"
+    else:
+        readiness = "READY"
+
+    if readiness not in ALLOWED_READINESS_STATES:
+        raise ValueError(f"Invalid readiness_state computed: {readiness}")
 
     return readiness, failed_checks, overridden_checks, market_open, override_allowed
 
 
-def derive_readiness_reason(readiness: str, failed_checks: list[str], overridden_checks: list[str]) -> str:
+def derive_readiness_reason(
+    readiness: str,
+    failed_checks: list[str],
+    overridden_checks: list[str],
+) -> str:
     if failed_checks:
         return ",".join(failed_checks)
     if overridden_checks:
