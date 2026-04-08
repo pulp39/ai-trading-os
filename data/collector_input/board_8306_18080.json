@@ -1,123 +1,123 @@
 ﻿{
-    "OverSellQty":  8104800.0,
-    "UnderBuyQty":  4920900.0,
-    "TotalMarketValue":  32754882139200.0,
+    "OverSellQty":  9724000.0,
+    "UnderBuyQty":  5043200.0,
+    "TotalMarketValue":  34238346004200.0,
     "MarketOrderSellQty":  0.0,
     "MarketOrderBuyQty":  0.0,
-    "BidTime":  "2026-04-02T15:30:00+09:00",
-    "AskTime":  "2026-04-02T15:30:00+09:00",
+    "BidTime":  "2026-04-08T15:30:00+09:00",
+    "AskTime":  "2026-04-08T15:30:00+09:00",
     "Exchange":  1,
     "ExchangeName":  "東証プ",
-    "TradingVolume":  46325800.0,
-    "TradingVolumeTime":  "2026-04-02T15:30:00+09:00",
-    "VWAP":  2778.7170,
-    "TradingValue":  128726289800.0,
-    "BidQty":  14400.0,
-    "BidPrice":  2760.0,
+    "TradingVolume":  57129700.0,
+    "TradingVolumeTime":  "2026-04-08T15:30:00+09:00",
+    "VWAP":  2892.6301,
+    "TradingValue":  165255091000.0,
+    "BidQty":  100.0,
+    "BidPrice":  2885.5000,
     "BidSign":  "0101",
     "Sell1":  {
-                  "Price":  2760.0,
-                  "Qty":  14400.0,
+                  "Price":  2885.5000,
+                  "Qty":  100.0,
                   "Sign":  "0101",
-                  "Time":  "2026-04-02T15:30:00+09:00"
+                  "Time":  "2026-04-08T15:30:00+09:00"
               },
     "Sell2":  {
-                  "Price":  2760.5000,
-                  "Qty":  4200.0
+                  "Price":  2886.0,
+                  "Qty":  3000.0
               },
     "Sell3":  {
-                  "Price":  2761.0,
-                  "Qty":  11100.0
+                  "Price":  2886.5000,
+                  "Qty":  200.0
               },
     "Sell4":  {
-                  "Price":  2761.5000,
-                  "Qty":  4200.0
+                  "Price":  2887.0,
+                  "Qty":  7900.0
               },
     "Sell5":  {
-                  "Price":  2762.0,
-                  "Qty":  132800.0
+                  "Price":  2887.5000,
+                  "Qty":  200.0
               },
     "Sell6":  {
-                  "Price":  2762.5000,
-                  "Qty":  5100.0
+                  "Price":  2888.0,
+                  "Qty":  4000.0
               },
     "Sell7":  {
-                  "Price":  2763.0,
-                  "Qty":  50500.0
+                  "Price":  2888.5000,
+                  "Qty":  5200.0
               },
     "Sell8":  {
-                  "Price":  2763.5000,
-                  "Qty":  3100.0
+                  "Price":  2889.0,
+                  "Qty":  1300.0
               },
     "Sell9":  {
-                  "Price":  2764.0,
-                  "Qty":  3800.0
+                  "Price":  2889.5000,
+                  "Qty":  1700.0
               },
     "Sell10":  {
-                   "Price":  2764.5000,
-                   "Qty":  8100.0
+                   "Price":  2890.0,
+                   "Qty":  18400.0
                },
-    "AskQty":  300.0,
-    "AskPrice":  2755.0,
+    "AskQty":  31500.0,
+    "AskPrice":  2884.5000,
     "AskSign":  "0101",
     "Buy1":  {
-                 "Price":  2755.0,
-                 "Qty":  300.0,
+                 "Price":  2884.5000,
+                 "Qty":  31500.0,
                  "Sign":  "0101",
-                 "Time":  "2026-04-02T15:30:00+09:00"
+                 "Time":  "2026-04-08T15:30:00+09:00"
              },
     "Buy2":  {
-                 "Price":  2754.5000,
-                 "Qty":  200.0
+                 "Price":  2884.0,
+                 "Qty":  20000.0
              },
     "Buy3":  {
-                 "Price":  2750.0,
-                 "Qty":  3600.0
+                 "Price":  2883.5000,
+                 "Qty":  3200.0
              },
     "Buy4":  {
-                 "Price":  2749.5000,
-                 "Qty":  100.0
+                 "Price":  2883.0,
+                 "Qty":  5800.0
              },
     "Buy5":  {
-                 "Price":  2749.0,
-                 "Qty":  1600.0
+                 "Price":  2882.5000,
+                 "Qty":  4500.0
              },
     "Buy6":  {
-                 "Price":  2748.5000,
-                 "Qty":  7800.0
+                 "Price":  2882.0,
+                 "Qty":  102600.0
              },
     "Buy7":  {
-                 "Price":  2748.0,
-                 "Qty":  3400.0
+                 "Price":  2881.5000,
+                 "Qty":  10700.0
              },
     "Buy8":  {
-                 "Price":  2747.5000,
-                 "Qty":  1300.0
+                 "Price":  2881.0,
+                 "Qty":  10300.0
              },
     "Buy9":  {
-                 "Price":  2747.0,
-                 "Qty":  11100.0
+                 "Price":  2880.5000,
+                 "Qty":  8700.0
              },
     "Buy10":  {
-                  "Price":  2746.0,
-                  "Qty":  2000.0
+                  "Price":  2880.0,
+                  "Qty":  109800.0
               },
     "Symbol":  "8306",
     "SymbolName":  "三菱ＵＦＪフィナンシャル・グループ",
-    "CurrentPrice":  2760.0,
-    "CurrentPriceTime":  "2026-04-02T15:30:00+09:00",
+    "CurrentPrice":  2885.0,
+    "CurrentPriceTime":  "2026-04-08T15:30:00+09:00",
     "CurrentPriceChangeStatus":  "0061",
     "CurrentPriceStatus":  1,
-    "CalcPrice":  2760.0,
-    "PreviousClose":  2808.00000,
-    "PreviousCloseTime":  "2026-04-01T00:00:00+09:00",
-    "ChangePreviousClose":  -48.00000,
-    "ChangePreviousClosePer":  -1.71,
-    "OpeningPrice":  2841.0,
-    "OpeningPriceTime":  "2026-04-02T09:00:00+09:00",
-    "HighPrice":  2844.0,
-    "HighPriceTime":  "2026-04-02T09:05:14+09:00",
-    "LowPrice":  2732.0,
-    "LowPriceTime":  "2026-04-02T12:38:50+09:00",
+    "CalcPrice":  2885.0,
+    "PreviousClose":  2811.00000,
+    "PreviousCloseTime":  "2026-04-07T00:00:00+09:00",
+    "ChangePreviousClose":  74.00000,
+    "ChangePreviousClosePer":  2.63,
+    "OpeningPrice":  2930.0,
+    "OpeningPriceTime":  "2026-04-08T09:06:00+09:00",
+    "HighPrice":  2932.5000,
+    "HighPriceTime":  "2026-04-08T09:06:01+09:00",
+    "LowPrice":  2865.0,
+    "LowPriceTime":  "2026-04-08T10:24:26+09:00",
     "SecurityType":  1
 }

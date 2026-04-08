@@ -1,123 +1,123 @@
 ﻿{
-    "OverSellQty":  1458600.0,
-    "UnderBuyQty":  1214200.0,
-    "TotalMarketValue":  20306674749790.0,
+    "OverSellQty":  2597800.0,
+    "UnderBuyQty":  1295400.0,
+    "TotalMarketValue":  20835558465260.0,
     "MarketOrderSellQty":  0.0,
     "MarketOrderBuyQty":  0.0,
-    "BidTime":  "2026-04-01T09:34:50+09:00",
-    "AskTime":  "2026-04-01T09:34:50+09:00",
+    "BidTime":  "2026-04-08T15:30:00+09:00",
+    "AskTime":  "2026-04-08T15:30:00+09:00",
     "Exchange":  1,
     "ExchangeName":  "東証プ",
-    "TradingVolume":  3387000.0,
-    "TradingVolumeTime":  "2026-04-01T09:34:48+09:00",
-    "VWAP":  3325.3996,
-    "TradingValue":  11263128500.0,
-    "BidQty":  5600.0,
-    "BidPrice":  3303.0,
+    "TradingVolume":  18377900.0,
+    "TradingVolumeTime":  "2026-04-08T15:30:00+09:00",
+    "VWAP":  3400.6569,
+    "TradingValue":  62496932200.0,
+    "BidQty":  1700.0,
+    "BidPrice":  3389.0,
     "BidSign":  "0101",
     "Sell1":  {
-                  "Price":  3303.0,
-                  "Qty":  5600.0,
+                  "Price":  3389.0,
+                  "Qty":  1700.0,
                   "Sign":  "0101",
-                  "Time":  "2026-04-01T09:34:50+09:00"
+                  "Time":  "2026-04-08T15:30:00+09:00"
               },
     "Sell2":  {
-                  "Price":  3304.0,
-                  "Qty":  5600.0
+                  "Price":  3390.0,
+                  "Qty":  1400.0
               },
     "Sell3":  {
-                  "Price":  3305.0,
-                  "Qty":  7900.0
+                  "Price":  3391.0,
+                  "Qty":  600.0
               },
     "Sell4":  {
-                  "Price":  3306.0,
-                  "Qty":  6800.0
+                  "Price":  3392.0,
+                  "Qty":  1200.0
               },
     "Sell5":  {
-                  "Price":  3307.0,
-                  "Qty":  7000.0
+                  "Price":  3394.0,
+                  "Qty":  1500.0
               },
     "Sell6":  {
-                  "Price":  3308.0,
-                  "Qty":  9100.0
+                  "Price":  3395.0,
+                  "Qty":  2700.0
               },
     "Sell7":  {
-                  "Price":  3309.0,
-                  "Qty":  8500.0
+                  "Price":  3396.0,
+                  "Qty":  25500.0
               },
     "Sell8":  {
-                  "Price":  3310.0,
-                  "Qty":  15500.0
+                  "Price":  3397.0,
+                  "Qty":  2100.0
               },
     "Sell9":  {
-                  "Price":  3311.0,
-                  "Qty":  7600.0
+                  "Price":  3398.0,
+                  "Qty":  1600.0
               },
     "Sell10":  {
-                   "Price":  3312.0,
-                   "Qty":  18500.0
+                   "Price":  3399.0,
+                   "Qty":  3000.0
                },
-    "AskQty":  4000.0,
-    "AskPrice":  3301.0,
+    "AskQty":  3700.0,
+    "AskPrice":  3388.0,
     "AskSign":  "0101",
     "Buy1":  {
-                 "Price":  3301.0,
-                 "Qty":  4000.0,
+                 "Price":  3388.0,
+                 "Qty":  3700.0,
                  "Sign":  "0101",
-                 "Time":  "2026-04-01T09:34:50+09:00"
+                 "Time":  "2026-04-08T15:30:00+09:00"
              },
     "Buy2":  {
-                 "Price":  3300.0,
-                 "Qty":  10700.0
+                 "Price":  3386.0,
+                 "Qty":  3900.0
              },
     "Buy3":  {
-                 "Price":  3299.0,
-                 "Qty":  9200.0
+                 "Price":  3385.0,
+                 "Qty":  20700.0
              },
     "Buy4":  {
-                 "Price":  3298.0,
-                 "Qty":  6000.0
+                 "Price":  3384.0,
+                 "Qty":  1600.0
              },
     "Buy5":  {
-                 "Price":  3297.0,
-                 "Qty":  7700.0
+                 "Price":  3383.0,
+                 "Qty":  3900.0
              },
     "Buy6":  {
-                 "Price":  3296.0,
-                 "Qty":  8700.0
+                 "Price":  3382.0,
+                 "Qty":  19500.0
              },
     "Buy7":  {
-                 "Price":  3295.0,
-                 "Qty":  6500.0
+                 "Price":  3381.0,
+                 "Qty":  2700.0
              },
     "Buy8":  {
-                 "Price":  3294.0,
-                 "Qty":  7700.0
+                 "Price":  3380.0,
+                 "Qty":  19400.0
              },
     "Buy9":  {
-                 "Price":  3293.0,
-                 "Qty":  7700.0
+                 "Price":  3379.0,
+                 "Qty":  23900.0
              },
     "Buy10":  {
-                  "Price":  3292.0,
-                  "Qty":  7100.0
+                  "Price":  3378.0,
+                  "Qty":  1800.0
               },
     "Symbol":  "6758",
     "SymbolName":  "ソニーグループ",
-    "CurrentPrice":  3302.0,
-    "CurrentPriceTime":  "2026-04-01T09:34:48+09:00",
-    "CurrentPriceChangeStatus":  "0058",
+    "CurrentPrice":  3388.0,
+    "CurrentPriceTime":  "2026-04-08T15:30:00+09:00",
+    "CurrentPriceChangeStatus":  "0061",
     "CurrentPriceStatus":  1,
-    "CalcPrice":  3302.0,
-    "PreviousClose":  3209.00000,
-    "PreviousCloseTime":  "2026-03-31T00:00:00+09:00",
-    "ChangePreviousClose":  93.00000,
-    "ChangePreviousClosePer":  2.90,
-    "OpeningPrice":  3349.0,
-    "OpeningPriceTime":  "2026-04-01T09:03:39+09:00",
-    "HighPrice":  3349.0,
-    "HighPriceTime":  "2026-04-01T09:03:39+09:00",
-    "LowPrice":  3293.0,
-    "LowPriceTime":  "2026-04-01T09:21:34+09:00",
+    "CalcPrice":  3388.0,
+    "PreviousClose":  3311.00000,
+    "PreviousCloseTime":  "2026-04-07T00:00:00+09:00",
+    "ChangePreviousClose":  77.00000,
+    "ChangePreviousClosePer":  2.33,
+    "OpeningPrice":  3451.0,
+    "OpeningPriceTime":  "2026-04-08T09:04:10+09:00",
+    "HighPrice":  3452.0,
+    "HighPriceTime":  "2026-04-08T09:04:10+09:00",
+    "LowPrice":  3374.0,
+    "LowPriceTime":  "2026-04-08T09:14:57+09:00",
     "SecurityType":  1
 }

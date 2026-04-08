@@ -31,23 +31,54 @@ def run_powershell(ps_script: str) -> subprocess.CompletedProcess[str]:
     )
 
 
+def get_kabu_host() -> str:
+    host = (os.environ.get("KABU_API_HOST") or "localhost").strip()
+    if not host:
+        raise RuntimeError("KABU_API_HOST is empty")
+    return host
+
+
+def get_kabu_password() -> str:
+    password = os.environ.get("KABU_API_PASSWORD")
+    if not password:
+        raise RuntimeError("KABU_API_PASSWORD is missing or empty")
+    return password
+
+
+def should_skip_registration() -> bool:
+    return os.environ.get("SKIP_KABU_REGISTRATION", "").strip() == "1"
+
+
 def register_symbol_via_powershell(symbol: str) -> None:
-    password = os.environ["KABU_API_PASSWORD"]
+    host = get_kabu_host()
+    password = get_kabu_password()
 
     ps_script = f"""
 $ErrorActionPreference = "Stop"
-$env:KABU_API_PASSWORD = {json.dumps(password)}
 
-$tokenBody = @{{ APIPassword = $env:KABU_API_PASSWORD }} | ConvertTo-Json
-$token = (Invoke-RestMethod -Method Post -Uri "http://localhost:{KABU_PORT}/kabusapi/token" -ContentType "application/json" -Body $tokenBody).Token
+$apiHost = [string]{json.dumps(host)}
+$apiPort = [string]"{KABU_PORT}"
+$apiPassword = [string]{json.dumps(password)}
 
-$regBody = @{{
+$tokenBody = @{{ APIPassword = $apiPassword }} | ConvertTo-Json -Compress
+$tokenUri = "http://" + $apiHost + ":" + $apiPort + "/kabusapi/token"
+$tokenResp = Invoke-RestMethod -Method Post -Uri $tokenUri -Body $tokenBody -ContentType "application/json"
+$token = $tokenResp.Token
+
+$registerBodyObj = @{{
     Symbols = @(
-        @{{ Symbol = "{symbol}"; Exchange = {EXCHANGE} }}
+        @{{
+            Symbol = "{symbol}"
+            Exchange = {EXCHANGE}
+        }}
     )
-}} | ConvertTo-Json -Depth 5
+}}
+$registerBody = $registerBodyObj | ConvertTo-Json -Compress -Depth 5
+$registerUri = "http://" + $apiHost + ":" + $apiPort + "/kabusapi/register"
+$headers = @{{ "X-API-KEY" = $token }}
 
-Invoke-RestMethod -Method Put -Uri "http://localhost:{KABU_PORT}/kabusapi/register" -Headers @{{ "X-API-KEY" = $token }} -ContentType "application/json" -Body $regBody | Out-Null
+$registerResp = Invoke-RestMethod -Method Put -Uri $registerUri -Headers $headers -Body $registerBody -ContentType "application/json"
+$registerResp | ConvertTo-Json -Compress
 """
 
     result = run_powershell(ps_script)
@@ -67,16 +98,25 @@ def save_board_via_powershell(symbol: str) -> Path:
         text=True,
     ).strip()
 
-    password = os.environ["KABU_API_PASSWORD"]
+    host = get_kabu_host()
+    password = get_kabu_password()
 
     ps_script = f"""
 $ErrorActionPreference = "Stop"
-$env:KABU_API_PASSWORD = {json.dumps(password)}
 
-$tokenBody = @{{ APIPassword = $env:KABU_API_PASSWORD }} | ConvertTo-Json
-$token = (Invoke-RestMethod -Method Post -Uri "http://localhost:{KABU_PORT}/kabusapi/token" -ContentType "application/json" -Body $tokenBody).Token
+$apiHost = [string]{json.dumps(host)}
+$apiPort = [string]"{KABU_PORT}"
+$apiPassword = [string]{json.dumps(password)}
 
-Invoke-RestMethod -Method Get -Uri "http://localhost:{KABU_PORT}/kabusapi/board/{symbol}@{EXCHANGE}" -Headers @{{ "X-API-KEY" = $token }} |
+$tokenBody = @{{ APIPassword = $apiPassword }} | ConvertTo-Json -Compress
+$tokenUri = "http://" + $apiHost + ":" + $apiPort + "/kabusapi/token"
+$tokenResp = Invoke-RestMethod -Method Post -Uri $tokenUri -Body $tokenBody -ContentType "application/json"
+$token = $tokenResp.Token
+
+$boardUri = "http://" + $apiHost + ":" + $apiPort + "/kabusapi/board/{symbol}@{EXCHANGE}"
+$headers = @{{ "X-API-KEY" = $token }}
+
+Invoke-RestMethod -Method Get -Uri $boardUri -Headers $headers |
     ConvertTo-Json -Depth 10 |
     Set-Content -Encoding UTF8 "{board_path_windows}"
 """
@@ -132,13 +172,16 @@ def _coerce_captured_at(value) -> datetime:
 
 def main() -> None:
     if len(sys.argv) != 2:
-        print("usage: python collect_board_once.py <symbol>")
+        print(f"usage: {sys.executable} collect_board_once.py <symbol>")
         sys.exit(1)
 
     symbol = sys.argv[1]
 
-    print("Registering symbol via Windows PowerShell...")
-    register_symbol_via_powershell(symbol)
+    if should_skip_registration():
+        print("Skipping symbol registration because SKIP_KABU_REGISTRATION=1")
+    else:
+        print("Registering symbol via Windows PowerShell...")
+        register_symbol_via_powershell(symbol)
 
     print("Fetching board via Windows PowerShell...")
     board_path = save_board_via_powershell(symbol)
