@@ -3,137 +3,137 @@
   "source": "kabusapi_board",
   "symbol": "8306",
   "exchange": 1,
-  "captured_at": "2026-04-08T15:30:00+09:00",
+  "captured_at": "2026-04-09T12:52:28+09:00",
   "summary": {
     "symbol_name": "三菱ＵＦＪフィナンシャル・グループ",
-    "current_price": 2885.0,
-    "previous_close": 2811.0,
-    "trading_volume": 57129700.0,
-    "bid_price": 2885.5,
-    "ask_price": 2884.5,
-    "vwap": 2892.6301
+    "current_price": 2845.5,
+    "previous_close": 2885.0,
+    "trading_volume": 19250600.0,
+    "bid_price": 2846.0,
+    "ask_price": 2845.5,
+    "vwap": 2874.0206
   },
   "payload": {
-    "OverSellQty": 9724000.0,
-    "UnderBuyQty": 5043200.0,
-    "TotalMarketValue": 34238346004200.0,
+    "OverSellQty": 10492900.0,
+    "UnderBuyQty": 4157400.0,
+    "TotalMarketValue": 33769571422860.0,
     "MarketOrderSellQty": 0.0,
     "MarketOrderBuyQty": 0.0,
-    "BidTime": "2026-04-08T15:30:00+09:00",
-    "AskTime": "2026-04-08T15:30:00+09:00",
+    "BidTime": "2026-04-09T12:52:28+09:00",
+    "AskTime": "2026-04-09T12:52:28+09:00",
     "Exchange": 1,
     "ExchangeName": "東証プ",
-    "TradingVolume": 57129700.0,
-    "TradingVolumeTime": "2026-04-08T15:30:00+09:00",
-    "VWAP": 2892.6301,
-    "TradingValue": 165255091000.0,
-    "BidQty": 100.0,
-    "BidPrice": 2885.5,
+    "TradingVolume": 19250600.0,
+    "TradingVolumeTime": "2026-04-09T12:52:28+09:00",
+    "VWAP": 2874.0206,
+    "TradingValue": 55326621350.0,
+    "BidQty": 10500.0,
+    "BidPrice": 2846.0,
     "BidSign": "0101",
     "Sell1": {
-      "Price": 2885.5,
-      "Qty": 100.0,
+      "Price": 2846.0,
+      "Qty": 10500.0,
       "Sign": "0101",
-      "Time": "2026-04-08T15:30:00+09:00"
+      "Time": "2026-04-09T12:52:28+09:00"
     },
     "Sell2": {
-      "Price": 2886.0,
-      "Qty": 3000.0
+      "Price": 2846.5,
+      "Qty": 15100.0
     },
     "Sell3": {
-      "Price": 2886.5,
-      "Qty": 200.0
+      "Price": 2847.0,
+      "Qty": 23800.0
     },
     "Sell4": {
-      "Price": 2887.0,
-      "Qty": 7900.0
+      "Price": 2847.5,
+      "Qty": 14400.0
     },
     "Sell5": {
-      "Price": 2887.5,
-      "Qty": 200.0
+      "Price": 2848.0,
+      "Qty": 14400.0
     },
     "Sell6": {
-      "Price": 2888.0,
-      "Qty": 4000.0
+      "Price": 2848.5,
+      "Qty": 15500.0
     },
     "Sell7": {
-      "Price": 2888.5,
-      "Qty": 5200.0
+      "Price": 2849.0,
+      "Qty": 18700.0
     },
     "Sell8": {
-      "Price": 2889.0,
-      "Qty": 1300.0
+      "Price": 2849.5,
+      "Qty": 15300.0
     },
     "Sell9": {
-      "Price": 2889.5,
-      "Qty": 1700.0
+      "Price": 2850.0,
+      "Qty": 49800.0
     },
     "Sell10": {
-      "Price": 2890.0,
-      "Qty": 18400.0
+      "Price": 2850.5,
+      "Qty": 13300.0
     },
-    "AskQty": 31500.0,
-    "AskPrice": 2884.5,
+    "AskQty": 900.0,
+    "AskPrice": 2845.5,
     "AskSign": "0101",
     "Buy1": {
-      "Price": 2884.5,
-      "Qty": 31500.0,
+      "Price": 2845.5,
+      "Qty": 900.0,
       "Sign": "0101",
-      "Time": "2026-04-08T15:30:00+09:00"
+      "Time": "2026-04-09T12:52:28+09:00"
     },
     "Buy2": {
-      "Price": 2884.0,
-      "Qty": 20000.0
+      "Price": 2845.0,
+      "Qty": 7000.0
     },
     "Buy3": {
-      "Price": 2883.5,
-      "Qty": 3200.0
+      "Price": 2844.5,
+      "Qty": 12900.0
     },
     "Buy4": {
-      "Price": 2883.0,
-      "Qty": 5800.0
+      "Price": 2844.0,
+      "Qty": 12100.0
     },
     "Buy5": {
-      "Price": 2882.5,
-      "Qty": 4500.0
-    },
-    "Buy6": {
-      "Price": 2882.0,
-      "Qty": 102600.0
-    },
-    "Buy7": {
-      "Price": 2881.5,
-      "Qty": 10700.0
-    },
-    "Buy8": {
-      "Price": 2881.0,
+      "Price": 2843.5,
       "Qty": 10300.0
     },
+    "Buy6": {
+      "Price": 2843.0,
+      "Qty": 11600.0
+    },
+    "Buy7": {
+      "Price": 2842.5,
+      "Qty": 13500.0
+    },
+    "Buy8": {
+      "Price": 2842.0,
+      "Qty": 27000.0
+    },
     "Buy9": {
-      "Price": 2880.5,
-      "Qty": 8700.0
+      "Price": 2841.5,
+      "Qty": 11700.0
     },
     "Buy10": {
-      "Price": 2880.0,
-      "Qty": 109800.0
+      "Price": 2841.0,
+      "Qty": 15600.0
     },
     "Symbol": "8306",
     "SymbolName": "三菱ＵＦＪフィナンシャル・グループ",
-    "CurrentPrice": 2885.0,
-    "CurrentPriceTime": "2026-04-08T15:30:00+09:00",
-    "CurrentPriceChangeStatus": "0061",
+    "CurrentPrice": 2845.5,
+    "CurrentPriceTime": "2026-04-09T12:52:28+09:00",
+    "CurrentPriceChangeStatus": "0056",
     "CurrentPriceStatus": 1,
-    "CalcPrice": 2885.0,
-    "PreviousClose": 2811.0,
-    "PreviousCloseTime": "2026-04-07T00:00:00+09:00",
-    "ChangePreviousClose": 74.0,
-    "ChangePreviousClosePer": 2.63,
-    "OpeningPrice": 2930.0,
-    "OpeningPriceTime": "2026-04-08T09:06:00+09:00",
-    "HighPrice": 2932.5,
-    "HighPriceTime": "2026-04-08T09:06:01+09:00",
-    "LowPrice": 2865.0,
-    "LowPriceTime": "2026-04-08T10:24:26+09:00",
+    "CalcPrice": 2845.5,
+    "PreviousClose": 2885.0,
+    "PreviousCloseTime": "2026-04-08T00:00:00+09:00",
+    "ChangePreviousClose": -39.5,
+    "ChangePreviousClosePer": -1.37,
+    "OpeningPrice": 2896.0,
+    "OpeningPriceTime": "2026-04-09T09:00:00+09:00",
+    "HighPrice": 2903.0,
+    "HighPriceTime": "2026-04-09T09:21:07+09:00",
+    "LowPrice": 2830.5,
+    "LowPriceTime": "2026-04-09T12:30:01+09:00",
     "SecurityType": 1
   }
 }

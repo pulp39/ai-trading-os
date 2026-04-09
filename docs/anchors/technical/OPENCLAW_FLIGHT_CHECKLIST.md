@@ -217,55 +217,52 @@ readiness 判定動作確認
 ---
 
 🔷 STEP 0 — Collector Initialization
+Role
 
 You are participating in the AI Trading OS (ATOS) environment.
 
 This session initializes you as a Collector.
 
-Your role is strictly limited to:
+Scope
 
-recovering runtime when explicitly instructed
-validating production boundary conditions
-validating production port ownership and portproxy safety
-collecting bounded market observations
+You are strictly limited to:
+
+runtime recovery
+boundary validation
+port ownership / portproxy safety validation
+bounded market observation
 returning factual outputs only
+Forbidden
 
-You do not interpret.
-You do not evaluate readiness.
-You do not run preview.
-You do not execute simulated_order.
-You do not execute real_order.
-You do not send orders.
+You do NOT:
 
-Core rules:
+run preview
+evaluate readiness
+execute simulated_order
+execute real_order
+send orders
+Core Rules
 
 Observation only
-You may read and collect data only
+You may only collect data.
 
 Stop discipline
-You must STOP immediately if:
+
+STOP immediately if:
+
 runtime base is wrong
 env is unclear
-PowerShell is unavailable
-boundary validation is incomplete
-port ownership is unsafe
-portproxy conflict is detected
+PowerShell unavailable
+boundary incomplete
+port ownership unsafe
+portproxy conflict detected
 execution scope is unclear
 
-When STOP is triggered:
-You MUST clearly state:
-- which condition failed
-- why proceeding would be unsafe
+When STOP is triggered, you MUST state:
 
-Example:
-"STOP: portproxy conflict detected on port 18080"
-
-Minimality
-Do exactly what is requested
-Do not retry unless instructed
-
-Output discipline
-Return only requested sections
+which condition failed
+why it is unsafe
+Start Condition
 
 If ready, respond:
 
@@ -273,77 +270,55 @@ COLLECTOR_READY
 
 ---
 
-🔷 STEP 1 — Boundary Validation（CORRECTED）
+🔷 STEP 1 — Runtime / Environment Preflight
+Objective
 
-## Purpose
-Ensure env parity between WSL and PowerShell.
+Validate runtime normalization only.
 
-## Notes
-- This is a Phase B runner-validation command, not the final PowerShell parity validation.
-- It exists to confirm Task Artifact → Runner → Result Artifact completion.
+NOTE:
+Port ownership and token reachability are handled in STEP 2.
 
-Boundary Validation
+Execution
+bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && source scripts/registrar/.venv/bin/activate && printf "PWD=%s\n" "$PWD" && printf "PYTHON=%s\n" "$(which python)" && printf "POWERSHELL=%s\n" "$(which powershell.exe)" && printf "KABU_API_HOST=%s\n" "$KABU_API_HOST" && printf "KABU_API_PORT=%s\n" "$KABU_API_PORT"'
+Return Format
+Runtime Base
+...
 
-Use the runtime base:
+Python Path
+...
 
-/mnt/c/ai-trading-os-private
-
-Objective:
-Confirm that the WSL values and the explicitly assigned PowerShell values match for the production path.
-
-Recovery:
-
-cd /mnt/c/ai-trading-os-private
-export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
-source ./.env.local
-source scripts/registrar/.venv/bin/activate
-
-Task:
-
-Print WSL values:
-KABU_API_HOST
-KABU_API_PORT
-KABU_API_PASSWORD
-
-Perform exactly one PowerShell call using explicit in-command assignment.
-
-Important correction:
-Because this command is launched from bash/WSL, PowerShell local variables must escape $ as \$ so bash does not consume them before PowerShell runs.
-
-Use exactly this command shape:
-
-powershell.exe -NoProfile -Command "
-$psHost = [string]'$KABU_API_HOST';
-$psPort = [string]'$KABU_API_PORT';
-$psPassword = [string]'$KABU_API_PASSWORD';
-
-Write-Output ('PS_KABU_API_HOST=' + $psHost);
-Write-Output ('PS_KABU_API_PORT=' + $psPort);
-Write-Output ('PS_KABU_API_PASSWORD=' + $psPassword);
-"
-
-Objective:
-
-confirm explicit value transfer from WSL into PowerShell
-prevent 'env exists ≠ env is used'
-prevent bash from consuming PowerShell variable names before execution
-Return output in this format:
+PowerShell Path
+...
 
 WSL Env
-PowerShell Used Values
-Match Result
-Boundary Integrity
+KABU_API_HOST=...
+KABU_API_PORT=...
+
+Judgment
+PASS or STOP
+
 Issue (if any)
+...
+Judgment Rule
 
-Judgment rule:
+PASS only if:
 
-all values match exactly → proceed to STEP 2
-any mismatch or parser failure → STOP
+runtime base correct
+python resolves in venv
+powershell.exe resolves
+env variables visible
 
 ---
 
-Run exactly one command only.
+🔷 STEP 2 — Port Ownership + Reachability Preflight（FINAL LOCKED）
+Objective
 
+Ensure port 18080 is:
+
+not hijacked by portproxy
+actively listening
+actually serving kabuStation API
+Execution
 bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && source scripts/registrar/.venv/bin/activate && powershell.exe -NoProfile -Command "
 netsh interface portproxy show all;
 Write-Output \"---LISTENER---\";
@@ -362,588 +337,104 @@ try {
   Write-Output (\"TOKEN_ERROR=\" + \$_.Exception.Message);
 }
 "'
-
-Return EXACTLY:
-- Portproxy Rules
-- Port 18080 Listener
-- Listener Process
-- Token Reachability
-- Ownership Judgment
-- Issue (if any)
-
-A one-word reply is invalid.
-
----
-
-🔷 STEP 3 — Production Token Attempt（FINAL LOCKED VERSION）
-
-Objective:
-Perform exactly one production token attempt against the kabuStation API on port 18080.
-
-Use the runtime base:
-
-/mnt/c/ai-trading-os-private
-🔷 Recovery (MANDATORY)
-cd /mnt/c/ai-trading-os-private
-export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
-source ./.env.local
-source scripts/registrar/.venv/bin/activate
-which powershell.exe
-STOP condition:
-if powershell.exe is not resolved → STOP
-🔷 Output Discipline (STRICT)
-
-You MUST return ALL sections below.
-
-Do NOT return:
-
-YES / NO
-PASS / FAIL only
-partial output
-
-A one-word reply is INVALID and must be treated as STOP.
-
-🔷 Additional Rule (MANDATORY)
-
-If TOKEN_FAIL occurs and APILog shows no record of the attempt:
-
-treat this as transport failure
-NOT authentication failure
-do NOT retry
-do NOT modify password
-
-Return the diagnostic result and STOP.
-
-🔷 Task — Exactly One Production Token Attempt
-
-Important correction:
-
-Because this command is launched from bash/WSL, all PowerShell local variables must escape $ as \$, including $_ inside catch.
-
-Execute exactly once:
-
-powershell.exe -NoProfile -Command "
-\$ErrorActionPreference = 'Stop';
-\$psHost = [string]'$KABU_API_HOST';
-\$psPort = [string]'18080';
-\$psPassword = [string]'$KABU_API_PASSWORD';
-
-\$body = @{ APIPassword = \$psPassword } | ConvertTo-Json -Compress;
-\$uri = 'http://' + \$psHost + ':' + \$psPort + '/kabusapi/token';
-
-try {
-  \$res = Invoke-RestMethod -Method Post -Uri \$uri -Body \$body -ContentType 'application/json';
-  Write-Output 'TOKEN_SUCCESS';
-  Write-Output (\$res | ConvertTo-Json -Compress);
-} catch {
-  Write-Output 'TOKEN_FAIL';
-  Write-Output \$_.Exception.Message;
-}
-"
-🔷 Judgment Rule (STRICT)
-if output contains TOKEN_SUCCESS → PASS
-if output contains TOKEN_FAIL → STOP
-no retry allowed
-🔷 Required Return Format (MANDATORY)
-
-You MUST return EXACTLY this structure:
-
-Production Token Attempt
+Return Format
+Portproxy Rules
 ...
 
-Token Result
-TOKEN_SUCCESS or TOKEN_FAIL
-
-Token Response
+Port 18080 Listener
 ...
 
-Judgment
+Listener Process
+...
+
+Token Reachability
+...
+
+Ownership Judgment
 PASS or STOP
 
 Issue (if any)
 ...
-🔷 Valid PASS Example
-Production Token Attempt
-Executed exactly once against http://localhost:18080/kabusapi/token
-
-Token Result
-TOKEN_SUCCESS
-
-Token Response
-{"ResultCode":0,"Token":"..."}
-
-Judgment
-PASS
-
-Issue (if any)
-None
-🔷 Valid STOP Example
-Production Token Attempt
-Executed exactly once against http://localhost:18080/kabusapi/token
-
-Token Result
-TOKEN_FAIL
-
-Token Response
-The underlying connection was closed: ...
-
-Judgment
-STOP
-
-Issue (if any)
-Token attempt failed
-🔷 Invalid Response Examples (REJECT)
-NO
-PASS
-OK
-
-→ MUST be treated as STOP (invalid output)
-
-🔷 Interpretation Note
-
-This step is a single bounded confirmation of the production token path.
-Do not expand scope into:
-
-symbol registration
-board fetch
-preview
-simulated_order
-real_order
-
-Only the token path is in scope here.
-
-🔶 END OF STEP 3 (FINAL LOCKED)
+Judgment Rule
+portproxy contains 18080 → STOP
+listener missing → STOP
+token fails → STOP
+token ResultCode=0 → PASS
+Critical Rules
+PID 4 (System) is allowed
+token success overrides ambiguity
 
 ---
 
-🔷 STEP 4 — Symbol Registration State Handling（OPENCLAW COMPLETE VERSION / FINAL）
-
-Objective:
-Handle symbol registration state safely after kabuStation restart.
-
-Background:
-
-kabuStation symbol list is not persistent across restart
-exact production symbol-state inspection method is not yet implemented
-therefore, after confirmed restart, symbol state must be treated as operationally unknown
-recovery registration must be executed exactly once
-OpenClaw execution must remain one-command only
-
-Target symbol:
-
-8306
-
-Runtime base:
-
-/mnt/c/ai-trading-os-private
-🔷 Preconditions (MANDATORY)
-
-This step may proceed only if ALL are true:
-
-kabuStation restart has been confirmed
-STEP 3 token attempt already passed
-target symbol is 8306
-
-If any precondition is missing:
-→ STOP
-
-🔷 Output Discipline (STRICT)
-
-You MUST return ALL sections below.
-
-Do NOT return:
-
-YES / NO
-PASS / FAIL only
-partial output
-
-A one-word reply is INVALID and must be treated as STOP.
-
-🔷 Operational Rule
-
-Because exact production symbol-state inspection is not yet available, use this provisional rule:
-
-after confirmed restart, symbol state = UNKNOWN
-UNKNOWN state must NOT proceed directly to collector
-instead, perform exactly one conditional recovery registration
-no retry allowed
-🔷 Approved Execution Method (MANDATORY)
-
-Do NOT construct an ad-hoc PowerShell registration call.
-
-Do NOT use plain python.
-
-Do NOT rely on previously sourced shell state.
-
-Run exactly one command only:
-
+🔷 STEP 3 — Symbol Registration
+Execution
 bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/register_symbol_once_8306_tmp.py'
-
-Constraints:
-
-exactly one command
-no retry
-no scope expansion
-no board fetch
-no collector execution
-no preview
-no simulated_order
-no real_order
-🔷 Judgment Rule (STRICT)
-if registration output shows successful completion and includes RegistList for symbol 8306 → PASS
-otherwise → STOP
-no retry allowed
-🔷 Required Return Format (MANDATORY)
-
-You MUST return EXACTLY this structure:
-
-Restart Confirmed
-Yes or No
-
-Token Precondition
-Satisfied or Not satisfied
-
-Symbol State
-UNKNOWN
-
-Registration Attempt
-...
-
-Registration Result
-SUCCESS or STOP
-
-Registration Response
-...
-
-Judgment
-PASS or STOP
-
-Issue (if any)
-...
-🔷 Valid PASS Example
-Restart Confirmed
-Yes
-
-Token Precondition
-Satisfied
-
-Symbol State
-UNKNOWN
-
-Registration Attempt
-Executed exactly one command: bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/register_symbol_once_8306_tmp.py'
-
-Registration Result
-SUCCESS
-
-Registration Response
-Registering symbols via Windows PowerShell...
-{
-  "symbols": [
-    {
-      "symbol": "8306",
-      "exchange": 1
-    }
-  ],
-  "count": 1,
-  "kabu_port": 18080
-}
-Registration completed.
-{
-  "RegisterResult": {
-    "RegistList": [
-      {
-        "Symbol": "8306",
-        "Exchange": 1
-      }
-    ]
-  },
-  "TokenAcquired": true,
-  "SymbolCount": 1
-}
-
-Judgment
-PASS
-
-Issue (if any)
-None
-🔷 Valid STOP Example
-Restart Confirmed
-Yes
-
-Token Precondition
-Satisfied
-
-Symbol State
-UNKNOWN
-
-Registration Attempt
-Executed exactly one command: ...
-
-Registration Result
-STOP
-
-Registration Response
-ERROR: ...
-
-Judgment
-STOP
-
-Issue (if any)
-Conditional recovery registration failed
-🔷 Invalid Response Examples (REJECT)
-NO
-PASS
-OK
-
-→ MUST be treated as STOP (invalid output)
-
-🔷 Interpretation Note
-
-This step is provisional state recovery, not normal symbol-state inspection.
-
-The key requirement is:
-
-after restart
-before collector
-perform one successful recovery registration for 8306
-
-This step must rely on the known-good script path plus one-command runtime normalization, not on improvised request-shape reconstruction.
-
-🔶 END OF STEP 4 (OPENCLAW COMPLETE VERSION / FINAL)
+PASS Condition
+RegistList contains 8306
 
 ---
 
-🔷 STEP 5 — Collector One Shot（OPENCLAW COMPLETE VERSION / FINAL）
-
-Objective:
-Execute exactly one bounded collector observation for symbol 8306 after successful restart recovery and successful conditional recovery registration.
-
-Background:
-
-direct one-command execution without runtime normalization caused repeated failures in prior attempts
-collector execution requires:
-runtime base
-PowerShell PATH
-.env.local
-registrar venv
-registration bypass after successful registration recovery
-therefore STEP 5 must use one-command runtime normalization
-
-Target symbol:
-
-8306
-
-Runtime base:
-
-/mnt/c/ai-trading-os-private
-🔷 Preconditions (MANDATORY)
-
-This step may proceed only if ALL are true:
-
-STEP 1 passed
-STEP 2 passed
-STEP 3 passed
-STEP 4 passed
-symbol 8306 registration recovery has succeeded in the current restart cycle
-
-If any precondition is missing:
-→ STOP
-
-🔷 Command Classification Declaration
-command_class = bounded WRITE
-broker_mode = production
-broker_touch = true
-external_order_allowed = false
-dry_run = true
-
-Meaning:
-
-broker access is allowed only for bounded collector behavior
-no external order transmission is allowed
-no preview
-no simulated_order
-no real_order
-🔷 Output Discipline (STRICT)
-
-You MUST return ALL sections below.
-
-Do NOT return:
-
-YES / NO
-PASS / FAIL only
-partial output
-
-A one-word reply is INVALID and must be treated as STOP.
-
-🔷 Approved Execution Method (MANDATORY)
-
-Do NOT use plain python.
-
-Do NOT rely on previously sourced shell state.
-
-Do NOT perform symbol registration inside this step.
-
-Because STEP 4 already completed registration recovery, this step must bypass registration and execute the collector exactly once.
-
-Run exactly one command only:
-
+🔷 STEP 4 — Collector One Shot
+Execution
 bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && export SKIP_KABU_REGISTRATION=1 && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/collect_board_once.py 8306'
-
-Constraints:
-
-exactly one command
-exactly one observation
-no retry
-no scope expansion
-no preview
-no simulated_order
-no real_order
-no sendorder
-no repository lookup during execution
-🔷 Judgment Rule (STRICT)
-if board fetch succeeds and collector completes bounded one-shot execution → PASS
-if snapshot write and trace path complete → PASS
-otherwise → STOP
-no retry allowed
-🔷 Required Return Format (MANDATORY)
-
-You MUST return EXACTLY this structure:
-
-Command Classification
-...
-
-Observation Attempt
-...
-
-Observation Result
-...
-
-Snapshot Result
-...
-
-Trace Result
-...
-
-Judgment
-PASS or STOP
-
-Issue (if any)
-...
-🔷 Valid PASS Example
-Command Classification
-command_class = bounded WRITE
-broker_mode = production
-broker_touch = true
-external_order_allowed = false
-dry_run = true
-
-Observation Attempt
-Executed exactly one command for symbol 8306 with registration bypass enabled
-
-Observation Result
-Board fetch succeeded for 8306
-
-Snapshot Result
-Snapshot write succeeded
-
-Trace Result
-trace_event write succeeded
-
-Judgment
-PASS
-
-Issue (if any)
-None
-🔷 Valid STOP Example
-Command Classification
-command_class = bounded WRITE
-broker_mode = production
-broker_touch = true
-external_order_allowed = false
-dry_run = true
-
-Observation Attempt
-Executed exactly one command for symbol 8306 with registration bypass enabled
-
-Observation Result
-Board fetch failed
-
-Snapshot Result
-Not completed
-
-Trace Result
-Not completed
-
-Judgment
-STOP
-
-Issue (if any)
-Collector one-shot failed before bounded write path completed
-🔷 Invalid Response Examples (REJECT)
-NO
-PASS
-OK
-
-→ MUST be treated as STOP (invalid output)
-
-🔷 Interpretation Note
-
-This step is collector-only.
-
-It does NOT:
-
-evaluate readiness
-run preview
-create READY
-run simulated_order
-run real_order
-
-This step exists only to confirm that the collector one-shot path can execute safely under OpenClaw’s one-command constraints, using runtime normalization and registration bypass after successful STEP 4 recovery.
-
-🔶 END OF STEP 5 (OPENCLAW COMPLETE VERSION / FINAL)
+PASS Condition
+board fetch success
+snapshot success
+trace_event success
 
 ---
 
-🔶 MAIN PATH COMPLETE 🔶
+🔷 STEP 5 — Sequential Batch Observation（REWRITE / FINAL）
+Objective
 
-STEP0 → STEP1 → STEP2 → STEP3 → STEP4 → STEP5
+Execute bounded one-shot observations for multiple symbols
+under strict sequential execution after successful collector validation.
 
----
+Background
+STEP 4 confirmed collector one-shot execution is stable
+manual sequential execution across multiple symbols is stable
+instability observed only in OpenClaw batch context
+therefore, execution ordering must be explicitly controlled
+🔷 Core Rule（CRITICAL）
+All symbol executions MUST be strictly sequential.
 
-🔷 STEP 6 — Batch Observation（OPENCLAW COMPLETE VERSION / FINAL）
+No overlap is allowed.
+No parallel execution is allowed.
+No queued execution is allowed.
+🔷 Execution Order（MANDATORY）
 
-Objective:
-Execute bounded one-shot observations for multiple symbols after successful recovery and collector validation.
-
-Background:
-
-STEP 5 confirmed collector one-shot execution works under one-command constraints
-STEP 6 extends this to additional symbols
-each observation must remain independent and bounded
-runtime normalization must be included in every execution
-🔷 共通ルール（MANDATORY）
-
+7203
+wait until process fully exits
+8306
+wait until process fully exits
+6758
+wait until process fully exits
+🔷 Common Execution Template
+bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && export SKIP_KABU_REGISTRATION=1 && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/collect_board_once.py SYMBOL'
+🔷 Execution Rules（MANDATORY）
 Each symbol execution must:
 
 run exactly one command
-include runtime normalization:
-cd runtime_base
-PowerShell PATH
-.env.local
-venv activation via absolute python
+include runtime normalization
+use .env.local
+use venv python (absolute path)
+bypass registration (SKIP_KABU_REGISTRATION=1)
+complete before next symbol starts
+🔷 Output Discipline（STRICT）
 
-bypass registration:
+You MUST return ALL sections for each symbol.
 
-SKIP_KABU_REGISTRATION=1
-no retry
-no preview
-no simulated_order
-no real_order
--- 7203 --
-🔷 Execution
-bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && export SKIP_KABU_REGISTRATION=1 && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/collect_board_once.py 7203'
-🔷 Return
+Do NOT summarize.
+
+🔷 Required Return Format
+-- SYMBOL --
+
+Execution Order Position
+1 / 2 / 3
+
+Process Exit Confirmation
+Process fully exited before next symbol started
+
 Observation Result
 ...
 
@@ -955,64 +446,62 @@ Trace Result
 
 Issue (if any)
 ...
--- 8306 --
-🔷 Execution
-bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && export SKIP_KABU_REGISTRATION=1 && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/collect_board_once.py 8306'
-🔷 Return
-Observation Result
-...
+🔷 Judgment Rule（PER SYMBOL）
 
-Snapshot Result
-...
+PASS if:
 
-Trace Result
-...
+Observation success
+Snapshot success
+Trace success
 
-Issue (if any)
-...
--- 6758 --
-🔷 Execution
-bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && export SKIP_KABU_REGISTRATION=1 && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/collect_board_once.py 6758'
-🔷 Return
-Observation Result
-...
+Otherwise:
 
-Snapshot Result
-...
+→ STOP
 
-Trace Result
-...
+🔷 Global Judgment Rule
+ALL symbols must PASS
 
-Issue (if any)
-...
-🔷 Judgment Rule（各シンボル）
-Observation Result 成功
-Snapshot Result 成功
-Trace Result 成功
-
-→ PASS
-
-いずれか失敗 → STOP
+If any symbol fails → STOP
 
 🔷 Interpretation Note
-各シンボルは 完全に独立した1回実行
-STEP 5 の延長であり、collectorの安定性検証フェーズ
-東証閉場中でも：
-API応答
-snapshot書き込み
-trace_event
-は検証可能
+This step validates collector stability under sequential multi-symbol execution.
 
-👉 つまりこれは 市場データの正しさではなく、パイプラインの健全性テスト
+This is NOT:
 
-🔶 END OF STEP 6（OPENCLAW COMPLETE）
+market correctness validation
+trading validation
+
+This IS:
+
+pipeline integrity validation
+execution isolation validation
 
 ---
 
-🔷 STEP 7 — Preview Path（READY生成）【OPENCLAW COMPLETE VERSION / FINAL】
+🔷 STEP 6 — Role Reset（CRITICAL FIX）
+
+You are no longer Collector.
+
+New Role
+
+Preview Validator
+
+Allowed
+one fresh observation (8306 only)
+one preview execution
+one readiness evaluation
+Forbidden
+simulated_order
+real_order
+external orders
+
+---
+
+🔷 STEP 7 — Preview Path（FRESHNESS FIX VERSION / JSON FIXED / FINAL）
 Objective
 
-Generate exactly one preview result and one execution_readiness_evaluated event using a temporary preview-only AAB under OpenClaw one-command execution constraints.
+Generate exactly one preview result and one execution_readiness_evaluated event
+using a temporary preview-only AAB under one-command execution constraints.
 
 This step validates:
 
@@ -1032,12 +521,13 @@ STEP 2 passed
 STEP 3 passed
 STEP 4 passed
 STEP 5 passed
-a fresh observation already exists for the target symbol
+STEP 6 role reset acknowledged
 
 If any precondition is missing:
 → STOP
 
 Freshness Rule (MANDATORY)
+
 freshness_limit_ms = 30000
 
 Preview may proceed only if:
@@ -1049,166 +539,76 @@ no override is used for live READY generation
 If freshness fails:
 → STOP
 
-Preview AAB Rule
+Operational Fix
 
-Use a temporary preview-only AAB in /tmp.
+collector + preview must run in one command.
 
-Do NOT use registrar queue artifacts.
+Temporary preview AAB JSON must be generated in a way that is shell-safe
+and parse-safe.
 
-Do NOT mix preview with execution artifacts.
-
-The AAB must contain:
-
-execution_scope.action_type = "order_preview"
-execution_scope.symbol
-execution_scope.order_type
-execution_scope.side
-execution_scope.quantity
-
-And constraints:
-
-dry_run = true
-external_order_allowed = false
-preview_only = true
-state_change_allowed = false
-test_override_allowed = false
-
-This keeps Preview lightweight, temporary, and separated from Execution.
-
-Output Discipline (STRICT)
-
-You MUST return ALL sections below.
-
-Do NOT return:
-
-YES / NO
-PASS / FAIL only
-partial output
-
-A one-word reply is INVALID and must be treated as STOP.
+Do NOT use inline broken JSON quoting.
 
 Approved Execution Method (MANDATORY)
 
-Do NOT use plain python.
-
-Do NOT rely on previously sourced shell state.
-
 Run exactly one command only:
 
-bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && printf "%s\n" "{"aab_id":"AAB-PREVIEW-8306-TEMP","execution_scope":{"action_type":"order_preview","symbol":"8306","order_type":"market","side":"buy","quantity":1},"constraints":{"dry_run":true,"external_order_allowed":false,"preview_only":true,"state_change_allowed":false,"test_override_allowed":false},"capital_allocation":{"constraint_type":"preview_only"}}" > /tmp/atos_order_preview_8306.json && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python -m scripts.openclaw.run_order_preview /tmp/atos_order_preview_8306.json'
-
-Constraints:
-
+bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && export SKIP_KABU_REGISTRATION=1 && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/collector/collect_board_once.py 8306 && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python -c "import json; p=\"/tmp/atos_order_preview_8306.json\"; data={\"aab_id\":\"AAB-PREVIEW-8306-TEMP\",\"execution_scope\":{\"action_type\":\"order_preview\",\"symbol\":\"8306\",\"order_type\":\"market\",\"side\":\"buy\",\"quantity\":1},\"constraints\":{\"dry_run\":True,\"external_order_allowed\":False,\"preview_only\":True,\"state_change_allowed\":False,\"test_override_allowed\":False},\"capital_allocation\":{\"constraint_type\":\"preview_only\"}}; open(p,\"w\",encoding=\"utf-8\").write(json.dumps(data, ensure_ascii=False))" && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python -m scripts.openclaw.run_order_preview /tmp/atos_order_preview_8306.json'
+Constraints
 exactly one command
+exactly one fresh observation for 8306
+exactly one preview execution
 no retry
-no collector execution
 no simulated_order
 no real_order
 no external order transmission
-Judgment Rule (STRICT)
-if preview runs successfully
-and execution_readiness_evaluated is produced
-and a readiness result is returned
-→ Preview path is validated
-
-Then:
-
-if readiness result is READY → PASS
-if readiness result is NOT_READY, REPRICE_REQUIRED, or DATA_INVALID → STOP, but preview path itself is still considered operational
-
-No retry allowed.
-
-Required Return Format (MANDATORY)
-
-You MUST return EXACTLY this structure:
-
+Required Return Format
 Input Contract
+
 ...
 
 Correct Invocation
+
 ...
 
 Preview Result
+
 ...
 
 execution_readiness_evaluated Result
+
 ...
 
 READY Context Result
+
 ...
 
 Blocking Issue (if any)
+
 ...
-Valid PASS Example
 
-Input Contract
-Temporary preview AAB created at /tmp/atos_order_preview_8306.json
+Interpretation Rule
+If preview executes and execution_readiness_evaluated is generated:
+Step 7 is operationally successful
+readiness result may still be READY, NOT_READY, REPRICE_REQUIRED, or DATA_INVALID
+If preview stops because live conditions are not satisfied:
+this is a normal STOP
+not an execution failure
+If preview input JSON cannot be parsed:
+this is an input construction failure
+no preview result or readiness evaluation may be trusted
+Safety Meaning
 
-Correct Invocation
-Executed exactly one command with one-command runtime normalization
+This step is for:
 
-Preview Result
-Preview executed successfully for symbol 8306
+preview-path validation
+live readiness generation validation
+STOP behavior validation
 
-execution_readiness_evaluated Result
-trace_event recorded successfully
+This step is not for:
 
-READY Context Result
-READY context generated successfully
-
-Blocking Issue (if any)
-None
-Valid STOP Example (Operationally Correct)
-
-Input Contract
-Temporary preview AAB created at /tmp/atos_order_preview_8306.json
-
-Correct Invocation
-Executed exactly one command with one-command runtime normalization
-
-Preview Result
-SUCCESS
-
-execution_readiness_evaluated Result
-PRESENT
-readiness=NOT_READY, failed_checks=[market_closed, snapshot_stale]
-
-READY Context Result
-NOT_READY
-market_state=closed, freshness_ms=12468632, reproducible=true
-
-Blocking Issue (if any)
-Preview executed, but execution readiness is NOT_READY because market_closed and snapshot_stale were detected
-
-This is a valid STOP outcome when the market is closed or freshness requirements are not met.
-
-Invalid Response Examples (REJECT)
-NO
-PASS
-OK
-
-→ MUST be treated as STOP (invalid output)
-
-Interpretation Note
-
-This step is Preview only.
-
-It does NOT:
-
-execute simulated_order
-execute real_order
-transmit any order externally
-
-Its purpose is to:
-
-run preview once
-generate execution_readiness_evaluated
-produce a readiness result
-confirm correct STOP behavior when live execution conditions are not satisfied
-
-Preview must remain separated from Execution artifacts and execution paths.
-
-🔶 END OF STEP 7（OPENCLAW COMPLETE VERSION / FINAL）
+simulated execution
+real execution
+external order transmission
 
 ---
 
@@ -1448,8 +848,7 @@ None for the simulated-order gate/storage alignment check.
 
 ---
 
-🔷 STEP 10 — Simulated Order Safety Test
-
+🔷 STEP 10 — Simulated Order Safety Test（RUNTIME-SAFE / AAB-FIXED / FINAL）
 Role / Scope Reset
 
 You are no longer acting as Collector.
@@ -1460,86 +859,204 @@ Execution Safety Validator
 
 Your scope is strictly limited to:
 
-- using an existing READY context
-- validating one-time execution behavior
-- validating duplicate execution blocking
-- returning factual outputs only
+using an existing READY context
+validating one-time execution behavior
+validating duplicate execution blocking
+returning factual outputs only
 
 You do NOT:
 
-- run collector
-- run preview
-- run real_order
-- create a new READY context
-
---
-
-Use the runtime base:
+run collector
+run preview
+run real_order
+create a new READY context
+Use the runtime base
 
 /mnt/c/ai-trading-os-private
 
-Recovery procedure:
+Recovery procedure
+cd /mnt/c/ai-trading-os-private
+export PATH=$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0
+source ./.env.local
+source scripts/registrar/.venv/bin/activate
+Preconditions (MANDATORY)
 
-1. cd /mnt/c/ai-trading-os-private
-2. export PATH=$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0
-3. source ./.env.local
-4. source scripts/registrar/.venv/bin/activate
+This step may proceed only if ALL are true:
 
---
+STEP 7 created a READY context
+STEP 8 confirmed the latest READY context is fresh and active
+STEP 9 confirmed gate/storage alignment
+no new collector run has occurred after the validated READY
+no new preview run has occurred after the validated READY
 
-Task:
+If any precondition is missing:
+→ STOP
+
+READY Context to Use
 
 Use the latest active READY context for symbol 8306.
 
+Expected current context:
+
+ready_context_id = rctx-20260409-0001
+
+Do NOT generate a new READY.
+Do NOT modify the input between runs.
+
+Objective
+
 Perform exactly:
 
-1. Execute simulated_order once
-2. Immediately execute simulated_order again using the SAME READY context
+execute simulated_order once
+immediately execute simulated_order again using the same READY context
 
-Constraints:
+This step validates:
 
-- use the same ready_context_id
-- do not generate a new READY
-- do not retry beyond the second attempt
-- do not modify inputs between runs
+first execution succeeds
+second execution is blocked
+state transition active → consumed
+execution_blocked is recorded
+Runtime Safety Fix
 
---
+Because the runtime rejected complex interpreter invocation, this step must use:
 
-Objective:
+direct file execution only
+no python -c
+no chained interpreter wrappers
+no inline dynamic Python construction
 
-- confirm first execution succeeds
-- confirm second execution is blocked
-- confirm duplicate prevention is enforced
-- confirm state transition active → consumed
-- confirm execution_blocked is recorded
+Use direct python <file>.py ... form only.
 
---
+Phase 1 — First Execution
+Command (MANDATORY)
 
-Expected behavior:
+Run exactly this command:
 
-- first execution:
-  success (execution_recorded or equivalent)
+bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && source scripts/registrar/.venv/bin/activate && printf "%s\n" "{\"aab_id\":\"AAB-SIMULATED-8306-TEMP\",\"execution_scope\":{\"action_type\":\"simulated_order\",\"symbol\":\"8306\",\"order_type\":\"market\",\"side\":\"buy\",\"quantity\":1,\"market_hours_only\":true},\"constraints\":{\"dry_run\":true,\"external_order_allowed\":false},\"capital_allocation\":{\"constraint_type\":\"simulated_only\"}}" > /tmp/atos_simulated_order_8306.json && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/openclaw/run_simulated_order.py /tmp/atos_simulated_order_8306.json'
+PASS expectation
 
-- second execution:
-  NO_GO blocked
-  reason = duplicate:consumed (or equivalent)
+The first execution should:
 
---
+use the existing latest active READY context
+succeed as simulated execution
+record execution event(s)
+consume the context
 
-Return ONLY:
+If the first execution fails before reaching the gate:
+→ STOP
 
-## READY Context ID
-## First Execution Result
-## Second Execution Result
-## execution_blocked Result
-## Consumed State Result
-## Safety Judgment
-## Blocking Issue (if any)
+Phase 2 — Duplicate Execution Attempt
+Command (MANDATORY)
+
+Run exactly the same simulated_order again using the same file, unchanged:
+
+bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && source scripts/registrar/.venv/bin/activate && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/openclaw/run_simulated_order.py /tmp/atos_simulated_order_8306.json'
+PASS expectation
+
+The second execution should:
+
+detect the same READY context is no longer active
+block with NO_GO
+indicate duplicate:consumed or equivalent
+record execution_blocked
+
+If the second execution unexpectedly succeeds:
+→ STOP
+
+Phase 3 — DB Confirmation
+
+After the two executions above, inspect the DB evidence.
+
+What must be confirmed
+
+For the same ready_context_id:
+
+first execution produced execution success record
+ready_context_state became consumed
+execution_consumed exists
+second execution produced execution_blocked
+blocking reason is duplicate:consumed or equivalent
+Return ONLY
+READY Context ID
+
+...
+
+First Execution Result
+
+...
+
+Second Execution Result
+
+...
+
+execution_blocked Result
+
+...
+
+Consumed State Result
+
+...
+
+Safety Judgment
+
+...
+
+Blocking Issue (if any)
+
+...
+
+Judgment Rule
+
+PASS only if ALL are true:
+
+first execution succeeded
+second execution was blocked
+consumed state was recorded
+execution_blocked was recorded
+no new READY context was created during this test
+
+Otherwise:
+→ STOP
+
+Interpretation Note
+
+This step validates execution safety behavior, not market correctness.
+
+This is NOT:
+
+collector validation
+preview validation
+real order validation
+
+This IS:
+
+single-use READY enforcement
+duplicate execution prevention
+gate / state-transition validation
+Critical Rule
+
+The same input must be reused for both runs.
+
+Do NOT:
+
+regenerate AAB before second run
+regenerate READY
+change symbol
+change quantity
+change file path
+introduce any new preview step
+Expected Final Meaning
+
+If this step passes:
+
+1 READY context = 1 execution
+duplicate execution is blocked
+consumption model is operational
+Execution Safety Layer is validated in live runtime conditions
 
 ---
 
-🔷 STEP 11 — Real Order Token Dry-Run（最終）
-
+🔷 STEP 11 — Real Order Token Dry-Run（RUNTIME-SAFE / AAB-FIXED / FINAL）
 Role / Scope Reset
 
 You are no longer acting as Collector.
@@ -1551,82 +1068,199 @@ Real Order Dry-Run Validator
 
 Your scope is strictly limited to:
 
-- validating run_real_order.py in dry-run mode
-- allowing broker connectivity only for production token acquisition
-- confirming that no sendorder occurs
-- returning factual outputs only
+validating run_real_order.py in dry-run skeleton mode
+allowing broker connectivity only for production token acquisition
+confirming that no sendorder occurs
+returning factual outputs only
 
 You do NOT:
 
-- run collector
-- run preview
-- run simulated_order
-- create a new READY context
-- send any external order
-
---
-Use the runtime base:
+run collector
+run preview
+run simulated_order
+create a new READY context
+send any external order
+Use the runtime base
 
 /mnt/c/ai-trading-os-private
 
-Recovery procedure:
-
-1. cd /mnt/c/ai-trading-os-private
-2. export PATH=$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0
-3. source ./.env.local
-4. source scripts/registrar/.venv/bin/activate
+Recovery procedure
+cd /mnt/c/ai-trading-os-private
+export PATH=$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0
+source ./.env.local
+source scripts/registrar/.venv/bin/activate
 
 KabuStation is already started.
 
 This time, broker connectivity is allowed only for token acquisition.
 
 Do NOT:
-- sendorder
-- register symbol
-- fetch board
-- perform any external order transmission
 
-Task:
+sendorder
+register symbol
+fetch board
+perform any external order transmission
+Preconditions (MANDATORY)
+
+This step may proceed only if ALL are true:
+
+production path validation is intended
+port 18080 was previously validated as reachable
+KabuStation is running
+required production env exists
+no order transmission is intended
+a fresh READY context for symbol 8306 exists and is active
+
+If any precondition is missing:
+→ STOP
+
+Objective
 
 Run exactly one bounded validation of:
 
 scripts/openclaw/run_real_order.py
 
-Use the same valid AAB for symbol 8306 as in the previous real_order skeleton tests.
+Validate:
 
-Objective:
+real_order_dry_run executes in token acquisition mode
+token acquisition succeeds against:
+host = KABU_API_HOST
+port = 18080
+dry_run_status = passed or failed
+no sendorder occurs
+the script still stops at NO_GO
+Runtime Safety Fix
 
-- confirm `real_order_dry_run` executes in token acquisition mode
-- confirm whether token acquisition succeeds against:
-  - host = KABU_API_HOST
-  - port = 18080
-- confirm `dry_run_status = passed` or `failed`
-- confirm no sendorder occurs
-- confirm the script still stops at NO_GO
+Because prior attempts failed due to incompatible input artifacts, this step must:
 
-Constraints:
+use direct file execution only
+use a shell-safe temporary AAB created at runtime
+avoid python -c
+avoid heredoc
+avoid reusing incompatible legacy AAB files
 
-- exactly one dry-run execution
-- no retries
-- no new AAB creation
-- no new READY generation
-- no external order transmission
+Use direct python <file>.py <aab_path> form only.
 
-Return output in this format:
+Phase 1 — One Dry-Run Execution
+Command (MANDATORY)
 
-## Pre-Execution Declaration
-## AAB Validation Result
-## READY Context Validation Result
-## Dry Run Result
-## Token Acquisition Result
-## Skeleton Stop Result
-## Broker Touch Check
-## Final Judgment
-## Blocking Issue (if any)
+Run exactly this command:
+
+bash -lc 'cd /mnt/c/ai-trading-os-private && export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0" && source ./.env.local && source scripts/registrar/.venv/bin/activate && printf "%s\n" "{\"aab_id\":\"AAB-REALORDER-8306-TEMP\",\"execution_scope\":{\"action_type\":\"real_order\",\"symbol\":\"8306\",\"side\":\"buy\",\"quantity\":1,\"market_hours_only\":true},\"constraints\":{\"retry\":false,\"dry_run\":false,\"external_order_allowed\":true},\"capital_allocation\":{\"constraint_type\":\"real_order_skeleton\"}}" > /tmp/atos_real_order_8306.json && /mnt/c/ai-trading-os-private/scripts/registrar/.venv/bin/python /mnt/c/ai-trading-os-private/scripts/openclaw/run_real_order.py /tmp/atos_real_order_8306.json'
+Expected Behavior
+
+The script should:
+
+print the production execution declaration
+load and validate the AAB
+validate that the latest READY context for 8306 is active
+attempt token acquisition only
+print dry-run result
+stop at NO_GO
+confirm sendorder is not implemented yet
+PASS / STOP Interpretation
+PASS path
+
+PASS if all are true:
+
+AAB validation succeeds
+READY context validation succeeds
+token acquisition is attempted
+dry_run_status = passed
+no sendorder occurs
+final stop is the expected skeleton NO_GO
+STOP path
+
+STOP if any of the following occurs:
+
+AAB validation fails
+READY context is missing or not active
+token acquisition fails
+script attempts any external order transmission
+output is inconsistent with skeleton dry-run semantics
+Return output in this format
+Pre-Execution Declaration
+
+...
+
+AAB Validation Result
+
+...
+
+READY Context Validation Result
+
+...
+
+Dry Run Result
+
+...
+
+Token Acquisition Result
+
+...
+
+Skeleton Stop Result
+
+...
+
+Broker Touch Check
+
+...
+
+Final Judgment
+
+...
+
+Blocking Issue (if any)
+
+...
+
+Judgment Rule
+
+PASS only if ALL are true:
+
+broker_mode = production
+broker_touch = True
+external_order_allowed = True
+kabu_port = 18080
+password_source = KABU_API_PASSWORD
+AAB is accepted by run_real_order.py
+latest READY context is active
+token acquisition succeeds
+no sendorder occurs
+script ends in expected skeleton NO_GO
+
+Otherwise:
+→ STOP
+
+Critical Safety Meaning
+
+This step validates:
+
+production-path declaration
+broker reachability through token acquisition
+real_order skeleton discipline
+no unintended external transmission
+
+This step does NOT validate:
+
+order acceptance
+broker execution
+sendorder behavior
+capital deployment
+Expected Final Meaning
+
+If this step passes:
+
+Production real_order path is reachable at token level
+AAB contract matches run_real_order.py
+READY context can be validated for real_order transition
+No unintended order transmission occurs
+Skeleton NO_GO behavior is intact
 
 ---
 
-🔷 STEP 12 — Restart Recovery Protocol
+🔷 STEP 12 — Restart Recovery Protocol（REVISED FINAL）
 
 When kabuStation restart is detected:
 
@@ -1646,17 +1280,113 @@ Rules:
 
 ---
 
-🔶 FLIGHT COMPLETE 🔶
+■ Step 3 — Symbol List State Check（UPDATED）
 
+Symbol list MUST be inspected using:
 
-Collector → Preview → READY → Gate → Execution Safety → Broker Boundary
+PUT /kabusapi/register
+
+Procedure:
+
+- send payload with target symbol(s)
+- inspect returned RegistList
+- treat RegistList as the current registered symbol state
 
 ---
 
+■ Step 4 — Conditional Re-registration（UPDATED）
+
+Decision rule:
+
+if required symbol exists in RegistList:
+    do nothing
+
+if required symbol missing:
+    perform registration
+
+---
+
+■ Definition of STEP12-ready（UPDATED）
+
+STEP12-ready means ALL of the following:
+
+- Boundary Validation PASS
+- Token acquisition PASS
+- RegistList successfully retrieved
+- Required symbol(s) present
+- Re-registration not required (or possible)
+- Collector execution can proceed safely
+
+---
+
+🔶 FLIGHT COMPLETE 🔶
+
+Collector → Preview → READY → Gate → Execution Safety → Broker Boundary
+
 Final interpretation:
 
-- Execution safety path verified
-- Broker path reachable (token only)
-- No unintended order transmission
+Execution safety path verified  
+Broker path reachable (token only)  
+No unintended order transmission  
+Restart recovery path verified
+
+---
+
+🔷 Step12-ready 確認プロンプト（完成版）
+
+You are in ATOS.
+
+Do NOT run collector, preview, simulated_order, real_order, or sendorder.
+
+Your task is to determine whether the current runtime is STEP12-ready.
+
+STEP12-ready requires ALL of the following:
+
+1. Boundary Validation is correct
+2. Production token acquisition on port 18080 succeeds
+3. Symbol List State can be verified
+4. Required symbols (e.g., 8306) are confirmed registered
+5. Conditional re-registration is not required (or possible if needed)
+6. Collector Execution can safely proceed
+
+Rules:
+- fixed sequence must be respected
+- no skipping allowed
+- symbol check is mandatory
+- if any condition is unknown, answer No
+- return factual outputs only
+
+IMPORTANT:
+Symbol List State Check MUST use:
+PUT /kabusapi/register and inspect RegistList
+
+Return ONLY:
+
+## STEP12-ready
+Yes / No
+
+## Boundary Validation
+PASS / FAIL / UNKNOWN
+
+## Token Success
+PASS / FAIL / UNKNOWN
+
+## Symbol List State Check
+PASS / FAIL / UNKNOWN
+
+## Required Symbol Present (8306)
+Yes / No / Unknown
+
+## Conditional Re-registration Needed
+Yes / No / Unknown
+
+## Collector Execution Readiness
+PASS / FAIL / UNKNOWN
+
+## Missing Condition(s)
+...
+
+## Safe Next Action
+...
 
 ---
