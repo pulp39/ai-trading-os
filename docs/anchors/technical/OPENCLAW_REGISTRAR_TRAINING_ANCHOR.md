@@ -1,7 +1,7 @@
 # OPENCLAW_REGISTRAR_TRAINING_ANCHOR
 
-Version: 1.3
-Date: 2026-03-14
+Version: 1.4
+Date: 2026-04-09
 Status: active
 Purpose: Training state and capability record for OpenClaw in AI
 Trading OS
@@ -27,6 +27,8 @@ This document is intended to be read alongside:
 - `docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md`
 - `docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md`
 - `docs/anchors/technical/DB_STATUS_ANCHOR.md`
+- `docs/anchors/technical/OPENCLAW_FLIGHT_CHECKLIST.md`
+- `docs/anchors/handoffs/PHASE_10_FAILURE_DISCIPLINE_HANDOFF.md`
 
 ---
 
@@ -364,5 +366,119 @@ OpenClaw is now capable of:
 
 OpenClaw is now an operational execution participant,
 not just a trained assistant registrar.
+
+---
+
+## 20. Flight Checklist Completion (2026-04-09)
+
+### Overview
+
+OPENCLAW_FLIGHT_CHECKLIST（STEP 0〜12）が正式完了し、
+baselineプロトコルとして制度化された。
+
+### Completed Steps
+
+| STEP | 内容 | 状態 |
+|------|------|------|
+| STEP 0 | Collector Role Initialization | ✅ |
+| STEP 1 | Boundary Validation | ✅ |
+| STEP 2 | Port/Token Validation | ✅ |
+| STEP 3 | Token Acquisition | ✅ |
+| STEP 4 | Symbol Registration | ✅ |
+| STEP 5 | Collector One-Shot | ✅ |
+| STEP 6 | Batch Observation | ✅ |
+| STEP 7 | Preview Path | ✅ |
+| STEP 8 | READY Validation Chain | ✅ |
+| STEP 9 | Execution Gate Diagnostic | ✅ |
+| STEP 10 | Simulated Order Safety Test | ✅ |
+| STEP 11 | Real Order Token Dry-Run | ✅ |
+| STEP 12 | Restart Recovery Protocol | ✅ |
+
+trace_event id: **673**
+
+---
+
+## 21. STEP12-ready Concept (2026-04-09)
+
+### Definition
+
+```
+STEP12-ready = 実行可能な安定状態
+```
+
+### 成立条件
+
+```
+Boundary Validation PASS
+Token Success PASS
+Symbol State PASS
+再登録判断完了
+Collector実行安全
+```
+
+### 制度的意味
+
+```
+「READY ≠ 実行可能」
+「STEP12-ready = 実行可能」
+```
+
+STEP12-ready は再起動後の安全な実行開始条件を
+決定論的に定義する概念である。
+
+---
+
+## 22. Phase 10 — Execution Robustness (2026-04-09)
+
+### 概要
+
+P-20260409-001（Accepted）により Phase 10 が正式開始。
+失敗条件下での決定論的 STOP・副作用ゼロ・回復経路収束を検証する。
+
+trace_event id: **674**
+
+### 初期テスト結果
+
+| Test | 条件 | STEP12-ready | 結果 |
+|------|------|-------------|------|
+| Test 1 | Token Failure（誤パスワード） | NO | 事前停止・副作用なし |
+| Test 2 | Symbol State Failure（無効シンボル） | NO | 安全ゲート機能確認 |
+
+trace_event id: **675**
+
+### STOP 記述形式（Phase 10 標準）
+
+```
+STOP (layer=<レイヤー>, reason=<理由>, side_effects=none)
+```
+
+### Failure Safety Guarantee
+
+```
+All failure scenarios MUST guarantee:
+  no state mutation
+  no external order
+  no partial execution
+```
+
+### UNKNOWN Handling Rule
+
+```
+UNKNOWN must never be treated as PASS
+UNKNOWN must force STOP or STEP12 fallback
+```
+
+---
+
+## 23. Related Documents (Updated)
+
+| Document | What it covers |
+|---|---|
+| docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md | Project startup reference |
+| docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md | Execution model detail |
+| docs/anchors/technical/DB_STATUS_ANCHOR.md | Database state |
+| docs/anchors/technical/OPENCLAW_FLIGHT_CHECKLIST.md | Flight Checklist STEP 0-12 |
+| docs/anchors/handoffs/PHASE_10_FAILURE_DISCIPLINE_HANDOFF.md | Phase 10 handoff |
+| proposals/P-20260409-001.md | Phase 10 Proposal |
 
 ---

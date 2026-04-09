@@ -1,10 +1,3 @@
-anchor_id: HANDOFF_INDEX
-title: Handoff Index
-type: operational
-status: active
-date: 2026-04-01
----
-
 # HANDOFF INDEX
 
 ## Purpose
@@ -22,6 +15,7 @@ Handoffs store:
 
 - docs/anchors/handoffs/PHASE_9B_HANDOFF.md
 - docs/anchors/handoffs/PHASE_9B_COMPLETION_HANDOFF.md
+- docs/anchors/handoffs/PHASE_10_FAILURE_DISCIPLINE_HANDOFF.md
 
 ---
 
@@ -48,5 +42,3 @@ handoff → anchor
 Handoff is not temporary memory.
 
 It is a staging layer for knowledge before institutionalization.
-
----
