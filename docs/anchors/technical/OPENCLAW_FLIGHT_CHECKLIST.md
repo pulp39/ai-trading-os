@@ -275,6 +275,13 @@ COLLECTOR_READY
 
 🔷 STEP 1 — Boundary Validation（CORRECTED）
 
+## Purpose
+Ensure env parity between WSL and PowerShell.
+
+## Notes
+- This is a Phase B runner-validation command, not the final PowerShell parity validation.
+- It exists to confirm Task Artifact → Runner → Result Artifact completion.
+
 Boundary Validation
 
 Use the runtime base:
