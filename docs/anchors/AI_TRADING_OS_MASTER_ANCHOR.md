@@ -1,6 +1,6 @@
 # AI_TRADING_OS_MASTER_ANCHOR
-Version: 2.2
-Date: 2026-03-15
+Version: 2.3
+Date: 2026-04-10
 Status: active
 Purpose: Institutional state overview for AI Trading OS
 
@@ -117,6 +117,14 @@ scope.
 
 ---
 
+### 5.5 Executer（Codex — P-20260410-002）
+
+Codex is established as Executer for code implementation tasks.
+Operates under P-20260409-001 (Phase 10 Failure Discipline) principles.
+Detailed execution boundaries to be defined via Codex onboarding Proposal.
+
+---
+
 ## 6. Institutional Model Overview
 
 The institutional model can be summarized as:
@@ -167,7 +175,7 @@ Focuses on institutional interpretation and continuity. Distinguishes
 Librarian functions from Registrar functions. Uses the repository as
 the primary reference for institutional memory.
 
-**Proposer**
+**Proposer（ChatGPT — P-20260410-002）**
 Works under restored institutional context. Grounds proposals in the
 current repository state rather than session memory alone.
 
@@ -192,8 +200,8 @@ docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
 In summary, execution flows through role-based paths:
 
 - Founder Direct Path: Founder → Registrar → Assistant Registrar
-- Institutional Path: Collector → Proposer → Librarian → Registrar → Assistant Registrar
-- Common Path: Librarian → Registrar → Assistant Registrar
+- Institutional Path: Collector（OpenClaw） → Proposer（ChatGPT） → Librarian（Claude Cowork） → Executer（Codex）
+- Common Path: Librarian（Claude Cowork） → Executer / Collector
 
 Good execution practice involves bounded scope, explicit instruction,
 precondition checking, and traceable recording.

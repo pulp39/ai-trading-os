@@ -115,3 +115,22 @@ Formal institutional recognition is recorded in:
 This rubric defines evaluation criteria only.
 
 Institutional authority belongs to the training anchor.
+
+---
+
+## Role Context Update（P-20260410-002, 2026-04-10）
+
+本文書はOpenClaw（Collector）の訓練・評価を対象とする。
+
+役職再編後の制度配置：
+
+| 役職 | 担当 |
+|------|------|
+| Librarian | Claude Cowork |
+| Proposer | ChatGPT |
+| Collector | OpenClaw（本文書の対象） |
+| Executer | Codex |
+
+本文書の評価基準・進捗記録はCollector（OpenClaw）に引き続き適用される。
+
+---

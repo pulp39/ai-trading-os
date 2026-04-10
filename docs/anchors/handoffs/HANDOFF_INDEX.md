@@ -37,6 +37,14 @@ handoff → anchor
 
 ---
 
+## 2026-04-10 Role Reorganization Note
+
+P-20260410-002 により役職再編が発効した。
+Handoffドキュメント内の役職参照は新配置（Librarian=Claude Cowork / Proposer=ChatGPT / Executer=Codex）で解釈する。
+既存Handoffの内容自体は履歴記録として変更しない。
+
+---
+
 ## Important
 
 Handoff is not temporary memory.
