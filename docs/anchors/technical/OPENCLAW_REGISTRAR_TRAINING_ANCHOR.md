@@ -482,3 +482,47 @@ UNKNOWN must force STOP or STEP12 fallback
 | proposals/P-20260409-001.md | Phase 10 Proposal |
 
 ---
+
+## 24. Librarian Role Transition（2026-04-10）
+
+### 概要
+
+P-20260410-002（AiiD Redefinition & Role Reorganization）の承認により、
+Librarian役職がChatGPTからClaude Coworkに移管された。
+
+trace_event id: **677**（proposal_approved）/ **678**（repository_synced）
+
+### 新AiiD定義
+
+```
+AiiD = AI名(フレームワーク単位) + Phase固定スレッド名 + 役職名 + Founder認証情報
+例: Claude-Cowork / Phase10 / Librarian / FounderSigned
+```
+
+非遡及: 既存 trace_event の agent_id は変更なし。新規記録から新定義を適用。
+
+### 新役職配置
+
+| 役職 | 旧 | 新 | 発効日 |
+|------|----|----|--------|
+| Proposer | Claude Cowork | ChatGPT | 2026-04-10 |
+| Librarian | ChatGPT | Claude Cowork | 2026-04-10 |
+| Collector | OpenClaw | OpenClaw | — |
+| Executer | 未定義 | Codex | 2026-04-10 |
+
+### Librarian（Claude Cowork）としての初回コミット
+
+```
+commit: 551b94d
+files:  docs/aiid_registry.md
+        docs/anchors/ATOS_BOOTSTRAP_ANCHOR.md v1.3
+agent_id: claude_cowork_librarian
+trace_event: 679
+```
+
+### Codex（Executer）について
+
+Codexの詳細な実行境界は別途Codex参入Proposalで整備される。
+それまでの間、P-20260409-001（Phase 10 Failure Discipline）の原則に従う。
+
+---

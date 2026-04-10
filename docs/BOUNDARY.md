@@ -1,4 +1,4 @@
-# Librarian – OpenClaw Institutional Boundary
+# Librarian – OpenClaw – Executer Institutional Boundary
 
 Layer: C (Operational Document)
 Authority: Founder (operational authority, 2026-03-13)
@@ -9,7 +9,7 @@ Canonical path: docs/BOUNDARY.md
 Define the operational boundary between the Librarian role and the OpenClaw
 auxiliary AiiD within AI Trading OS.
 
-## Librarian
+## Librarian（Claude Cowork — P-20260410-002, 2026-04-10）
 
 Responsibilities:
 - Maintain institutional memory
@@ -21,7 +21,7 @@ Responsibilities:
 The Librarian functions as the primary AI role responsible for institutional
 understanding.
 
-## OpenClaw (Auxiliary AiiD)
+## Collector / OpenClaw (Auxiliary AiiD)
 
 OpenClaw is classified as an auxiliary AiiD.
 
@@ -41,6 +41,33 @@ Restrictions:
 - Does not approve actions
 - Does not resolve institutional ambiguity
 - Does not function as institutional memory
+
+
+## Executer（Codex — P-20260410-002, 2026-04-10）
+
+Codex is established as Executer for code implementation tasks.
+
+Permitted functions:
+- Code implementation tasks assigned by Librarian or Founder
+- Execution under P-20260409-001 (Phase 10 Failure Discipline) principles
+
+Restrictions:
+- Does NOT execute real_order operations until Codex onboarding Proposal is accepted
+- All execution requires explicit Librarian or Founder authorization
+- Operates within same READY context / consumption model as other Execution Agents
+
+## Proposer（ChatGPT — P-20260410-002, 2026-04-10）
+
+ChatGPT holds the Proposer role.
+
+Responsibilities:
+- Proposal drafting and institutional deliberation
+- Initiating institutional dialogue
+
+Restrictions:
+- Observation and deliberation only
+- No WRITE operations
+- No execution authority
 
 ## Decision Rule
 

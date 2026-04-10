@@ -10,9 +10,28 @@ ATOSの開場中運用を再現可能な手順として定義する
 
 ## Source of Truth
 - P-20260331-004（ATOS Operational Protocol v1）
+- P-20260410-002（AiiD Redefinition & Role Reorganization）
 - P-20260331-001（Preview Formalization）
 - P-20260331-002（Execution Gate）
 - P-20260331-003（Phase 9B）
+
+---
+
+
+---
+
+## 2026-04-10 Role Reorganization Note（P-20260410-002）
+
+本プロトコルにおける役職参照は以下の新配置に従う。
+
+| 役職 | 担当 |
+|------|------|
+| Proposer | ChatGPT |
+| Librarian | Claude Cowork |
+| Collector | OpenClaw |
+| Executer | Codex |
+
+プロトコル手順自体は変更なし。役職名が参照される箇所は上記配置で解釈する。
 
 ---
 

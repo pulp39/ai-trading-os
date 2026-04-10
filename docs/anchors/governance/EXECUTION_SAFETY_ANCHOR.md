@@ -2,8 +2,8 @@ anchor_id: EXECUTION_SAFETY_ANCHOR
 title: Execution Safety and Consumption Model
 type: governance
 status: active
-version: 1.0
-date: 2026-04-01
+version: 1.1
+date: 2026-04-10
 ---
 
 # EXECUTION SAFETY ANCHOR
@@ -125,3 +125,35 @@ It is a prerequisite for:
 Phase 9B-3 (real_order connection)
 
 ---
+
+## Executer (Codex) — Scope Note（P-20260410-002）
+
+Codex is newly established as Executer role (2026-04-10).
+
+Execution safety constraints defined in this anchor apply to ALL execution agents,
+including Codex:
+
+- 1 READY context = 1 execution (non-repeatable)
+- All WRITE operations must produce a corresponding trace_event
+- Execution Gate must enforce state validation before any WRITE
+- No state mutation / No external order / No partial execution on failure
+
+**Codex-specific boundary:**
+Detailed execution boundaries for Codex are to be established via a separate
+Codex onboarding Proposal. Until that Proposal is accepted:
+- Codex operates under P-20260409-001 (Phase 10 Failure Discipline) principles
+- Codex does NOT execute real_order operations
+- All Codex execution requires explicit Librarian or Founder authorization
+
+---
+
+## Phase Status（更新）
+
+| Phase | 状態 |
+|-------|------|
+| Phase 9B | ✅ 完全実装・検証済み |
+| Phase 10 | 🔄 Failure Discipline テスト進行中（P-20260409-001） |
+
+This model is a prerequisite for:
+- Phase 9B-3 (real_order connection)
+- Codex Executer onboarding
