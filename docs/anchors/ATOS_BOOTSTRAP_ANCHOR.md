@@ -1,7 +1,7 @@
 # ATOS_BOOTSTRAP_ANCHOR
 
-Version: 1.2
-Date: 2026-03-14
+Version: 1.3
+Date: 2026-04-10
 Status: active
 Purpose: Project startup reference for AI Trading OS institutional
 state reconstruction
@@ -63,6 +63,18 @@ Current interpretation:
 
 Execution Safety Layer is now active.
 A READY context is consumable and cannot be reused.
+
+### 2026-04-10 Role Reorganization & AiiD Redefinition
+
+- P-20260410-002: AiiD Redefinition and Role Reorganization
+- 役職再編（Proposer→ChatGPT / Librarian→Claude Cowork / Executer→Codex 新設）
+- AiiD新定義: AI名 + Phase固定スレッド名 + 役職名 + Founder認証情報（非遡及）
+
+Current interpretation:
+
+Four active institutional roles are now defined.
+Executer (Codex) is newly established for code implementation tasks.
+AiiD is now Phase-scoped. Existing trace_event agent_id values are preserved (non-retroactive).
 
 ### 読み順（必須）
 Bootstrap
@@ -311,17 +323,19 @@ into RUNTIME_ENVIRONMENT_ANCHOR should be treated as deprecated.
 
 ## 9. Role Descriptions
 
-### 9.1 Librarian
+### 9.1 Librarian（Claude Cowork）
 
 The Librarian maintains institutional memory and provides governance
 interpretation for the project. This includes:
 
 - reconstructing current institutional state from the repository
 - interpreting governance structure with continuity and consistency
-- distinguishing Librarian functions from Registrar functions
+- managing repository commits, anchor updates, and trace_event recording
 - using the repository as the primary reference for institutional memory
 
-### 9.2 Proposer
+Role assigned to: Claude Cowork（P-20260410-002, 2026-04-10）
+
+### 9.2 Proposer（ChatGPT）
 
 The Proposer drafts proposals and participates in institutional
 deliberation. This includes:
@@ -329,18 +343,30 @@ deliberation. This includes:
 - grounding proposals in the current repository state
 - distinguishing between established institutional state and new
   proposals
-- following CLAUDE.md within the principles defined by constitution.md
+- initiating institutional dialogue and proposal cycles
 
-### 9.3 OpenClaw
+Role assigned to: ChatGPT（P-20260410-002, 2026-04-10）
+
+### 9.3 Collector（OpenClaw）
 
 OpenClaw contributes to the project as a Collector and, when explicitly
-instructed by the Registrar, as an Assistant Registrar. This includes:
+instructed, as an Assistant Registrar. This includes:
 
 - reading the repository state before acting on registrar-related tasks
 - acting within explicitly defined task scope when functioning as
   Assistant Registrar
 - stopping and returning for clarification when preconditions are not
   met or scope is ambiguous
+
+### 9.4 Executer（Codex）
+
+Codex implements code-level tasks under institutional instruction.
+This includes:
+
+- executing code implementation tasks assigned via Proposal or Librarian
+- operating within execution safety boundaries defined by P-20260409-001
+- detailed execution boundaries to be established via separate Codex
+  onboarding Proposal
 
 ---
 
@@ -370,7 +396,7 @@ subsystem is described in the following documents:
 | docs/anchors/technical/RUNTIME_ENVIRONMENT_ANCHOR.md | Runtime environment, recovery, and troubleshooting |
 | docs/anchors/technical/DB_STATUS_ANCHOR.md | Database structure and confirmed state |
 | docs/anchors/technical/OPENCLAW_REGISTRAR_TRAINING_ANCHOR.md | OpenClaw qualification and training state |
-| docs/aiid_registry.md | Active participant role registry |
+| docs/aiid_registry.md | Active participant role registry (P-20260410-002 revised) |
 | docs/BOUNDARY.md | Librarian / OpenClaw role boundary |
 | docs/openclaw_training_status.md | OpenClaw training ledger |
 | docs/openclaw_registrar_apprentice_rubric.md | OpenClaw evaluation rubric |
