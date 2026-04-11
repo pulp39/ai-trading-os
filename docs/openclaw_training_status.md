@@ -184,7 +184,7 @@ If this file conflicts with the anchor, the anchor prevails.
 
 | 役職 | 担当 |
 |------|------|
-| Librarian | Claude Cowork |
+| Librarian | Claude Code |
 | Proposer | ChatGPT |
 | Collector | OpenClaw（本文書の対象） |
 | Executer | Codex |
