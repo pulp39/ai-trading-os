@@ -67,7 +67,7 @@ A READY context is consumable and cannot be reused.
 ### 2026-04-10 Role Reorganization & AiiD Redefinition
 
 - P-20260410-002: AiiD Redefinition and Role Reorganization
-- 役職再編（Proposer→ChatGPT / Librarian→Claude Cowork / Executer→Codex 新設）
+- 役職再編（Proposer→ChatGPT / Librarian→Claude Code / Executer→Codex 新設）
 - AiiD新定義: AI名 + Phase固定スレッド名 + 役職名 + Founder認証情報（非遡及）
 
 Current interpretation:
@@ -323,7 +323,7 @@ into RUNTIME_ENVIRONMENT_ANCHOR should be treated as deprecated.
 
 ## 9. Role Descriptions
 
-### 9.1 Librarian（Claude Cowork）
+### 9.1 Librarian（Claude Code）
 
 The Librarian maintains institutional memory and provides governance
 interpretation for the project. This includes:
@@ -333,7 +333,7 @@ interpretation for the project. This includes:
 - managing repository commits, anchor updates, and trace_event recording
 - using the repository as the primary reference for institutional memory
 
-Role assigned to: Claude Cowork（P-20260410-002, 2026-04-10）
+Role assigned to: Claude Code（P-20260410-002, 2026-04-10）
 
 ### 9.2 Proposer（ChatGPT）
 

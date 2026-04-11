@@ -36,7 +36,7 @@ Codex / Phase10 / Executer / FounderSigned
 | aiid | display_name | role | model | appointed_by | appointment_date | status |
 |---|---|---|---|---|---|---|
 | chatgpt_proposer | ChatGPT Proposer | Proposer | ChatGPT | Founder | 2026-04-10 | active |
-| claude_cowork_librarian | Claude Cowork Librarian | Librarian | Claude Cowork | Founder | 2026-04-10 | active |
+| claude_cowork_librarian | Claude Code Librarian | Librarian | Claude Code | Founder | 2026-04-10 | active |
 | collector_core | Collector Core | Collector | OpenClaw | Founder | 2026-03-13 | active |
 | codex_executer | Codex Executer | Executer | Codex | Founder | 2026-04-10 | active |
 
@@ -66,8 +66,8 @@ Codex / Phase10 / Executer / FounderSigned
 
 **P-20260410-002 役職再編（2026-04-10 発効）:**
 
-- Proposer: Claude Cowork → ChatGPT
-- Librarian: ChatGPT → Claude Cowork
+- Proposer: Claude Code → ChatGPT
+- Librarian: ChatGPT → Claude Code
 - Collector: OpenClaw（変更なし）
 - Executer: 新設 → Codex
 

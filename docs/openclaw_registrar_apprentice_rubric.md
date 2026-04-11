@@ -126,7 +126,7 @@ Institutional authority belongs to the training anchor.
 
 | 役職 | 担当 |
 |------|------|
-| Librarian | Claude Cowork |
+| Librarian | Claude Code |
 | Proposer | ChatGPT |
 | Collector | OpenClaw（本文書の対象） |
 | Executer | Codex |

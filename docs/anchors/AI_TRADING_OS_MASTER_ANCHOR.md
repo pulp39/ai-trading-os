@@ -200,8 +200,8 @@ docs/anchors/governance/EXECUTION_MODEL_ANCHOR.md
 In summary, execution flows through role-based paths:
 
 - Founder Direct Path: Founder → Registrar → Assistant Registrar
-- Institutional Path: Collector（OpenClaw） → Proposer（ChatGPT） → Librarian（Claude Cowork） → Executer（Codex）
-- Common Path: Librarian（Claude Cowork） → Executer / Collector
+- Institutional Path: Collector（OpenClaw） → Proposer（ChatGPT） → Librarian（Claude Code） → Executer（Codex）
+- Common Path: Librarian（Claude Code） → Executer / Collector
 
 Good execution practice involves bounded scope, explicit instruction,
 precondition checking, and traceable recording.

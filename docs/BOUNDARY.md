@@ -9,7 +9,7 @@ Canonical path: docs/BOUNDARY.md
 Define the operational boundary between the Librarian role and the OpenClaw
 auxiliary AiiD within AI Trading OS.
 
-## Librarian（Claude Cowork — P-20260410-002, 2026-04-10）
+## Librarian（Claude Code — P-20260410-002, 2026-04-10）
 
 Responsibilities:
 - Maintain institutional memory

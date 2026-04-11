@@ -27,7 +27,7 @@ ATOSの開場中運用を再現可能な手順として定義する
 | 役職 | 担当 |
 |------|------|
 | Proposer | ChatGPT |
-| Librarian | Claude Cowork |
+| Librarian | Claude Code |
 | Collector | OpenClaw |
 | Executer | Codex |
 
